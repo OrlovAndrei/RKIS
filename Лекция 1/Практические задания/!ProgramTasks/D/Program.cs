@@ -6,7 +6,7 @@ namespace D
         {
             double amount = 1.11; //количество биткоинов от одного человека
             int peopleCount = 60; // количество человек
-            int totalMoney = (int)(amount * peopleCount); // ← ошибка исправлена в этой строке
+            int totalMoney = (int)Math.Round(amount * peopleCount); // ← ошибка исправлена в этой строке
             Console.WriteLine(totalMoney);
         }
     }
