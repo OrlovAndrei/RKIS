@@ -2,15 +2,18 @@ namespace H
 {
     internal class Program
     {
-        private static int GetSquare(int number)
+        public static void Main()
         {
-            return number * number;
+	        Print(GetSquare(42));
+        }
+       static void Print(int number)
+        {
+	        Console.WriteLine(number);
         }
 
-        static void Main(string[] args)
+        static int GetSquare(int number)
         {
-            Console.WriteLine(GetSquare(42));
+	        return (int)Math.Pow(number, 2);	// Math.Pow = number * number
         }
-
     }
 }

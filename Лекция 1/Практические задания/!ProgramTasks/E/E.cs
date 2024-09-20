@@ -5,7 +5,7 @@ namespace E
         static void Main(string[] args)
         {
             string doubleNumber = "894376.243643";
-            double number = double.Parse(doubleNumber, CultureInfo.InvariantCulture); // Вася уверен, что ошибка где-то тут
+            double number = double.Parse(doubleNumber, CultureInfo.InvariantCulture); // пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ-пїЅпїЅ пїЅпїЅпїЅ
             Console.WriteLine(number + 1);
         }
     }
