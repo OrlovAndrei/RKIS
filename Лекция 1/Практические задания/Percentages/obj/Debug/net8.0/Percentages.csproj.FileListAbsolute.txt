@@ -1,0 +1,29 @@
+D:\git\Жидких Игорь\praktika\Приктика ответы\Приктика ответы\Percentages\obj\Debug\net8.0\Percentages.GeneratedMSBuildEditorConfig.editorconfig
+D:\git\Жидких Игорь\praktika\Приктика ответы\Приктика ответы\Percentages\obj\Debug\net8.0\Percentages.AssemblyInfoInputs.cache
+D:\git\Жидких Игорь\praktika\Приктика ответы\Приктика ответы\Percentages\obj\Debug\net8.0\Percentages.AssemblyInfo.cs
+D:\git\Жидких Игорь\praktika\Приктика ответы\Приктика ответы\Percentages\obj\Debug\net8.0\Percentages.csproj.CoreCompileInputs.cache
+D:\git\Жидких Игорь\praktika\Приктика ответы\Приктика ответы\Percentages\bin\Debug\net8.0\Percentages.exe
+D:\git\Жидких Игорь\praktika\Приктика ответы\Приктика ответы\Percentages\bin\Debug\net8.0\Percentages.deps.json
+D:\git\Жидких Игорь\praktika\Приктика ответы\Приктика ответы\Percentages\bin\Debug\net8.0\Percentages.runtimeconfig.json
+D:\git\Жидких Игорь\praktika\Приктика ответы\Приктика ответы\Percentages\bin\Debug\net8.0\Percentages.dll
+D:\git\Жидких Игорь\praktika\Приктика ответы\Приктика ответы\Percentages\bin\Debug\net8.0\Percentages.pdb
+D:\git\Жидких Игорь\praktika\Приктика ответы\Приктика ответы\Percentages\obj\Debug\net8.0\Percentages.dll
+D:\git\Жидких Игорь\praktika\Приктика ответы\Приктика ответы\Percentages\obj\Debug\net8.0\refint\Percentages.dll
+D:\git\Жидких Игорь\praktika\Приктика ответы\Приктика ответы\Percentages\obj\Debug\net8.0\Percentages.pdb
+D:\git\Жидких Игорь\praktika\Приктика ответы\Приктика ответы\Percentages\obj\Debug\net8.0\Percentages.genruntimeconfig.cache
+D:\git\Жидких Игорь\praktika\Приктика ответы\Приктика ответы\Percentages\obj\Debug\net8.0\ref\Percentages.dll
+D:\git\Жидких Игорь\praktika\Приктика ответы\Ответы\Percentages\bin\Debug\net8.0\Percentages.exe
+D:\git\Жидких Игорь\praktika\Приктика ответы\Ответы\Percentages\bin\Debug\net8.0\Percentages.deps.json
+D:\git\Жидких Игорь\praktika\Приктика ответы\Ответы\Percentages\bin\Debug\net8.0\Percentages.runtimeconfig.json
+D:\git\Жидких Игорь\praktika\Приктика ответы\Ответы\Percentages\bin\Debug\net8.0\Percentages.dll
+D:\git\Жидких Игорь\praktika\Приктика ответы\Ответы\Percentages\bin\Debug\net8.0\Percentages.pdb
+D:\git\Жидких Игорь\praktika\Приктика ответы\Ответы\Percentages\obj\Debug\net8.0\Percentages.GeneratedMSBuildEditorConfig.editorconfig
+D:\git\Жидких Игорь\praktika\Приктика ответы\Ответы\Percentages\obj\Debug\net8.0\Percentages.AssemblyInfoInputs.cache
+D:\git\Жидких Игорь\praktika\Приктика ответы\Ответы\Percentages\obj\Debug\net8.0\Percentages.AssemblyInfo.cs
+D:\git\Жидких Игорь\praktika\Приктика ответы\Ответы\Percentages\obj\Debug\net8.0\Percentages.csproj.CoreCompileInputs.cache
+D:\git\Жидких Игорь\praktika\Приктика ответы\Ответы\Percentages\obj\Debug\net8.0\Percentages.sourcelink.json
+D:\git\Жидких Игорь\praktika\Приктика ответы\Ответы\Percentages\obj\Debug\net8.0\Percentages.dll
+D:\git\Жидких Игорь\praktika\Приктика ответы\Ответы\Percentages\obj\Debug\net8.0\refint\Percentages.dll
+D:\git\Жидких Игорь\praktika\Приктика ответы\Ответы\Percentages\obj\Debug\net8.0\Percentages.pdb
+D:\git\Жидких Игорь\praktika\Приктика ответы\Ответы\Percentages\obj\Debug\net8.0\Percentages.genruntimeconfig.cache
+D:\git\Жидких Игорь\praktika\Приктика ответы\Ответы\Percentages\obj\Debug\net8.0\ref\Percentages.dll
