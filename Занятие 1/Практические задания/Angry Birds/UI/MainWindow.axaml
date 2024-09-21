@@ -1,0 +1,30 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="AngryBirds.UI.MainWindow"
+        Title="DistanceTask">
+
+    <Grid ColumnDefinitions="33*,66*">
+        <Border Grid.Column="0" Grid.Row="0" BorderBrush="Black" BorderThickness="2" Padding="4">
+            <ListBox Name="Tests">
+            </ListBox>
+        </Border>
+        <Grid Grid.Column="1" RowDefinitions="70*,30*">
+            <Border Grid.Row="0" BorderBrush="Black" BorderThickness="0,2,2,2">
+                <Viewbox
+                    Stretch="Uniform">
+                    <Canvas Name="TestView" 
+                            Background="#7fffd4"
+                            Width="300"
+                            Height="300">
+                    </Canvas>
+                </Viewbox>
+            </Border>
+            <Border Grid.Row="1" BorderBrush="Black" BorderThickness="0,0,2,2" Padding="8">
+                <TextBlock Name="Log"></TextBlock>
+            </Border>
+        </Grid>
+    </Grid>
+</Window>
