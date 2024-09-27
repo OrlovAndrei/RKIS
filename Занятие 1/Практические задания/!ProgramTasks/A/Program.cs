@@ -1,10 +1,14 @@
-﻿namespace A
+namespace A
 {
     internal class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
-            // пишите код тут
+            Console.WriteLine("The first step!");
+
+            // Keep the console window open in debug mode.
+            Console.WriteLine("Press any key to exit.");
+            Console.ReadKey();
         }
     }
 }
