@@ -8,7 +8,7 @@ namespace I
         {
 
             text = text.Substring(text.Length / 2);
-            string c = text.Replace(" ", String.Empty);
+            string c = text.Replace(" ", "");
             return c;
         }
 
