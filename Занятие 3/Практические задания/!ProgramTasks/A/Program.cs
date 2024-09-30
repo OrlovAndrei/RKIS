@@ -15,7 +15,7 @@
         {
             int result = 1;
             while (result <= number)
-                result = result*2;
+                result = result * 2;
             return result;
         }
     }
