@@ -10,9 +10,16 @@
 
         static void Main(string[] args)
         {
-            Console.WriteLine(GetGreetingMessage("Student", 10.01));
-            Console.WriteLine(GetGreetingMessage("Bill Gates", 10000000.5));
-            Console.WriteLine(GetGreetingMessage("Steve Jobs", 1));
+            string a = "Student";
+            string b = "Bill Gates";
+            string c = "Steve Jobs";
+            double a1 = 10.01;
+            double b1 = 10000000.5;
+            int c1 = 1;
+            Console.WriteLine(GetGreetingMessage($"Hello {a}, your salary is {a1}"));
+            Console.WriteLine(GetGreetingMessage($"Hello {b}, your salary is {b1}"));
+            Console.WriteLine(GetGreetingMessage($"Hello {c}, your salary is {c1}"));
+            
         }
     }
 }

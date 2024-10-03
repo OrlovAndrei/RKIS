@@ -31,9 +31,9 @@ namespace RefactorMe
 
         public static void Change(double dlina, double ugol)
         {
-            x = (float)(x + dlina * Math.Cos(ugol)); 
+           x = (float)(x + dlina * Math.Cos(ugol)); 
            y = (float)(y + dlina * Math.Sin(ugol));
-           }
+        }
     }
     
     public class ImpossibleSquare
