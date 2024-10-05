@@ -3,7 +3,6 @@ using Avalonia.Media;
 using RefactorMe.Common;
 
 namespace RefactorMe {
-    // думал поменять название класса, но не стал этого делать
     class Risovatel {
         private float x, y;
         private IGraphics graphics;
@@ -19,8 +18,6 @@ namespace RefactorMe {
         }
 
         public void MakeStep(Pen pen, double length, double corner) {
-            // Делает шаг длиной length в направлении corner и рисует пройденную
-            // траекторию
             var x1 = (float)(x + length * Math.Cos(corner));
             var y1 = (float)(y + length * Math.Sin(corner));
             graphics.DrawLine(pen, x, y, x1, y1);
@@ -35,71 +32,33 @@ namespace RefactorMe {
     }
 
     public class ImpossibleSquare {
-        public static void Draw(
-            int width, int height, double angle, IGraphics graphics) {
-            // angle пока не используется, но будет использоваться в будущем
-            var risovatel = new Risovatel();
-            risovatel.Initialization(graphics);
+        public static void Draw(int canvasWidth, int canvasHeight, double angle, IGraphics graphics) {
+            var drawer = new Risovatel();
+            drawer.Initialization(graphics);
+    
+            var squareSize = Math.Min(canvasWidth, canvasHeight);
+            var sideLength = Math.Sqrt(2) * (squareSize * 0.375f + squareSize * 0.04f) / 2;
+    
+            var centerX = (float)(sideLength * Math.Cos(Math.PI / 4 + Math.PI)) + canvasWidth / 2f;
+            var centerY = (float)(sideLength * Math.Sin(Math.PI / 4 + Math.PI)) + canvasHeight / 2f;
+            drawer.SetPosition(centerX, centerY);
+    
+            DrawSide(drawer, squareSize, Math.PI);
+            DrawSide(drawer, squareSize, Math.PI + Math.PI / 2);
+            DrawSide(drawer, squareSize, Math.PI + Math.PI);
+            DrawSide(drawer, squareSize, Math.PI / 2);
+        }
 
-            var sz = Math.Min(width, height);
-
-            var sideLength = Math.Sqrt(2) * (sz * 0.375 f + sz * 0.04 f) / 2;
-            var x0 = (float)(sideLength * Math.Cos(Math.PI / 4 + Math.PI)) +
-                width / 2 f;
-            var y0 = (float)(sideLength * Math.Sin(Math.PI / 4 + Math.PI)) +
-                height / 2 f;
-
-            risovatel.SetPosition(x0, y0);
-
-            // Рисуем 1-ую сторону
-            risovatel.MakeStep(new Pen(Brushes.Yellow), sz * 0.375 f, 0);
-            risovatel.MakeStep(
-                new Pen(Brushes.Yellow), sz * 0.04 f * Math.Sqrt(2), Math.PI / 4);
-            risovatel.MakeStep(new Pen(Brushes.Yellow), sz * 0.375 f, Math.PI);
-            risovatel.MakeStep(
-                new Pen(Brushes.Yellow), sz * 0.375 f - sz * 0.04 f, Math.PI / 2);
-
-            risovatel.ChangePosition(sz * 0.04 f, -Math.PI);
-            risovatel.ChangePosition(sz * 0.04 f * Math.Sqrt(2), 3 * Math.PI / 4);
-
-            // Рисуем 2-ую сторону
-            risovatel.MakeStep(new Pen(Brushes.Yellow), sz * 0.375 f, -Math.PI / 2);
-            risovatel.MakeStep(new Pen(Brushes.Yellow), sz * 0.04 f * Math.Sqrt(2),
-                -Math.PI / 2 + Math.PI / 4);
-            risovatel.MakeStep(
-                new Pen(Brushes.Yellow), sz * 0.375 f, -Math.PI / 2 + Math.PI);
-            risovatel.MakeStep(new Pen(Brushes.Yellow), sz * 0.375 f - sz * 0.04 f,
-                -Math.PI / 2 + Math.PI / 2);
-
-            risovatel.ChangePosition(sz * 0.04 f, -Math.PI / 2 - Math.PI);
-            risovatel.ChangePosition(
-                sz * 0.04 f * Math.Sqrt(2), -Math.PI / 2 + 3 * Math.PI / 4);
-
-            // Рисуем 3-ю сторону
-            risovatel.MakeStep(new Pen(Brushes.Yellow), sz * 0.375 f, Math.PI);
-            risovatel.MakeStep(new Pen(Brushes.Yellow), sz * 0.04 f * Math.Sqrt(2),
-                Math.PI + Math.PI / 4);
-            risovatel.MakeStep(
-                new Pen(Brushes.Yellow), sz * 0.375 f, Math.PI + Math.PI);
-            risovatel.MakeStep(new Pen(Brushes.Yellow), sz * 0.375 f - sz * 0.04 f,
-                Math.PI + Math.PI / 2);
-
-            risovatel.ChangePosition(sz * 0.04 f, Math.PI - Math.PI);
-            risovatel.ChangePosition(
-                sz * 0.04 f * Math.Sqrt(2), Math.PI + 3 * Math.PI / 4);
-
-            // Рисуем 4-ую сторону
-            risovatel.MakeStep(new Pen(Brushes.Yellow), sz * 0.375 f, Math.PI / 2);
-            risovatel.MakeStep(new Pen(Brushes.Yellow), sz * 0.04 f * Math.Sqrt(2),
-                Math.PI / 2 + Math.PI / 4);
-            risovatel.MakeStep(
-                new Pen(Brushes.Yellow), sz * 0.375 f, Math.PI / 2 + Math.PI);
-            risovatel.MakeStep(new Pen(Brushes.Yellow), sz * 0.375 f - sz * 0.04 f,
-                Math.PI / 2 + Math.PI / 2);
-
-            risovatel.ChangePosition(sz * 0.04 f, Math.PI / 2 - Math.PI);
-            risovatel.ChangePosition(
-                sz * 0.04 f * Math.Sqrt(2), Math.PI / 2 + 3 * Math.PI / 4);
+        private static void DrawSide(Risovatel drawer, float size, double startingAngle) {
+            var pen = new Pen(Brushes.Yellow);
+    
+            drawer.MakeStep(pen, size * 0.375f, startingAngle);
+            drawer.MakeStep(pen, size * 0.04f * Math.Sqrt(2), startingAngle + Math.PI / 4);
+            drawer.MakeStep(pen, size * 0.375f, startingAngle + Math.PI);
+            drawer.MakeStep(pen, size * 0.375f - size * 0.04f, startingAngle + Math.PI / 2);
+    
+            drawer.ChangePosition(size * 0.04f, startingAngle - Math.PI);
+            drawer.ChangePosition(size * 0.04f * Math.Sqrt(2), startingAngle + 3 * Math.PI / 4);
         }
     }
 }
