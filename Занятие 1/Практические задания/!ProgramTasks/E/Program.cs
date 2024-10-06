@@ -2,10 +2,10 @@
 {
     internal class Program
     {
-        static void Main(string[] args)
+        static void Main(string[] args) 
         {
             string doubleNumber = "894376.243643";
-            int number = doubleNumber; // Вася уверен, что ошибка где-то тут
+            double number = Convert.ToDouble(decimal.Parse(doubleNumber)); 
             Console.WriteLine(number + 1);
         }
     }
