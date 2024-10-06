@@ -1,5 +1,4 @@
-**Ссылка на таблицу с баллами
-https://docs.google.com/spreadsheets/d/1lTc9L9D51gNhiKB_6AAoq7qbp0YHdIKYBKi1LoPV4zQ/edit?usp=sharing**
+**[Ссылка на таблицу с баллами](https://docs.google.com/spreadsheets/d/1lTc9L9D51gNhiKB_6AAoq7qbp0YHdIKYBKi1LoPV4zQ/edit?usp=sharing)**
 
 Оформление названий коммитов: `<lesson>: <action> <task>`
 
