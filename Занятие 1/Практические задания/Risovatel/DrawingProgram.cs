@@ -7,13 +7,13 @@ namespace RefactorMe
     class Risovatel
     {
         static float x, y;
-        static IGraphics grafika;
+        static IGraphics graphic;
 
-        public static void Initialization(IGraphics novayaGrafika)
+        public static void Initialization(IGraphics newGraphic)
         {
-            grafika = novayaGrafika;
+            graphic = newGraphic;
             //grafika.SmoothingMode = SmoothingMode.None;
-            grafika.Clear(Colors.Black);
+            graphic.Clear(Colors.Black);
         }
 
         public static void SetPosition(float x0, float y0)
@@ -24,15 +24,15 @@ namespace RefactorMe
             //Делает шаг длиной dlina в направлении ugol и рисует пройденную траекторию
             var x1 = (float)(x + Length * Math.Cos(corner));
             var y1 = (float)(y + Length * Math.Sin(corner));
-            grafika.DrawLine(pen, x, y, x1, y1);
+            graphic.DrawLine(pen, x, y, x1, y1);
             x = x1;
             y = y1;
         }
 
-        public static void ChangePosition(double dlina, double corner)
+        public static void ChangePosition(double Length, double corner)
         {
-            x = (float)(x + dlina * Math.Cos(corner));
-            y = (float)(y + dlina * Math.Sin(corner));
+            x = (float)(x + Length * Math.Cos(corner));
+            y = (float)(y + Length * Math.Sin(corner));
         }
     }
 
