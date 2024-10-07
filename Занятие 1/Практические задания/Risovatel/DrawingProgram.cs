@@ -7,13 +7,13 @@ namespace RefactorMe
     class Risovatel
     {
         static float x, y;
-        static IGraphics grafika;
+        static IGraphics graphic;
 
-        public static void Initialization ( IGraphics novayaGrafika )
+        public static void Initialization(IGraphics newGraphic)
         {
-            grafika = novayaGrafika;
+            graphic = newGraphic;
             //grafika.SmoothingMode = SmoothingMode.None;
-            grafika.Clear(Colors.Black);
+            graphic.Clear(Colors.Black);
         }
 
         public static void set_position(float x0, float y0)
@@ -21,19 +21,19 @@ namespace RefactorMe
 
         public static void makeIt(Pen ruchka, double dlina, double ugol)
         {
-        //Делает шаг длиной dlina в направлении ugol и рисует пройденную траекторию
-        var x1 = (float)(x + dlina * Math.Cos(ugol));
-        var y1 = (float)(y + dlina * Math.Sin(ugol));
-        grafika.DrawLine(ruchka, x, y, x1, y1);
-        x = x1;
-        y = y1;
+            //Делает шаг длиной dlina в направлении ugol и рисует пройденную траекторию
+            var x1 = (float)(x + Length * Math.Cos(corner));
+            var y1 = (float)(y + Length * Math.Sin(corner));
+            graphic.DrawLine(pen, x, y, x1, y1);
+            x = x1;
+            y = y1;
         }
 
-        public static void Change(double dlina, double ugol)
+        public static void ChangePosition(double Length, double corner)
         {
-            x = (float)(x + dlina * Math.Cos(ugol)); 
-           y = (float)(y + dlina * Math.Sin(ugol));
-           }
+            x = (float)(x + Length * Math.Cos(corner));
+            y = (float)(y + Length * Math.Sin(corner));
+        }
     }
     
     public class ImpossibleSquare
