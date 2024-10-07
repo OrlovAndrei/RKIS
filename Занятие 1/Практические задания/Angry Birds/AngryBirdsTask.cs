@@ -1,11 +1,23 @@
 using System;
 
-namespace AngryBirds;
-
-public static class AngryBirdsTask
+namespace AngryBirds
 {
-    public static double FindSightAngle(double v, double distance)
+    public static class AngryBirdsTask
     {
-        return Math.PI / 4;
+        public static double FindSightAngle(double v, double distance)
+        {
+            double g = 9.8;
+            return 0.5 * Math.Asin(distance * g / (v * v));
+        }
+
+        static void Main(string[] args)
+        {
+
+            double distance = Convert.ToDouble(Console.ReadLine());
+
+            double v = Convert.ToDouble(Console.ReadLine());
+        }
+
+
     }
 }
