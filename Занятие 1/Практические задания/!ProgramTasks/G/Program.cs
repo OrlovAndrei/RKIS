@@ -1,11 +1,11 @@
-﻿namespace G
+namespace G
 {
     internal class Program
     {
         private static string GetGreetingMessage(string name, double salary)
         {
-            // возвращает "Hello, <name>, your salary is <salary>"
-            ...
+            // Но так как Работодатель Добр, он всегда округляет зарплату до ближайшего целого числа вверх.
+            return $"Hello, {name}, your salary is {Math.Ceiling(salary)}"
         }
 
         static void Main(string[] args)
