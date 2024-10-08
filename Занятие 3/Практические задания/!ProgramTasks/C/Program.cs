@@ -13,6 +13,13 @@
 
         private static void WriteTextWithBorder(string text)
         {
+            string angle = "+";
+            string sidewall = "|";
+            int lengthtext = text.Length + 2;
+            string repeat = new String('-', lengthtext);
+            Console.WriteLine($"{angle}{repeat}{angle}");
+            Console.WriteLine($"{sidewall} {text} {sidewall}");
+            Console.WriteLine($"{angle}{repeat}{angle}");
         }
     }
 }
