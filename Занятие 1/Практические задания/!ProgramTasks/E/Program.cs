@@ -2,11 +2,9 @@
 {
     internal class Program
     {
-        static void Main(string[] args) 
+        static void Main(string[] args)
         {
-            string doubleNumber = "894376.243643";
-            double number = Convert.ToDouble(decimal.Parse(doubleNumber)); 
-            Console.WriteLine(number + 1);
+          
         }
     }
 }
