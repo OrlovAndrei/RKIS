@@ -4,8 +4,8 @@
     {
         static void Main(string[] args)
         {
-            var a = 5; // ← исправьте эту строку
-            a += 0.5;
+            double  a = 5; // ← исправьте эту строку
+            a = a + 0.5;
             Console.WriteLine(a);
         }
     }
