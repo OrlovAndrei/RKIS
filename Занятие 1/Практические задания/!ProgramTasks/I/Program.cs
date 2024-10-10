@@ -1,10 +1,15 @@
-﻿namespace I
+using System.Text;
+
+namespace I
 {
     internal class Program
     {
         static string GetLastHalf(string text)
         {
-            ...
+            
+            text = text.Substring(text.Length / 2);
+            string c = text.Replace(" ", String.Empty);
+            return c;
         }
 
         static void Main(string[] args)
