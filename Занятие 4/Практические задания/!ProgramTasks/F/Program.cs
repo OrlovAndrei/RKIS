@@ -4,15 +4,10 @@
     {
         static void Main(string[] args)
         {
-            Console.WriteLine(CheckFirstElement(null));
-            Console.WriteLine(CheckFirstElement(new int[0]));
-            Console.WriteLine(CheckFirstElement(new[] { 1 }));
-            Console.WriteLine(CheckFirstElement(new[] { 0 }));
-        }
-
-        public static bool CheckFirstElement(int[] array)
-        {
-            return array != null & array.Length != 0 & array[0] == 0;
+var a = 5; // ← исправьте эту строку
+            double a = 5; // ← исправьте эту строку
+            a += 0.5;
+            Console.WriteLine(a);
         }
     }
 }
