@@ -1,23 +1,9 @@
 ﻿namespace B
-{
-    internal class Program
-    {
+ {
         static void Main(string[] args)
         {
-            Console.WriteLine(MaxIndex(new[] {1.0, .2, 100, 2e+10}));
+             double num1 = +5.5e-2;
+             float num2 = 7.8f;
+             int num3 = 0;
+             long num4 = 2000000000000L;
         }
-
-        static double Min(double[] array)
-        {
-            var min = double.MaxValue;
-            foreach (var item in array)
-                if (item < min) min = item;
-            return min;
-        }
-
-        public static int MaxIndex(double[] array)
-        {
-            ...
-        }
-    }
-}
