@@ -1,22 +1,7 @@
-﻿namespace A
-{
-    internal class Program
+@@ -4,7 +4,7 @@ Программа внутреннего класса
     {
-        static void Main(string[] args)
+        static void Main(строка[] аргументы)
         {
-            Console.WriteLine(GetMinPowerOfTwoLargerThan(2) == 4);
-            Console.WriteLine(GetMinPowerOfTwoLargerThan(15) == 16);
-            Console.WriteLine(GetMinPowerOfTwoLargerThan(-2) == 1);
-            Console.WriteLine(GetMinPowerOfTwoLargerThan(-100) == 1);
-            Console.WriteLine(GetMinPowerOfTwoLargerThan(100) == 128);
-        }
-
-        private static int GetMinPowerOfTwoLargerThan(int number)
-        {
-            int result = 1;
-            while (...)
-                result = ...;
-            return result;
+            Console.WriteLine("первый шаг!");
         }
     }
-}
