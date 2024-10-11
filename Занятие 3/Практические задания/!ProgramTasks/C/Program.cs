@@ -1,18 +1,15 @@
 ﻿namespace C
-{
-    internal class Program
-    {
-        static void Main(string[] args)
+   static void Main(строка[] аргументы)
         {
-            WriteTextWithBorder("Menu:");
-            WriteTextWithBorder("");
-            WriteTextWithBorder(" ");
-            WriteTextWithBorder("Game Over!");
-            WriteTextWithBorder("Select level:");
+            двойное пи = Математика.ПИ;
+            int tenThousand =  10000L;
+            float tenThousandPi =  пи * tenThousand;
+            int roundedTenThousandPi =  tenThousandPi;
+            int integerЧастьДесятиТысячПи =  десятьТысячПи;
+            int tenThousand = (int) 10000L;
+            float tenThousandPi = (float)( пи * tenThousand ) ;
+            int roundedTenThousandPi = (int)Math.Round( tenThousandPi ) ;
+            int integerЧастьДесятиТысячПи = (int) десятьТысячПи;
+            Console.WriteLine(целаяЧастьДесятиТысячПи);
+            Console.WriteLine(округленноеДесятьТысячПи);
         }
-
-        private static void WriteTextWithBorder(string text)
-        {
-        }
-    }
-}
