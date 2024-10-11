@@ -2,19 +2,10 @@
 
 namespace D
 {
-    internal class Program
-    {
-        static void Main(string[] args)
-        {
-            Console.WriteLine(FindSubarrayStartIndex(new[] { 1, 2, 4, 1, 2 }, new[] { 1, 2 }));
-        }
-
-        public static int FindSubarrayStartIndex(int[] array, int[] subArray)
-        {
-            for (var i = 0; i < array.Length - subArray.Length + 1; i++)
-                if (ContainsAtIndex(array, subArray, i))
-                    return i;
-            return -1;
+     double amount = 1.11; //количество биткоинов от одного человека
+            int peopleCount = 60; // количество человек
+            int totalMoney = (int)amount * peopleCount; // ← исправьте ошибку в этой строке
+            int totalMoney = (int)Math.Round(amount*peopleCount); // ← исправьте ошибку в этой строке
         }
     }
 }
