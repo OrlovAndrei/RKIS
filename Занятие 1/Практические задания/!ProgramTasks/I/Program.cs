@@ -4,9 +4,10 @@
     {
         static string GetLastHalf(string text)
         {
-            static void Print(int number) {
-                Console.WriteLine(number);
-            }
+           text = text.Substring(text.Length / 2);
+           string c = text.Replace(" ", Empty);
+           return c;
+        }
         }
 
         static void Main(string[] args)
