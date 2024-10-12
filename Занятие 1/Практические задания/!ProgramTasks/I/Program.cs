@@ -5,8 +5,7 @@
         static string GetLastHalf(string text)
         {
               text = text.Substring(text.Length / 2);
-            string c = text.Replace(" ", Empty);
-            return c;
+            string c = text.Replace(" ", Empty);return c;
         }
 
         static void Main(string[] args)
