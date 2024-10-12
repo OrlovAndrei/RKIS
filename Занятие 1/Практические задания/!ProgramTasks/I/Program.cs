@@ -4,7 +4,9 @@
     {
         static string GetLastHalf(string text)
         {
-            ...
+            static void Print(int number) {
+                Console.WriteLine(number);
+            }
         }
 
         static void Main(string[] args)
