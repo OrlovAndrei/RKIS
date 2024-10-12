@@ -5,7 +5,7 @@
         static void Main(string[] args)
         {
             double  a = 5; // ← исправьте эту строку
-            a = a + 0.5;
+            a += 0.5;
             Console.WriteLine(a);
         }
     }
