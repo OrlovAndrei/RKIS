@@ -10,7 +10,14 @@ public static class BilliardsTask
     /// <returns></returns>
     public static double BounceWall(double directionRadians, double wallInclinationRadians)
     {
-        //TODO
-        return 0.0;
+        double incidenceAngle = directionRadians - wallInclinationRadians;
+
+        double reflectionAngle = -incidenceAngle;
+
+        double newDirection = wallInclinationRadians + reflectionAngle;
+
+        newDirection = (newDirection + 2 * Math.PI) % (2 * Math.PI);
+
+        return newDirection
     }
 }
