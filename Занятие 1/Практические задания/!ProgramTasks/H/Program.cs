@@ -6,5 +6,9 @@
         {
             Print(GetSquare(42));
         }
+        static int GetSqure(int number)
+        {
+            return (int)Math.Pow(number, 2);
+        }
     }
 }
