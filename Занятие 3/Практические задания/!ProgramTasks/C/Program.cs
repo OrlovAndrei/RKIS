@@ -13,9 +13,6 @@
 
         private static void WriteTextWithBorder(string text)
         {
-            Console.WriteLine("+" + string.Join("", Enumerable.Repeat("-", text.Length + 2)) + "+");
-            Console.WriteLine($"| {text} |");
-            Console.WriteLine("+" + string.Join("", Enumerable.Repeat("-", text.Length + 2)) + "+");
         }
     }
 }
