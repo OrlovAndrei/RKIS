@@ -15,7 +15,7 @@ namespace RefactorMe
             graphics.Clear(Colors.Black);
         }
 
-        public static void Set_position(float x0, float y0)
+        public static void SetPosition(float x0, float y0)
         {
             x = x0;
             y = y0;
