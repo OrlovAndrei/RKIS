@@ -20,8 +20,16 @@
 
         public static string RemoveStartSpaces(string text)
         {
-            if (char.IsWhiteSpace(text[0])) return text.Substring(1);
-            else return text;
+             int index = 0;
+            while (char.IsWhiteSpace(text[index]))
+            {
+                index++;
+                if (index == text.Length)
+                {
+                    return null;
+                }
+            }
+            return text.Substring(index);
         }
     }
 }
