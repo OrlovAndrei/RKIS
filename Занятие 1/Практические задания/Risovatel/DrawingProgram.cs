@@ -21,7 +21,7 @@ namespace RefactorMe
 
         public static void MakeStep(Pen pen, double length, double angle)
         {
-            //Делает шаг длиной length в направлении и рисует пройденную траекторию
+            //Делает шаг длиной length в направлении angle и рисует пройденную траекторию
             var x1 = (float)(x + length * Math.Cos(angle));
             var y1 = (float)(y + length * Math.Sin(angle));
             graphic.DrawLine(pen, x, y, x1, y1);
@@ -29,7 +29,7 @@ namespace RefactorMe
             y = y1;
         }
 
-        public static void ChangePositione(double length, double angle)
+        public static void ChangePosition(double length, double angle)
         {
             x = (float)(x + length * Math.Cos(angle));
             y = (float)(y + length * Math.Sin(angle));
@@ -52,9 +52,9 @@ namespace RefactorMe
             Risovatel.SetPosition(x0, y0);
 
             DrawSide(size, 0);
-            DrawSide(size, -Math, PI / 2);
+            DrawSide(size, -Math.PI / 2);
             DrawSide(size, Math.PI);
-            DrawSide(size, Math.PI / 2)
+            DrawSide(size, Math.PI / 2);
         }
 
         private static void DrawSide(int size, double angle)
