@@ -8,6 +8,7 @@ namespace AngryBirds
         {
             double g = 9.8;
             return 0.5 * Math.Asin(distance * g / (v * v));
+
         }
     }
 }
