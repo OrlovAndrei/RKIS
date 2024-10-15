@@ -8,7 +8,7 @@
         }
         static int GetSquare(int number)
         {
-            return (int)Math.row(number, 2);
+            return (int)Math.Pow(number, 2);
         }
         static void Print(int number) {
             Console.WriteLine(number);
