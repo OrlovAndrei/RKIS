@@ -2,20 +2,22 @@ using System;
 
 namespace Rectangles
 {
-    public class Rectangle
+    public struct Rectangle
     {
-        public int Left { get; }
-        public int Top { get; }
-        public int Right { get; }
-        public int Bottom { get; }
+        public int X1, Y1, X2, Y2;
 
-        public Rectangle(int left, int top, int right, int bottom)
+        public Rectangle(int x1, int y1, int x2, int y2)
         {
-            Left = left;
-            Top = top;
-            Right = right;
-            Bottom = bottom;
+            X1 = x1;
+            Y1 = y1;
+            X2 = x2;
+            Y2 = y2;
         }
+
+        public int Left => X1;
+        public int Top => Y1;
+        public int Right => X2;
+        public int Bottom => Y2;
     }
 
     public static class RectanglesTask
@@ -23,28 +25,27 @@ namespace Rectangles
         // Пересекаются ли два прямоугольника (пересечение только по границе также считается пересечением)
         public static bool AreIntersected(Rectangle r1, Rectangle r2)
         {
-            // Проверяем, не находятся ли прямоугольники друг за другом
-            return !(r1.Right < r2.Left || r1.Left > r2.Right || r1.Bottom < r2.Top || r1.Top > r2.Bottom);
+            return r1.Left <= r2.Right && r1.Right >= r2.Left &&
+                   r1.Top <= r2.Bottom && r1.Bottom >= r2.Top;
         }
 
         // Площадь пересечения прямоугольников
         public static int IntersectionSquare(Rectangle r1, Rectangle r2)
         {
-            // Если прямоугольники не пересекаются, площадь равна 0
             if (!AreIntersected(r1, r2))
-            {
                 return 0;
-            }
 
-            // Вычисляем координаты пересечения
-            int intersectLeft = Math.Max(r1.Left, r2.Left);
-            int intersectTop = Math.Max(r1.Top, r2.Top);
-            int intersectRight = Math.Min(r1.Right, r2.Right);
-            int intersectBottom = Math.Min(r1.Bottom, r2.Bottom);
+            int interLeft = Math.Max(r1.Left, r2.Left);
+            int interTop = Math.Max(r1.Top, r2.Top);
+            int interRight = Math.Min(r1.Right, r2.Right);
+            int interBottom = Math.Min(r1.Bottom, r2.Bottom);
 
-            // Ширина и высота пересечения
-            int width = Math.Max(0, intersectRight - intersectLeft);
-            int height = Math.Max(0, intersectBottom - intersectTop);
+            int width = interRight - interLeft;
+            int height = interBottom - interTop;
+
+            // Проверка на вырожденный случай
+            if (width <= 0 || height <= 0)
+                return 0;
 
             return width * height;
         }
@@ -54,12 +55,18 @@ namespace Rectangles
         // Если прямоугольники совпадают, можно вернуть номер любого из них.
         public static int IndexOfInnerRectangle(Rectangle r1, Rectangle r2)
         {
-            bool r1InsideR2 = r1.Left >= r2.Left && r1.Top >= r2.Top && r1.Right <= r2.Right && r1.Bottom <= r2.Bottom;
-            bool r2InsideR1 = r2.Left >= r1.Left && r2.Top >= r1.Top && r2.Right <= r1.Right && r2.Bottom <= r1.Bottom;
+            bool r1InsideR2 = r1.Left >= r2.Left && r1.Right <= r2.Right &&
+                              r1.Top >= r2.Top && r1.Bottom <= r2.Bottom;
 
-            if (r1InsideR2) return 1; // r1 находится внутри r2
-            if (r2InsideR1) return 0; // r2 находится внутри r1
-            return -1; // нет вложенности
+            bool r2InsideR1 = r2.Left >= r1.Left && r2.Right <= r1.Right &&
+                              r2.Top >= r1.Top && r2.Bottom <= r1.Bottom;
+
+            if (r1InsideR2)
+                return 1; // r1 внутри r2
+            if (r2InsideR1)
+                return 0; // r2 внутри r1
+
+            return -1; // Нет вложенности
         }
     }
 }
