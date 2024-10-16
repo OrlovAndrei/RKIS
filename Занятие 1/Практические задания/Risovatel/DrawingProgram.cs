@@ -4,7 +4,8 @@ using RefactorMe.Common;
 
 namespace RefactorMe
 {
-    class Risovatel
+    class Artist
+
     {
         static float x, y;
         static IGraphics grafika;
