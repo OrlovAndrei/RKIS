@@ -4,10 +4,10 @@
     {
         enum Suits
         {
-            Wands,
-            Coins,
-            Cups,
-            Swords
+            Wands, // index: 0
+            Coins, // index; 1
+            Cups, // index: 2
+            Swords // index: 3
         }
 
         static void Main(string[] args)
@@ -20,10 +20,13 @@
 
         private static string GetSuit(Suits suit)
         {
-            if (suit == Suits.Wands) return "жезлов";
-            else if (suit == Suits.Coins) return "монет";
-            else if (suit == Suits.Cups) return "кубков";
-            else return "мечей";
+            string[] suitNames = { "жезлов", "монет", "кубков", "мечей"}
+            return suitNames[(int)suit] // после тех задач, эта самая легкая
+
+            // if (suit == Suits.Wands) return "жезлов";
+            // else if (suit == Suits.Coins) return "монет";
+            // else if (suit == Suits.Cups) return "кубков";
+            // else return "мечей";
         }
     }
 }
