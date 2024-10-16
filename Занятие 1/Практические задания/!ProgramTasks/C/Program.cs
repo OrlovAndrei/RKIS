@@ -6,9 +6,9 @@
         {
             double pi = Math.PI;
             long tenThousand = 10000L;
-            double tenThousandPi = pi * tenThousand;
-            double roundedTenThousandPi = Math.Round(tenThousandPi);
-            int integerPartOfTenThousandPi = (int)(tenThousandPi);
+            float tenThousandPi = (float)pi * tenThousand;
+            int roundedTenThousandPi = Math.Round(tenThousandPi);
+            int integerPartOfTenThousandPi = (int)Math.Floor(tenThousandPi);
             Console.WriteLine(integerPartOfTenThousandPi);
             Console.WriteLine(roundedTenThousandPi);
         }
