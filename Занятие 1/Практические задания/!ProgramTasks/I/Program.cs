@@ -6,10 +6,7 @@ namespace I
     {
         static string GetLastHalf(string text)
         {
-
-            text = text.Substring(text.Length / 2);
-            string c = text.Replace(" ", String.Empty);
-            return c;
+            return text.Substring(text.Length / 2).Replace(" ", "");
         }
 
         static void Main(string[] args)
