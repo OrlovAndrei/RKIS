@@ -13,6 +13,13 @@
 
         private static void WriteTextWithBorder(string text)
         {
+            // +-------------+
+            // | Hello world |
+            // +-------------+
+            string leaders = new String('-', text.Length + 2);
+            Console.WriteLine($"+{leaders}+");
+            Console.WriteLine($"| {text} |");
+            Console.WriteLine($"+{leaders}+");
         }
     }
 }
