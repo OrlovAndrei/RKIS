@@ -1,4 +1,9 @@
-﻿namespace D
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+
+namespace D
 {
     internal class Program
     {
@@ -17,12 +22,21 @@
                 new FileInfo(@"C:\Музыка\Былина\песня8.txt")
             };
 
-            GetAlbums(testFiles);
+            var albums = GetAlbums(testFiles);
+            foreach (var album in albums)
+            {
+                Console.WriteLine(album.FullName);
+            }
         }
 
         public static List<DirectoryInfo> GetAlbums(List<FileInfo> files)
         {
-            ...
+            return files
+                .Where(f => f.Extension.Equals(".mp3", StringComparison.OrdinalIgnoreCase) ||
+                            f.Extension.Equals(".wav", StringComparison.OrdinalIgnoreCase))
+                .Select(f => f.Directory) // Извлекаем директории
+                .Distinct() // Уникальные директории
+                .ToList(); // Конвертируем в List
         }
     }
 }
