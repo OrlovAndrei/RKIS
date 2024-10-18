@@ -7,14 +7,38 @@ namespace EmailDictionary
     {
         static void Main(string[] args)
         {
-            string[] entries = {
-                "Sasha:sasha1995@sasha.ru",
-                "Alex:alex99@mail.ru",
-                "Shurik:shurik2020@google.com",
-                "Sergey:sergey1985@mail.ru",
-                "Anna:anna_123@gmail.com",
-                "Anastasia:anastasia2022@gmail.com"
-            };
+            var entries = {
+                "Sasha: sasha1995@sasha.ru",
+                "Alexey: alex99@mail.ru",
+                "Shurik: shurik2020@google.com",
+                "Sergey: serg_prog@code.com",
+                "Anna: anna123@sunnyday.ru",
+                "Anastasia: ana_star@dreamworld.com",
+                "Anton: anton_dev@techmail.com",
+                "Aleksei: aleksei_prog@coderz.net",
+                "Semen: sem_prog@backend.ru",
+                "Sveta: sveta.design@creations.com",
+                "Alina: alina123@dreams.org",
+                "Sergei: sergei_cool@netdev.com",
+                "Semenov: semenov_art@artvision.io",
+                "Svetlana: svetlana_art@artisticworld.com",
+                "Andrey: andrey_code@developers.org",
+                "Alyona: alyona.music@melodies.ru",
+                "Stepan: stepan_programmer@logicmail.net",
+                "Stas: stas_artist@visualizer.com",
+                "Anya: anya_star@wonder.net",
+                "Sofiya: sofiya_dev@creatives.ru",
+                "Svyatoslav: svyat_prog@technoworld.io",
+                "Arkady: arkady_hacker@cyber.net",
+                "Slava: slava.dev@webmasters.com",
+                "Aleksey: aleksey.design@visioners.com",
+                "Sergii: sergii_front@frontendmail.com",
+                "Sveta: sveta_prog@codevision.com",
+                "Alek: alek_coder@tech.io",
+                "Stanislav: stanislav_tech@brainstorm.com",
+                "Sasha: sasha_new@cloudworld.org",
+                "Anatoliy: anatoliy.web@digital.org"
+            }
 
             Dictionary<string, HashSet<string>> emailDictionary = new Dictionary<string, HashSet<string>>(); // java
 
