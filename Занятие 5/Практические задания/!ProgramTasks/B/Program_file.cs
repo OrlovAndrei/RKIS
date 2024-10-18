@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 
-namespace EmailDictionary
+namespace B
 {
     internal class Program
     {
