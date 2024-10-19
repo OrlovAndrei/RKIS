@@ -17,7 +17,7 @@ namespace RefactorMe
         }
 
         public static void set_position(float x0, float y0)
-        { x = x0; y = y0; }
+        (x = x0; y = y0);
 
         public static void makeIt(Pen pen, double length, double angle)
 
