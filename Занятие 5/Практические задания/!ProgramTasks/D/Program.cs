@@ -7,43 +7,38 @@ namespace D
     {
         static void Main(string[] args)
         {
-            StringBuilder text = new StringBuilder();
-            string command;
+            string[] commands = {
+                "push Привет! Это снова я! Пока!",
+                "pop 5",
+                "push Как твои успехи? Плохо?",
+                "push qwertyuiop",
+                "push 1234567890",
+                "pop 26"
+            };
 
-            while ((command = Console.ReadLine()) != null)
+            Stack<string> stack = new Stack<string>();
+            string text = "";
+
+            foreach (var command in commands)
             {
-                // Разделяем команду и аргументы
-                var parts = command.Split(' ', 2);
-                if (parts.Length == 0) continue;
-
-                switch (parts[0])
+                if (command.StartsWith("push"))
                 {
-                    case "push":
-                        if (parts.Length > 1)
-                        {
-                            text.Append(parts[1]);
-                        }
-                        break;
-
-                    case "pop":
-                        if (parts.Length > 1 && int.TryParse(parts[1], out int count))
-                        {
-                            // Удаляем символы с конца
-                            if (count > text.Length)
-                            {
-                                text.Clear(); // Если удаляем больше, чем есть, очищаем текст
-                            }
-                            else
-                            {
-                                text.Remove(text.Length - count, count);
-                            }
-                        }
-                        break;
+                    string toPush = command.Substring(5);
+                    stack.Push(toPush);
+                    text += toPush;
+                }
+                else if (command.StartsWith("pop"))
+                {
+                    int count = int.Parse(command.Substring(4));
+                    if (text.Length >= count)
+                    {
+                        text = text.Substring(0, text.Length - count);
+                    }
                 }
             }
 
-            // Выводим результат
-            Console.WriteLine(text.ToString());
+            Console.WriteLine("Результат:");
+            Console.WriteLine(text);
         }
     }
 }
