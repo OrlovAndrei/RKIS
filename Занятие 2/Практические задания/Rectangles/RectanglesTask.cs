@@ -1,72 +1,53 @@
 using System;
 
-namespace Rectangles
+namespace Rectangles;
+
+public static class RectanglesTask
 {
-    public struct Rectangle
+    public static bool AreIntersected(Rectangle r1, Rectangle r2)
     {
-        public int X1, Y1, X2, Y2;
-
-        public Rectangle(int x1, int y1, int x2, int y2)
+        // так можно обратиться к координатам левого верхнего угла первого прямоугольника: r1.Left, r1.Top
+        var left = Math.Max(Math.Min(r1!.Left, r1!.Right), Math.Min(r2.Left, r2.Right));
+        var right = Math.Min(Math.Max(r1!.Left, r1!.Right), Math.Max(r2.Left, r2.Right));
+        var bottom = Math.Min(Math.Max(r1!.Top, r1!.Bottom), Math.Max(r2.Top, r2.Bottom));
+        var top = Math.Max(Math.Min(r1.Top, r1.Bottom), Math.Min(r2.Top, r2.Bottom));
+        if (right < left || bottom < top)
         {
-            X1 = x1;
-            Y1 = y1;
-            X2 = x2;
-            Y2 = y2;
+            return false;
         }
-
-        public int Left => X1;
-        public int Top => Y1;
-        public int Right => X2;
-        public int Bottom => Y2;
+        return true;
+    }
+    // Площадь пересечения прямоугольников
+    public static int IntersectionSquare(Rectangle r1, Rectangle r2)
+    {
+        if (AreIntersected(r1, r2))
+        {
+            var left = Math.Max(Math.Min(r1.Left, r1.Right), Math.Min(r2.Left, r2.Right));
+            var right = Math.Min(Math.Max(r1.Left, r1.Right), Math.Max(r2.Left, r2.Right));
+            var bottom = Math.Min(Math.Max(r1.Top, r1.Bottom), Math.Max(r2.Top, r2.Bottom));
+            var top = Math.Max(Math.Min(r1.Top, r1.Bottom), Math.Min(r2.Top, r2.Bottom));
+            var height = Math.Max(right, left) - Math.Min(left, right);
+            var width = Math.Max(bottom, top) - Math.Min(top, bottom);
+            return height * width;
+        }
+        return 0;
     }
 
-    public static class RectanglesTask
-    {
-        // Пересекаются ли два прямоугольника (пересечение только по границе также считается пересечением)
-        public static bool AreIntersected(Rectangle r1, Rectangle r2)
-        {
-            return r1.Left <= r2.Right && r1.Right >= r2.Left &&
-                   r1.Top <= r2.Bottom && r1.Bottom >= r2.Top;
-        }
-
-        // Площадь пересечения прямоугольников
-        public static int IntersectionSquare(Rectangle r1, Rectangle r2)
-        {
-            if (!AreIntersected(r1, r2))
-                return 0;
-
-            int interLeft = Math.Max(r1.Left, r2.Left);
-            int interTop = Math.Max(r1.Top, r2.Top);
-            int interRight = Math.Min(r1.Right, r2.Right);
-            int interBottom = Math.Min(r1.Bottom, r2.Bottom);
-
-            int width = interRight - interLeft;
-            int height = interBottom - interTop;
-
-            // Проверка на вырожденный случай
-            if (width <= 0 || height <= 0)
-                return 0;
-
-            return width * height;
-        }
-
-        // Если один из прямоугольников целиком находится внутри другого — вернуть номер (с нуля) внутреннего.
-        // Иначе вернуть -1
+	    @@ -22,6 + 39,17 @@ public static int IntersectionSquare(Rectangle r1, Rectangle r2)
         // Если прямоугольники совпадают, можно вернуть номер любого из них.
         public static int IndexOfInnerRectangle(Rectangle r1, Rectangle r2)
+    {
+        if (r1.Top >= r2.Top && r1.Left >= r2.Left && r1.Right <= r2.Right && r1.Bottom <= r2.Bottom)
         {
-            bool r1InsideR2 = r1.Left >= r2.Left && r1.Right <= r2.Right &&
-                              r1.Top >= r2.Top && r1.Bottom <= r2.Bottom;
-
-            bool r2InsideR1 = r2.Left >= r1.Left && r2.Right <= r1.Right &&
-                              r2.Top >= r1.Top && r2.Bottom <= r1.Bottom;
-
-            if (r1InsideR2)
-                return 1; // r1 внутри r2
-            if (r2InsideR1)
-                return 0; // r2 внутри r1
-
-            return -1; // Нет вложенности
+            return 0;
+        }
+        else if (r2.Top >= r1.Top && r2.Left >= r1.Left && r2.Right <= r1.Right && r2.Bottom <= r1.Bottom)
+        {
+            return 1;
+        }
+        else
+        {
+            return -1;
         }
     }
 }
