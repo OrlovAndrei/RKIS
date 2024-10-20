@@ -1,47 +1,37 @@
-﻿namespace Mazes;
-
-public static class SnakeMazeTask
+﻿namespace Mazes
 {
-    public static void MoveOut(Robot robot, int width, int height)
+    public static class SnakeMazeTask
     {
-        MoveRight(robot, width - 2);
-        MoveDown(robot);
-        for (int i = 1; i < height - 2; i++)
+        public static void MoveOut(Robot robot, int width, int height)
         {
-            MoveHorizontally(robot, i % 2 == 0);
-            MoveDown(robot);
+            var stepsToHorizont = width - 3;
+            while (true)
+            {
+                GoToRight(robot, stepsToHorizont);
+                GoToDown(robot);
+                GoToLeft(robot, stepsToHorizont);
+                if (robot.Finished)
+                    break;
+                GoToDown(robot);
+            }
         }
-        MoveToExit(robot);
-    }
 
-    private static void MoveRight(Robot robot, int steps)
-    {
-        for (int i = 0; i < steps; i++)
+        private static void GoToRight(Robot robot, int steps)
         {
-            robot.MoveTo(Direction.Right);
-        }
-    }
-
-    private static void MoveDown(Robot robot)
-    {
-        robot.MoveTo(Direction.Down);
-    }
-
-    private static void MoveHorizontally(Robot robot, bool toRight)
-    {
-        int steps = robot.GetWidth() - 2; // Убедитесь, что Вы получаете ширину корректно
-        for (int i = 0; i < steps; i++)
-        {
-            if (toRight)
+            for (var i = 0; i < steps; i++)
                 robot.MoveTo(Direction.Right);
-            else
+        }
+
+        private static void GoToDown(Robot robot)
+        {
+            for (var i = 0; i < 2; i++)
+                robot.MoveTo(Direction.Down);
+        }
+
+        private static void GoToLeft(Robot robot, int steps)
+        {
+            for (var i = 0; i < steps; i++)
                 robot.MoveTo(Direction.Left);
         }
-    }
-
-    private static void MoveToExit(Robot robot)
-    {
-        for (int i = 0; i < robot.GetHeight() - 2; i++)
-            robot.MoveTo(Direction.Down);
     }
 }
