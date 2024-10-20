@@ -6,6 +6,6 @@ public static class AngryBirdsTask
 {
     public static double FindSightAngle(double v, double distance)
     {
-        return Math.PI / 4;
+        return 0.5 * Math.Asin(distance * 9.8 / (v * v));
     }
 }
