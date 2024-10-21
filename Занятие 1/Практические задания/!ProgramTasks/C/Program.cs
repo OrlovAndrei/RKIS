@@ -5,10 +5,10 @@
         static void Main(string[] args)
         {
             double pi = Math.PI;
-            long tenThousand = 10000L;
-            double tenThousandPi = pi * tenThousand;
-            double roundedTenThousandPi = tenThousandPi;
-            double integerPartOfTenThousandPi = tenThousandPi;
+            int tenThousand = 10000;
+            float tenThousandPi = (float)(pi * tenThousand);
+            int roundedTenThousandPi = (int)Math.Round(tenThousandPi);
+            int integerPartOfTenThousandPi = (int)tenThousandPi;
             Console.WriteLine(integerPartOfTenThousandPi);
             Console.WriteLine(roundedTenThousandPi);
         }
