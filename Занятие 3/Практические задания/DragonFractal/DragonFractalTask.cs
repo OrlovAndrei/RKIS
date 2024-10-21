@@ -1,29 +1,43 @@
 ﻿using System;
 
-namespace Fractals;
 
-internal static class DragonFractalTask
+namespace Fractals
 {
-    public static void DrawDragonFractal(Pixels pixels, int iterationsCount, int seed)
+    internal static class DragonFractalTask
     {
-        /*
-        Начните с точки (1, 0)
-        Создайте генератор рандомных чисел с сидом seed
-        
-        На каждой итерации:
+        public static double GetXCoordinates(double x, double y, double angle)
+        {
+            return (x * Math.Cos(angle) - y * Math.Sin(angle)) / Math.Sqrt(2);
+        }
 
-        1. Выберите случайно одно из следующих преобразований и примените его к текущей точке:
+        public static double GetYCoordinates(double x, double y, double angle)
+        {
+            return (x * Math.Sin(angle) + y * Math.Cos(angle)) / Math.Sqrt(2);
+        }
 
-            Преобразование 1. (поворот на 45° и сжатие в sqrt(2) раз):
-            x' = (x · cos(45°) - y · sin(45°)) / sqrt(2)
-            y' = (x · sin(45°) + y · cos(45°)) / sqrt(2)
+        public static void DrawDragonFractal(Pixels pixels, int iterationsCount, int seed)
+        {
+            var x = 1.0;
+            var y = 0.0;
+            var initRandom = new Random(seed);
 
-            Преобразование 2. (поворот на 135°, сжатие в sqrt(2) раз, сдвиг по X на единицу):
-            x' = (x · cos(135°) - y · sin(135°)) / sqrt(2) + 1
-            y' = (x · sin(135°) + y · cos(135°)) / sqrt(2)
-    
-        2. Нарисуйте текущую точку методом pixels.SetPixel(x, y)
-
-        */
+            for (int i = 0; i < iterationsCount; ++i)
+            {
+                var oldX = x;
+                // Transformation A
+                if (initRandom.Next(2) == 0)
+                {
+                    x = GetXCoordinates(x, y, Math.PI / 4);
+                    y = GetYCoordinates(oldX, y, Math.PI / 4);
+                }
+                // Transformation B
+                else
+                {
+                    x = GetXCoordinates(x, y, Math.PI * 3 / 4) + 1;
+                    y = GetYCoordinates(oldX, y, Math.PI * 3 / 4);
+                }
+                pixels.SetPixel(x, y);
+            }
+        }
     }
 }

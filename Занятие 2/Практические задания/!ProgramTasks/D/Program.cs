@@ -1,6 +1,4 @@
-﻿using static System.Net.Mime.MediaTypeNames;
-
-namespace D
+﻿namespace D
 {
     internal class Program
     {
@@ -39,7 +37,7 @@ namespace D
 
         public static bool ShouldFire2(bool enemyInFront, string enemyName, int robotHealth)
         {
-            return enemyInFront && (...);
+            return enemyInFront && (enemyName != "boss" || robotHealth >= 50);
         }
     }
 }
