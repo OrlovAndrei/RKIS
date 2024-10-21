@@ -8,4 +8,12 @@
             Console.Write(arg1.ToInt() + "42".ToInt()); // 100542
         }
     }
+
+    public static class StringEx
+    {
+        public static int ToInt(this string str)
+        {
+            return int.Parse(str);
+        }
+    }
 }
