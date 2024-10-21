@@ -27,7 +27,7 @@ namespace RefactorMe
             y = y1;
         }
 
-        public static void ChangePosition(double lenght, double ucorner)
+        public static void ChangePosition(double lenght, double corner)
         {
             x = (float)(x + lenght * Math.Cos(corner)); 
             y = (float)(y + lenght * Math.Sin(corner));
@@ -36,7 +36,7 @@ namespace RefactorMe
     
     public class ImpossibleSquare
     {
-    public static void Draw(int width, int height, double cornerPovorota, IGraphics graphics)
+    public static void Draw(int width, int height, double angle, IGraphics graphics)
     {
         var drawer = new Risovatel();
         Risovatel.Initialization(graphics);
@@ -50,7 +50,7 @@ namespace RefactorMe
         DrawSide(size, Math.PI);
         DrawSide(size, Math.PI / 2);
     }
-    private static void DrawSide(Risovatel drawer, float size, double angel)
+    private static void DrawSide(Risovatel drawer, float size, double angle)
     {
             var pen1 = new Pen(Brushes.Blue);
             var pen2 = new Pen(Brushes.White);
