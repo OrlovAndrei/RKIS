@@ -5,9 +5,9 @@
         private static string GetGreetingMessage(string name, double salary)
         {
             // возвращает "Hello, <name>, your salary is <salary>"
-            ...
+            return "Hello, " + name + ", your salary is " + (int)Math.Ceiling(salary);
         }
-
+        
         static void Main(string[] args)
         {
             Console.WriteLine(GetGreetingMessage("Student", 10.01));
