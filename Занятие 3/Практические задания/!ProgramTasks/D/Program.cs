@@ -13,22 +13,23 @@
 
         private static void WriteBoard(int size)
         {
-            for (int i = 0; i < size; i++)
+            for (int row = 0; row < size; row++)
             {
-                if (int j = 0; j < size; j++)
+                for (int col = 0; col < size; col++)
                 {
-                    if ((i + j) % 2 == 0 )
+
+                    if ((row + col) % 2 == 0)
                     {
-                        Console.WriteLine("#");
+                        Console.Write("#");
                     }
                     else
                     {
-                        Console.WriteLine(".");
+                        Console.Write(".");
                     }
                 }
-                Console.WriteLine();
+                Console.WriteLine();  
             }
-            Cosole.WriteLine();
+            Console.WriteLine();  
         }
     }
 }
