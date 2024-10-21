@@ -1,24 +1,32 @@
-﻿namespace A
+namespace B
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            Console.WriteLine(GetMinPowerOfTwoLargerThan(2) == 4);
-            Console.WriteLine(GetMinPowerOfTwoLargerThan(15) == 16);
-            Console.WriteLine(GetMinPowerOfTwoLargerThan(-2) == 1);
-            Console.WriteLine(GetMinPowerOfTwoLargerThan(-100) == 1);
-            Console.WriteLine(GetMinPowerOfTwoLargerThan(100) == 128);
+            Console.WriteLine(RemoveStartSpaces("a"));
+            Console.WriteLine(RemoveStartSpaces(" b"));
+            Console.WriteLine(RemoveStartSpaces(" cd"));
+            Console.WriteLine(RemoveStartSpaces(" efg"));
+            Console.WriteLine(RemoveStartSpaces(" text"));
+            Console.WriteLine(RemoveStartSpaces(" two words"));
+            Console.WriteLine(RemoveStartSpaces("  two spaces"));
+            Console.WriteLine(RemoveStartSpaces("	tabs"));
+            Console.WriteLine(RemoveStartSpaces("		two tabs"));
+            Console.WriteLine(RemoveStartSpaces("                             many spaces"));
+            Console.WriteLine(RemoveStartSpaces("               "));
+            Console.WriteLine(RemoveStartSpaces("\n\r line breaks are spaces too"));
         }
 
-        private static int GetMinPowerOfTwoLargerThan(int number)
+        public static string RemoveStartSpaces(string text)
         {
-            int result = 1;
-            while (result <= number)
+            var check = 1;
+            while (check < text.Length && char.IsWhiteSpace(text[check]))
             {
-                result *= 2;
+                check++;
             }
-            return result;
+            return text.Substring(check);
+                
         }
     }
 }
