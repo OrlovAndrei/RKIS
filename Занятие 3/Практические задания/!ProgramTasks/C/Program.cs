@@ -13,6 +13,11 @@
 
         private static void WriteTextWithBorder(string text)
         {
+                           int textLength = text.Length + 2;  
+            string border = new string('-', textLength);
+            Console.WriteLine($"+{border}+");
+            Console.WriteLine($"| {text} |");
+            Console.WriteLine($"+{border}+");
         }
     }
 }
