@@ -30,7 +30,37 @@
 
         public static GameResult GetGameResult(Mark[,] field)
         {
-            ...
+                        bool crossWin = CheckWin(field, Mark.Cross);
+            bool circleWin = CheckWin(field, Mark.Circle);
+            if (crossWin && circleWin) return GameResult.Draw;
+            if (crossWin) return GameResult.CrossWin;
+            if (circleWin) return GameResult.CircleWin;
+            bool isDraw = true;
+            foreach (var mark in field)
+            {
+                if (mark == Mark.Empty)
+                {
+                    isDraw = false;
+                    break;
+                }
+            }
+            return isDraw ? GameResult.Draw : GameResult.Draw;
+        }
+
+        private static bool CheckWin(Mark[,] field, Mark mark)
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                if (field[i, 0] == mark && field[i, 1] == mark && field[i, 2] == mark) return true;
+            }
+            for (int i = 0; i < 3; i++)
+            {
+                if (field[0, i] == mark && field[1, i] == mark && field[2, i] == mark) return true;
+            }
+            if (field[0, 0] == mark && field[1, 1] == mark && field[2, 2] == mark) return true;
+            if (field[0, 2] == mark && field[1, 1] == mark && field[2, 0] == mark) return true;
+
+            return false;
         }
 
         private static void Run(string description)
