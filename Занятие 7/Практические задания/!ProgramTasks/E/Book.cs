@@ -16,11 +16,6 @@
             }
             return this.Title.CompareTo(other.Title);
         }
-
-        public override string ToString()
-        {
-            return $"Theme: {Theme}, Title: {Title}";
-        }
     }
 }
 
