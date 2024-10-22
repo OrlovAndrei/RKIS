@@ -10,13 +10,13 @@
             Print(true, "a", 1);
         }
 
-        public static void Print(...)
+        public static void Print(params object[] args)
         {
-            for (var i = 0; i < ...)
+            for (var i = 0; i < args.Length; i++)
             {
                 if (i > 0)
                     Console.Write(", ");
-                Console.Write(...);
+                Console.Write(args[i]);
             }
             Console.WriteLine();
         }
