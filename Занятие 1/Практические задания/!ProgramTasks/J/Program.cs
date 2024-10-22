@@ -1,4 +1,4 @@
-﻿namespace J
+namespace J
 {
     internal class Program
     {
