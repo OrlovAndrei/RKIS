@@ -9,4 +9,4 @@
             Console.WriteLine(number + 1);
         }
     }
-}
+} 
