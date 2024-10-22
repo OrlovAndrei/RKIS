@@ -8,5 +8,14 @@
             Console.WriteLine(Min(new[] { "B", "A", "C", "D" }));
             Console.WriteLine(Min(new[] { '4', '2', '7' }));
         }
+
+        static T Min<T>(T[] array) where T : IComparable<T> {
+            T min = array[0];
+            foreach (T t in array) {
+                if (t.CompareTo(min) < 0)
+                    min = t;
+            }
+            return min;
+        }
     }
 }
