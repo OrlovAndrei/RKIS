@@ -7,7 +7,7 @@ namespace RefactorMe
     class Risovatel
     {
         static float x, y;
-        static IGraphics grafika;
+        static IGraphics Graphics;
 
         public static void Initialization ( IGraphics novayaGrafika )
         {
