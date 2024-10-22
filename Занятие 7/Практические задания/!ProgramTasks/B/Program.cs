@@ -15,6 +15,33 @@
             Print(Combine(ints, strings));
         }
 
+        static Array Combine(params Array[] arrays) {
+            if (arrays.Length == 0) return null;
+
+            Type elementType = arrays[0].GetType().GetElementType();
+
+            foreach (var array in arrays) {
+                if (array.GetType().GetElementType() != elementType) {
+                    return null;
+                }
+            }
+
+            int totalLength = 0;
+
+            foreach (var array in arrays) {
+                totalLength += array.Length;
+            }
+
+            Array resultArray = Array.CreateInstance(elementType, totalLength);
+            int offset = 0;
+
+            foreach (var array in arrays) {
+                array.CopyTo(resultArray, offset);
+                offset += array.Length;
+            }
+            return resultArray;
+        }
+
         static void Print(Array array)
         {
             if (array == null)
