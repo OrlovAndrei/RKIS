@@ -23,7 +23,7 @@
 
         public override string ToString()
         {
-            return $"{A} {B} {C}";
+            return $"({A}) ({B}) ({C})";
         }
     }
 }
