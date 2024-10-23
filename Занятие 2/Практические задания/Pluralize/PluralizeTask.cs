@@ -10,19 +10,19 @@ namespace Pluralize
             int lastTwoDigits = count % 100;
             if (lastTwoDigits >= 11 && lastTwoDigits <= 14)
             {
-                return $"{count} рублей"; 
+                return $"рублей"; 
             }
             else if (lastDigit == 1)
             {
-                return $"{count} рубль"; 
+                return $"рубль"; 
             }
             else if (lastDigit >= 2 && lastDigit <= 4)
             {
-                return $"{count} рубля"; 
+                return $"рубля"; 
             }
             else
             {
-                return $"{count} рублей";
+                return $"рублей";
             }
         }
     }
