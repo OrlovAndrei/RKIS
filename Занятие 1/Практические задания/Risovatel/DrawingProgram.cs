@@ -1,75 +1,90 @@
 ﻿using System;
 using Avalonia.Media;
+using RefactorMe.Common;
 
 namespace RefactorMe
 {
     class Painter
     {
-        private static float currentX, currentY;
-        private static IGraphics graphics;
+        static float x, y;
+        static IGraphics? graphic;
 
-        private const float SquareSideRatio = 0.375f;
-        private const float LineThickness = 0.04f;
-
-        public static void Initialize(IGraphics newGraphics)
+        public static void Initialization(IGraphics NewGraphic)
         {
-            graphics = newGraphics;
-            graphics.Clear(Colors.Black);
+            graphic = NewGraphic;
+            //grafika.SmoothingMode = SmoothingMode.None;
+            graphic.Clear(Colors.Black);
         }
 
-        public static void SetPosition(float x, float y)
+        public static void set_position(float x0, float y0)
+        { x = x0; y = y0; }
+
+        public static void makeIt(Pen pen, double lenght, double angle)
         {
-            currentX = x;
-            currentY = y;
+            //Делает шаг длиной dlina в направлении ugol и рисует пройденную траекторию
+            var x1 = (float)(x + lenght * Math.Cos(angle));
+            var y1 = (float)(y + lenght * Math.Sin(angle));
+            graphic.DrawLine(pen, x, y, x1, y1);
+            x = x1;
+            y = y1;
         }
 
-        public static void DrawLine(Pen pen, double length, double angle)
+        public static void Change(double lenght, double angle)
         {
-            var xEnd = (float)(currentX + length * Math.Cos(angle));
-            var yEnd = (float)(currentY + length * Math.Sin(angle));
-            graphics.DrawLine(pen, currentX, currentY, xEnd, yEnd);
-            currentX = xEnd;
-            currentY = yEnd;
-        }
-
-        public static void ChangePosition(double length, double angle)
-        {
-            currentX += (float)(length * Math.Cos(angle));
-            currentY += (float)(length * Math.Sin(angle));
+            x = (float)(x + lenght * Math.Cos(angle));
+            y = (float)(y + lenght * Math.Sin(angle));
         }
     }
 
     public class ImpossibleSquare
     {
-        public static void Draw(int width, int height, double rotationAngle, IGraphics graphics)
+        public static void Draw(int width, int height, double turnangle, IGraphics graphic)
         {
-            Painter.Initialize(graphics);
+            // ugolPovorota пока не используется, но будет использоваться в будущем
+            Painter.Initialization(graphic);
 
-            var squareSize = Math.Min(width, height);
-            var diagonalLength = Math.Sqrt(2) * (squareSize * SquareSideRatio + squareSize * LineThickness) / 2;
-            var centerX = width / 2f;
-            var centerY = height / 2f;
+            var sz = Math.Min(width, height);
 
-            var startX = (float)(diagonalLength * Math.Cos(Math.PI / 4 + Math.PI)) + centerX;
-            var startY = (float)(diagonalLength * Math.Sin(Math.PI / 4 + Math.PI)) + centerY;
+            var diagonal_length = Math.Sqrt(2) * (sz * 0.375f + sz * 0.04f) / 2;
+            var x0 = (float)(diagonal_length * Math.Cos(Math.PI / 4 + Math.PI)) + width / 2f;
+            var y0 = (float)(diagonal_length * Math.Sin(Math.PI / 4 + Math.PI)) + height / 2f;
 
-            Painter.SetPosition(startX, startY);
+            Painter.set_position(x0, y0);
+            //Рисуем 1-ую сторону
+            Painter.makeIt(new Pen(Brushes.Yellow), sz * 0.375f, 0);
+            Painter.makeIt(new Pen(Brushes.Yellow), sz * 0.04f * Math.Sqrt(2), Math.PI / 4);
+            Painter.makeIt(new Pen(Brushes.Yellow), sz * 0.375f, Math.PI);
+            Painter.makeIt(new Pen(Brushes.Yellow), sz * 0.375f - sz * 0.04f, Math.PI / 2);
 
-            for (int i = 0; i < 4; i++)
-            {
-                DrawSquareSide(squareSize, i * Math.PI / 2);
-            }
-        }
+            Painter.Change(sz * 0.04f, -Math.PI);
+            Painter.Change(sz * 0.04f * Math.Sqrt(2), 3 * Math.PI / 4);
 
-        private static void DrawSquareSide(int size, double startAngle)
-        {
-            Painter.DrawLine(new Pen(Brushes.Yellow), size * SquareSideRatio, startAngle);
-            Painter.DrawLine(new Pen(Brushes.Yellow), size * LineThickness * Math.Sqrt(2), startAngle + Math.PI / 4);
-            Painter.DrawLine(new Pen(Brushes.Yellow), size * SquareSideRatio, startAngle + Math.PI);
-            Painter.DrawLine(new Pen(Brushes.Yellow), size * SquareSideRatio - size * LineThickness, startAngle + Math.PI / 2);
+            //Рисуем 2-ую сторону
+            Painter.makeIt(new Pen(Brushes.Yellow), sz * 0.375f, -Math.PI / 2);
+            Painter.makeIt(new Pen(Brushes.Yellow), sz * 0.04f * Math.Sqrt(2), -Math.PI / 2 + Math.PI / 4);
+            Painter.makeIt(new Pen(Brushes.Yellow), sz * 0.375f, -Math.PI / 2 + Math.PI);
+            Painter.makeIt(new Pen(Brushes.Yellow), sz * 0.375f - sz * 0.04f, -Math.PI / 2 + Math.PI / 2);
 
-            Painter.ChangePosition(size * LineThickness, startAngle + Math.PI);
-            Painter.ChangePosition(size * LineThickness * Math.Sqrt(2), startAngle + 3 * Math.PI / 4);
+            Painter.Change(sz * 0.04f, -Math.PI / 2 - Math.PI);
+            Painter.Change(sz * 0.04f * Math.Sqrt(2), -Math.PI / 2 + 3 * Math.PI / 4);
+
+            //Рисуем 3-ю сторону
+            Painter.makeIt(new Pen(Brushes.Yellow), sz * 0.375f, Math.PI);
+            Painter.makeIt(new Pen(Brushes.Yellow), sz * 0.04f * Math.Sqrt(2), Math.PI + Math.PI / 4);
+            Painter.makeIt(new Pen(Brushes.Yellow), sz * 0.375f, Math.PI + Math.PI);
+            Painter.makeIt(new Pen(Brushes.Yellow), sz * 0.375f - sz * 0.04f, Math.PI + Math.PI / 2);
+
+            Painter.Change(sz * 0.04f, Math.PI - Math.PI);
+            Painter.Change(sz * 0.04f * Math.Sqrt(2), Math.PI + 3 * Math.PI / 4);
+
+            //Рисуем 4-ую сторону
+            Painter.makeIt(new Pen(Brushes.Yellow), sz * 0.375f, Math.PI / 2);
+            Painter.makeIt(new Pen(Brushes.Yellow), sz * 0.04f * Math.Sqrt(2), Math.PI / 2 + Math.PI / 4);
+            Painter.makeIt(new Pen(Brushes.Yellow), sz * 0.375f, Math.PI / 2 + Math.PI);
+            Painter.makeIt(new Pen(Brushes.Yellow), sz * 0.375f - sz * 0.04f, Math.PI / 2 + Math.PI / 2);
+
+            Painter.Change(sz * 0.04f, Math.PI / 2 - Math.PI);
+            Painter.Change(sz * 0.04f * Math.Sqrt(2), Math.PI / 2 + 3 * Math.PI / 4);
         }
     }
 }
