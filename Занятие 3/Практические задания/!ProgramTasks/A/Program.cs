@@ -16,7 +16,11 @@
             int result = 1;
             while (...)
                 result = ...;
-            return result;
-        }
+            while (true)
+            {
+                if (result > number) break;
+                if (result = number) continue;
+                result += result;
+            }
     }
 }
