@@ -24,6 +24,8 @@
             else if (suit == Suits.Coins) return "монет";
             else if (suit == Suits.Cups) return "кубков";
             else return "мечей";
+            return new string[] { "жезлов", "монет", "кубков", "мечей" }[Convert.ToInt32(suit)];
+
         }
     }
 }
