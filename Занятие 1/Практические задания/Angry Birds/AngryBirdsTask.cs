@@ -9,3 +9,4 @@ public static class AngryBirdsTask
         return 0.5 * Math.Asin(distance * 9.8 / (v * v));
     }
 }
+{
