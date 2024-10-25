@@ -19,7 +19,7 @@ namespace Percentages
 
         private static double Calculate(double money, double percent, double months)
         {
-            return Math.Pow(1 + (percent / 10) / 90, months);
+            return Math.Pow(1 + (percent / 12) / 100, months);
         }
     }
 }
