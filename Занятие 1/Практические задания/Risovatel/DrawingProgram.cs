@@ -9,7 +9,7 @@ namespace RefactorMe
         static float x, y;
         static IGraphics graphic;
 
-        public static void Initialization ( IGraphics novayaGraphic )
+        public static void Initialization (IGraphics newGraphic)
         {
             graphic = newGraphic;
             //grafika.SmoothingMode = SmoothingMode.None;
@@ -55,7 +55,7 @@ namespace RefactorMe
             DrawSide(drawer, Size, Math.PI);
             DrawSide(drawer, Size, Math.PI / 2);
         }
-        private static void DrawSide(Risovatel drawer, float Size, double Angle)
+        private static void DrawSide(Risovatel drawer, float size, double angle)
         {
             var pen1 = new Pen(Brushes.Blue);
             var pen2 = new Pen(Brushes.White);
