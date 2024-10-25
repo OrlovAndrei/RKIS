@@ -13,4 +13,4 @@ public static class BilliardsTask
         //TODO
         return 2 * wallInclinationRadians - directionRadians;
     }
-}
+
