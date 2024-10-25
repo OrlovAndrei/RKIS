@@ -4,19 +4,24 @@ public class Rectangle
 {
     public readonly int Left, Top, Width, Height;
 
-    public Rectangle(int left, int top, int width, int height)
+    public static int IndexOfInnerRectangle(Rectangle r1, Rectangle r2)
     {
-        Left = left;
-        Top = top;
-        Width = width;
-        Height = height;
+        if (r1.Left >= r2.Left &&
+            r1.Right <= r2.Right &&
+            r1.Top >= r2.Top &&
+            r1.Bottom <= r2.Bottom)
+        {
+            return 0;
+        }
+ 
+        else if
+            (r1.Left <= r2.Left &&
+            r1.Right >= r2.Right &&
+            r1.Top <= r2.Top &&
+            r1.Bottom >= r2.Bottom)
+        {
+            return 1;
+        }
+ 
+        return -1;
     }
-
-    public int Bottom => Top + Height;
-    public int Right => Left + Width;
-
-    public override string ToString()
-    {
-        return $"Left: {Left}, Top: {Top}, Width: {Width}, Height: {Height}";
-    }
-}
