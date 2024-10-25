@@ -4,7 +4,7 @@ namespace A
 {
     internal class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
             var city = new City();
             city.Name = "Novorossiysk";
@@ -16,5 +16,17 @@ namespace A
                 city.Location.Longitude.ToString(CultureInfo.InvariantCulture),
                 city.Location.Latitude.ToString(CultureInfo.InvariantCulture));
         }
+
+        class GeoLocation
+        {
+            public double Latitude;
+            public double Longitude;
+        }
+        class City
+        {
+            public GeoLocation Location;
+            public string Name;
+        }
+
     }
 }
