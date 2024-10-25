@@ -30,4 +30,4 @@ internal static class DragonFractalTask
             }
             pixels.SetPixel(x, y);
         }
-    }
+    
