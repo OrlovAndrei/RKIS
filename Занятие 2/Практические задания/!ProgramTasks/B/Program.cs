@@ -3,13 +3,14 @@
     internal class Program
     {
         static void Main(string[] args)
-        {
-            TestMove("a1", "d4");
-            TestMove("f4", "e7");
-            TestMove("a1", "a4");
-        }
-
-        public static void TestMove(string from, string to)
+        {   num1 = +5.5e-2;
+            num2 = 7.8f;
+            num3 = 0;
+            num4 = 2000000000000L;
+            double num1 = +5.5e-2;
+            float num2 = 7.8f;
+            int num3 = 0;
+            long num4 = 2000000000000L;
         {
             Console.WriteLine("{0}-{1} {2}", from, to, IsCorrectMove(from, to));
         }
