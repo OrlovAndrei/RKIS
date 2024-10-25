@@ -4,7 +4,7 @@
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Первый шаг!") 
+            Console.WriteLine("Первый шаг!")
         }
     }
 }
