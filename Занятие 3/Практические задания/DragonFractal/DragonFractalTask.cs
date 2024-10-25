@@ -25,5 +25,36 @@ internal static class DragonFractalTask
         2. Нарисуйте текущую точку методом pixels.SetPixel(x, y)
 
         */
+        double x = 1;
+        double y = 0;
+
+        var random = new Random(seed);
+
+        for (int i = 0; i < iterationsCount; i++)
+        {
+            int z = random.Next(2);
+
+            if (z == 0)
+            {
+                double sin45 = Math.Sin(Math.PI / 4);
+                double cos45 = Math.Cos(Math.PI / 4);
+                var y2 = (x * sin45 + y * cos45) / Math.Sqrt(2);
+                var x2 = (x * cos45 - y * sin45) / Math.Sqrt(2);
+
+                y = y2;
+                x = x2;
+            }
+            else
+            {
+                double sin135 = Math.Sin(3 * Math.PI / 4);
+                double cos135 = Math.Cos(3 * Math.PI / 4);
+                var y2 = (x * sin135 + y * cos135) / Math.Sqrt(2);
+                var x2 = (x * cos135 - y * sin135) / Math.Sqrt(2) + 1;
+
+                x = x2;
+                y = y2;
+            }
+            pixels.SetPixel(x, y);
+        }
     }
 }
