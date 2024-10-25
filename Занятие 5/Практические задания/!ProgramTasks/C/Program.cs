@@ -4,7 +4,11 @@
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
+            Console.WriteLine(ReplaceIncorrectSeparators("Hello, World!"));
+        }
+        public static string ReplaceIncorrectSeparators(string text)
+        {
+            return String.Join('\t', text.Split(new char[] { ' ', ':', '-', ',', ';' }));
         }
     }
 }
