@@ -9,12 +9,12 @@ namespace D
             Console.WriteLine(FindSubarrayStartIndex(new[] { 1, 2, 4, 1, 2 }, new[] { 1, 2 }));
         }
 
-        public static int FindSubarrayStartIndex(int[] array, int[] subArray)
+        public static bool ContainsAtIndex(int[] array, int[] subArray, int index)
         {
-            for (var i = 0; i < array.Length - subArray.Length + 1; i++)
-                if (ContainsAtIndex(array, subArray, i))
-                    return i;
-            return -1;
+            foreach (int element in subArray)
+                if (array[index] != element) return false;
+                else index++;
+            return true;
         }
     }
 }
