@@ -1,11 +1,13 @@
-﻿namespace G
+﻿using System;
+
+namespace G
 {
     internal class Program
     {
         private static string GetGreetingMessage(string name, double salary)
         {
-            // возвращает "Hello, <name>, your salary is <salary>"
-            ...
+            // Формируем сообщение с использованием интерполяции строк
+            return $"Hello, {name}, your salary is {salary:F2}"; // Ограничиваем вывод зарплаты до 2 знаков после запятой
         }
 
         static void Main(string[] args)
