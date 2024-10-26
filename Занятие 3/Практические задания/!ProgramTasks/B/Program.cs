@@ -20,7 +20,7 @@
 
         public static string RemoveStartSpaces(string text)
         {
-             int index = 0;
+            int index = 0;
             while (index < text.Length && char.isWhiteSpace(text[index])) {
                 index++;
             }
