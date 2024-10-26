@@ -41,6 +41,11 @@ namespace Mazes
                 Y + dys[(int)dir]));
         }
 
+        internal bool CanMove(Direction direction)
+        {
+            throw new NotImplementedException();
+        }
+
         private void TryMoveTo(Point destination)
         {
             if (path.Count > 1000 || maze.IsWall(destination))
