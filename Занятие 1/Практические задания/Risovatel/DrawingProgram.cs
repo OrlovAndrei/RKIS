@@ -1,90 +1,75 @@
 ﻿using System;
 using Avalonia.Media;
-using RefactorMe.Common;
 
 namespace RefactorMe
 {
-    class Risovatel
+    class Painter
     {
-        static float x, y;
-        static IGraphics grafika;
+        private static float currentX, currentY;
+        private static IGraphics graphics;
 
-        public static void Initialization ( IGraphics novayaGrafika )
+        private const float SquareSideRatio = 0.375f;
+        private const float LineThickness = 0.04f;
+
+        public static void Initialize(IGraphics newGraphics)
         {
-            grafika = novayaGrafika;
-            //grafika.SmoothingMode = SmoothingMode.None;
-            grafika.Clear(Colors.Black);
+            graphics = newGraphics;
+            graphics.Clear(Colors.Black);
         }
 
-        public static void set_position(float x0, float y0)
-        {x = x0; y = y0;}
-
-        public static void makeIt(Pen ruchka, double dlina, double ugol)
+        public static void SetPosition(float x, float y)
         {
-        //Делает шаг длиной dlina в направлении ugol и рисует пройденную траекторию
-        var x1 = (float)(x + dlina * Math.Cos(ugol));
-        var y1 = (float)(y + dlina * Math.Sin(ugol));
-        grafika.DrawLine(ruchka, x, y, x1, y1);
-        x = x1;
-        y = y1;
+            currentX = x;
+            currentY = y;
         }
 
-        public static void Change(double dlina, double ugol)
+        public static void DrawLine(Pen pen, double length, double angle)
         {
-            x = (float)(x + dlina * Math.Cos(ugol)); 
-           y = (float)(y + dlina * Math.Sin(ugol));
-           }
+            var xEnd = (float)(currentX + length * Math.Cos(angle));
+            var yEnd = (float)(currentY + length * Math.Sin(angle));
+            graphics.DrawLine(pen, currentX, currentY, xEnd, yEnd);
+            currentX = xEnd;
+            currentY = yEnd;
+        }
+
+        public static void ChangePosition(double length, double angle)
+        {
+            currentX += (float)(length * Math.Cos(angle));
+            currentY += (float)(length * Math.Sin(angle));
+        }
     }
-    
+
     public class ImpossibleSquare
-{
-    public static void Draw(int shirina, int visota, double ugolPovorota, IGraphics grafika)
     {
-        // ugolPovorota пока не используется, но будет использоваться в будущем
-        Risovatel.Initialization(grafika);
+        public static void Draw(int width, int height, double rotationAngle, IGraphics graphics)
+        {
+            Painter.Initialize(graphics);
 
-        var sz = Math.Min(shirina, visota);
+            var squareSize = Math.Min(width, height);
+            var diagonalLength = Math.Sqrt(2) * (squareSize * SquareSideRatio + squareSize * LineThickness) / 2;
+            var centerX = width / 2f;
+            var centerY = height / 2f;
 
-        var diagonal_length = Math.Sqrt(2) * (sz * 0.375f + sz * 0.04f) / 2;
-        var x0 = (float)(diagonal_length * Math.Cos(Math.PI / 4 + Math.PI)) + shirina / 2f;
-        var y0 = (float)(diagonal_length * Math.Sin(Math.PI / 4 + Math.PI)) + visota / 2f;
+            var startX = (float)(diagonalLength * Math.Cos(Math.PI / 4 + Math.PI)) + centerX;
+            var startY = (float)(diagonalLength * Math.Sin(Math.PI / 4 + Math.PI)) + centerY;
 
-        Risovatel.set_position(x0, y0);
-        //Рисуем 1-ую сторону
-        Risovatel.makeIt(new Pen(Brushes.Yellow), sz * 0.375f, 0);
-        Risovatel.makeIt(new Pen(Brushes.Yellow), sz * 0.04f * Math.Sqrt(2), Math.PI / 4);
-        Risovatel.makeIt(new Pen(Brushes.Yellow), sz * 0.375f, Math.PI);
-        Risovatel.makeIt(new Pen(Brushes.Yellow), sz * 0.375f - sz * 0.04f, Math.PI / 2);
+            Painter.SetPosition(startX, startY);
 
-        Risovatel.Change(sz * 0.04f, -Math.PI);
-        Risovatel.Change(sz * 0.04f * Math.Sqrt(2), 3 * Math.PI / 4);
+            for (int i = 0; i < 4; i++)
+            {
+                DrawSquareSide(squareSize, i * Math.PI / 2);
+            }
+        }
 
-        //Рисуем 2-ую сторону
-        Risovatel.makeIt(new Pen(Brushes.Yellow), sz * 0.375f, -Math.PI / 2);
-        Risovatel.makeIt(new Pen(Brushes.Yellow), sz * 0.04f * Math.Sqrt(2), -Math.PI / 2 + Math.PI / 4);
-        Risovatel.makeIt(new Pen(Brushes.Yellow), sz * 0.375f, -Math.PI / 2 + Math.PI);
-        Risovatel.makeIt(new Pen(Brushes.Yellow), sz * 0.375f - sz * 0.04f, -Math.PI / 2 + Math.PI / 2);
+        private static void DrawSquareSide(int size, double startAngle)
+        {
+            Painter.DrawLine(new Pen(Brushes.Yellow), size * SquareSideRatio, startAngle);
+            Painter.DrawLine(new Pen(Brushes.Yellow), size * LineThickness * Math.Sqrt(2), startAngle + Math.PI / 4);
+            Painter.DrawLine(new Pen(Brushes.Yellow), size * SquareSideRatio, startAngle + Math.PI);
+            Painter.DrawLine(new Pen(Brushes.Yellow), size * SquareSideRatio - size * LineThickness, startAngle + Math.PI / 2);
 
-        Risovatel.Change(sz * 0.04f, -Math.PI / 2 - Math.PI);
-        Risovatel.Change(sz * 0.04f * Math.Sqrt(2), -Math.PI / 2 + 3 * Math.PI / 4);
-
-        //Рисуем 3-ю сторону
-        Risovatel.makeIt(new Pen(Brushes.Yellow), sz * 0.375f, Math.PI);
-        Risovatel.makeIt(new Pen(Brushes.Yellow), sz * 0.04f * Math.Sqrt(2), Math.PI + Math.PI / 4);
-        Risovatel.makeIt(new Pen(Brushes.Yellow), sz * 0.375f, Math.PI + Math.PI);
-        Risovatel.makeIt(new Pen(Brushes.Yellow), sz * 0.375f - sz * 0.04f, Math.PI + Math.PI / 2);
-
-        Risovatel.Change(sz * 0.04f, Math.PI - Math.PI);
-        Risovatel.Change(sz * 0.04f * Math.Sqrt(2), Math.PI + 3 * Math.PI / 4);
-
-        //Рисуем 4-ую сторону
-        Risovatel.makeIt(new Pen(Brushes.Yellow), sz * 0.375f, Math.PI / 2);
-        Risovatel.makeIt(new Pen(Brushes.Yellow), sz * 0.04f * Math.Sqrt(2), Math.PI / 2 + Math.PI / 4);
-        Risovatel.makeIt(new Pen(Brushes.Yellow), sz * 0.375f, Math.PI / 2 + Math.PI);
-        Risovatel.makeIt(new Pen(Brushes.Yellow), sz * 0.375f - sz * 0.04f, Math.PI / 2 + Math.PI / 2);
-
-        Risovatel.Change(sz * 0.04f, Math.PI / 2 - Math.PI);
-        Risovatel.Change(sz * 0.04f * Math.Sqrt(2), Math.PI / 2 + 3 * Math.PI / 4);
+            Painter.ChangePosition(size * LineThickness, startAngle + Math.PI);
+            Painter.ChangePosition(size * LineThickness * Math.Sqrt(2), startAngle + 3 * Math.PI / 4);
+        }
     }
-}
 }
