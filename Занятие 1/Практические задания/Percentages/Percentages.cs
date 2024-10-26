@@ -4,10 +4,10 @@ public class Program
 {
     public static void Main(string[] args)
     {
-        Console.WriteLine("Введите исходную сумму, процентную ставку и срок вклада через пробел:");
+        Console.WriteLine("Р’РІРµРґРёС‚Рµ РёСЃС…РѕРґРЅСѓСЋ СЃСѓРјРјСѓ, РїСЂРѕС†РµРЅС‚РЅСѓСЋ СЃС‚Р°РІРєСѓ Рё СЃСЂРѕРє РІРєР»Р°РґР° С‡РµСЂРµР· РїСЂРѕР±РµР»:");
         string input = Console.ReadLine();
         double result = Calculate(input);
-        Console.WriteLine($"Накопленная сумма: {result}");
+        Console.WriteLine($"РќР°РєРѕРїР»РµРЅРЅР°СЏ СЃСѓРјРјР°: {result}");
     }
 
     public static double Calculate(string input)
