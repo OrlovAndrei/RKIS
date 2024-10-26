@@ -1,4 +1,4 @@
-﻿namespace C
+namespace C
 {
     internal class Program
     {
@@ -6,9 +6,9 @@
         {
             double pi = Math.PI;
             long tenThousand = 10000L;
-            float tenThousandPi = (float)pi * tenThousand;
-            int roundedTenThousandPi = Math.Round(tenThousandPi);
-            int integerPartOfTenThousandPi = (int)Math.Floor(tenThousandPi);
+            double tenThousandPi = pi * tenThousand;
+            double roundedTenThousandPi = Math.Round(tenThousandPi);
+            int integerPartOfTenThousandPi = (int)(tenThousandPi);
             Console.WriteLine(integerPartOfTenThousandPi);
             Console.WriteLine(roundedTenThousandPi);
         }
