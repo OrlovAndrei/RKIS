@@ -1,5 +1,4 @@
 ﻿using static System.Net.Mime.MediaTypeNames;
-
 namespace D
 {
     internal class Program
@@ -13,12 +12,10 @@ namespace D
             Test(true, "bot", 90);
             Test(false, "bot", 100000);
         }
-
         public static void Test(bool enemyInFront, string enemyName, int robotHealth)
         {
             Console.WriteLine(ShouldFire(enemyInFront, enemyName, robotHealth) == ShouldFire2(enemyInFront, enemyName, robotHealth));
         }
-
         public static bool ShouldFire(bool enemyInFront, string enemyName, int robotHealth)
         {
             bool shouldFire = true;
@@ -39,7 +36,8 @@ namespace D
 
         public static bool ShouldFire2(bool enemyInFront, string enemyName, int robotHealth)
         {
-            return enemyInFront && (enemyName == "boss" ? robotHealth >= 50 && robotHealth <= 100 : true);
+            return enemyInFront && (...);
+            return enemyInFront && (enemyName == "boss") && (robotHealth >= 50) || enemyInFront && enemyName != "boss";
         }
     }
 }
