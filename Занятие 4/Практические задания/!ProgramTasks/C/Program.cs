@@ -9,13 +9,10 @@
 
         public static int GetElementCount(int[] items, int itemToCount)
         {
-             int count = 0;
-            foreach (var item in collection)
-            {
-                if (item == itemToCount) {
-                    count++;
-                }
-                return count;
+            int count = 0;
+            foreach (var e in items)
+                if (e == itemToFind) count++;
+            return count;
         }
     }
 }
