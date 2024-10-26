@@ -1,4 +1,6 @@
-﻿namespace A
+
+﻿using System;
+namespace A
 {
     internal class Program
     {
@@ -14,8 +16,8 @@
         private static int GetMinPowerOfTwoLargerThan(int number)
         {
             int result = 1;
-            while (...)
-                result = ...;
+            while (result <= number)
+                result *= 2;
             return result;
         }
     }
