@@ -14,8 +14,8 @@
         private static int GetMinPowerOfTwoLargerThan(int number)
         {
             int result = 1;
-            while (...)
-                result = ...;
+            whwhile(result <= number)
+                result = result * 2;
             return result;
         }
     }
