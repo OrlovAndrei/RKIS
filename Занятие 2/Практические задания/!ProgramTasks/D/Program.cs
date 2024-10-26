@@ -1,4 +1,6 @@
-﻿using static System.Net.Mime.MediaTypeNames;
+
+﻿
+using System;
 
 namespace D
 {
@@ -6,12 +8,12 @@ namespace D
     {
         static void Main(string[] args)
         {
-            Test(true, "boss", 150);
-            Test(true, "boss", 30);
-            Test(true, "boss", 70);
-            Test(false, "boss", 14);
-            Test(true, "bot", 90);
-            Test(false, "bot", 100000);
+            Test(true, "boss", 150); 
+            Test(true, "boss", 30); 
+            Test(true, "boss", 70);  
+            Test(false, "boss", 14);  
+            Test(true, "bot", 90);    
+            Test(false, "bot", 100000); 
         }
 
         public static void Test(bool enemyInFront, string enemyName, int robotHealth)
@@ -21,25 +23,24 @@ namespace D
 
         public static bool ShouldFire(bool enemyInFront, string enemyName, int robotHealth)
         {
-            bool shouldFire = true;
-            if (enemyInFront == true)
+            if (!enemyInFront)
             {
-                if (enemyName == "boss")
-                {
-                    if (robotHealth < 50) shouldFire = false;
-                    if (robotHealth > 100) shouldFire = true;
-                }
+                return false; 
             }
-            else
+
+            if (enemyName == "boss")
             {
-                return false;
+                if (robotHealth < 50) return false; 
+                if (robotHealth > 100) return true; 
             }
-            return shouldFire;
+
+            return false;
         }
 
         public static bool ShouldFire2(bool enemyInFront, string enemyName, int robotHealth)
         {
-            return enemyInFront && (...);
+            return enemyInFront && (enemyName != "boss" || robotHealth > 50);
+            //я не понимаю почему код упорно выдает True на 14. Я уже не знаю, что с ним сделать:(
         }
     }
 }
