@@ -1,10 +1,10 @@
-﻿using System;
-
-public class Percentages
+﻿public static double Calculate(string userInput)
 {
-    static void Main(string[] args)
-    {
-        int InitialAmount = Console.Read();
-    }
+    string[] values = userInput.Split(' ');
 
+    var sum = double.Parse(values[0]);
+    var rank = double.Parse(values[1]);
+    var deposit = double.Parse(values[2]);
+
+    return (sum * (Math.Pow(1 + rank / 1200, deposit)));
 }
