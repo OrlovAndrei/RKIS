@@ -10,7 +10,6 @@
             Console.WriteLine(GetMinPowerOfTwoLargerThan(-100) == 1);
             Console.WriteLine(GetMinPowerOfTwoLargerThan(100) == 128);
         }
-
         private static int GetMinPowerOfTwoLargerThan(int number)
         {
             int result = 1;
@@ -22,6 +21,6 @@
                 if (result = number) continue;
                 result += result;
             }
+            return result;
         }
     }
-}

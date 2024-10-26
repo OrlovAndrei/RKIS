@@ -24,14 +24,14 @@
                     Console.Write(symbol);
                 }
 
-                Console.WriteLine("#.#.#.#.");
+                Console.WriteLine("#.#.2.#.");
                 Console.WriteLine(".#.#.#.#");
                 Console.WriteLine("#.#.#.#.");
-                Console.WriteLine(".#.#.#.#");
+                Console.WriteLine(".#.#.#.1");
+                Console.WriteLine("#.#.#.#.");
+                Console.WriteLine(".5.#.#.#");
                 Console.WriteLine("#.#.#.#.");
                 Console.WriteLine(".#.#.#.#");
-                Console.WriteLine("22222222");
-                Console.WriteLine("1 1 1 1 ");
                 if (size % 2 != 0)
                 {
                     if (symbol == "#") symbol = ".";
@@ -43,4 +43,3 @@
             Console.WriteLine();
         }
     }
-}
