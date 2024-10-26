@@ -30,8 +30,8 @@
                 Console.WriteLine(".#.#.#.#");
                 Console.WriteLine("#.#.#.#.");
                 Console.WriteLine(".#.#.#.#");
-                Console.WriteLine("#.#.#.#.");
-                Console.WriteLine(".#.#.#.#");
+                Console.WriteLine("22222222");
+                Console.WriteLine("1 1 1 1 ");
                 if (size % 2 != 0)
                 {
                     if (symbol == "#") symbol = ".";
