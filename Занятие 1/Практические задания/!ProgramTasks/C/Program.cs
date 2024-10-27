@@ -12,6 +12,7 @@
             int integerPartOfTenThousandPi = (int)tenThousandPi;
             Console.WriteLine(integerPartOfTenThousandPi);
             Console.WriteLine(roundedTenThousandPi);
+
         }
 
     }
