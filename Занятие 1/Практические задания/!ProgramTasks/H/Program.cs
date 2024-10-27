@@ -13,6 +13,7 @@
         static void Print(int a)
         {
             Console.WriteLine(a.ToString());
+
         }
     }
 }
