@@ -14,15 +14,6 @@
         private static void WriteBoard(int size)
         {
 
-            Console.WriteLine("#.#.#.#.");
-            Console.WriteLine(".#.#.#.#");
-            Console.WriteLine("#.#.#.#.");
-            Console.WriteLine(".#.#.#.#");
-            Console.WriteLine("#.#.#.#.");
-            Console.WriteLine(".#.#.#.#");
-            Console.WriteLine("#.#.#.#.");
-            Console.WriteLine(".#.#.#.#");
-            Console.WriteLine();
              for (int row = 0; row < size; row++)
             {
                 for (int col = 0; col < size; col++)
