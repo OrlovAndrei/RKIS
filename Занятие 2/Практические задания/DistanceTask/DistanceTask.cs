@@ -25,6 +25,7 @@ public static class DistanceTask
         else if (scalarAMAB < 0 || scalarMBAB < 0)
         {
             return Math.Min(am, mb);
+
         }
         else return 0;
     }
