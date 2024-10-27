@@ -10,16 +10,7 @@ namespace Fractals.UI
 
 public partial class MainWindow : Window
 {
-   public MainWindow()
-        {
-             InitializeComponent();
-            Opened += (_, __) =>
-            {
-                ShowImageInWindow(CreateImage());
-            };
-        }
 
-                    private static Bitmap CreateImage()
         {
             var pixels = new Pixels();
             var image = new Bitmap(800, 800, PixelFormat.Format24bppRgb);
@@ -28,8 +19,8 @@ public partial class MainWindow : Window
 
             }
 
-        DragonFractalTask.DrawDragonFractal(pixels, 100000, 123456);
-        pixels.DrawToBitmap(image);
+            DragonFractalTask.DrawDragonFractal(pixels, 100000, 123456);
+            pixels.DrawToBitmap(image);
     }
 
                    return image;
