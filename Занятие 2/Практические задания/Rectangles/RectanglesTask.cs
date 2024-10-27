@@ -33,7 +33,6 @@ public static class RectanglesTask
         return 0;
     }
 
-	    @@ -22,6 + 39,17 @@ public static int IntersectionSquare(Rectangle r1, Rectangle r2)
         // Если прямоугольники совпадают, можно вернуть номер любого из них.
         public static int IndexOfInnerRectangle(Rectangle r1, Rectangle r2)
     {
