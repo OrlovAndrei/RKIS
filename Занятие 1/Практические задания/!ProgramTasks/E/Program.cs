@@ -7,6 +7,7 @@
             string doubleNumber = "894376.243643";
             double number = (double)decimal.Parse(doubleNumber); // Вася уверен, что ошибка где-то тут
             Console.WriteLine(number + 1);
+
         }
     }
 }
