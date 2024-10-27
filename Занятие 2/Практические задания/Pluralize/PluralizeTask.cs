@@ -10,5 +10,6 @@ public static class PluralizeTask
         else if (numberRemainders10 >= 2 && numberRemainders10 <= 4 && numberRemainders100 != 12 && numberRemainders100 != 13 && numberRemainders100 != 14) return "руб.";
         return "руб.";
         else return "рублей";
+
     }
 }
