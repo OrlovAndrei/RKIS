@@ -25,6 +25,7 @@
                 text = text.Substring(1);
             }
             return text;
+
         }
     }
 }
