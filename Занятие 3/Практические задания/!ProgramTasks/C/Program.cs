@@ -22,6 +22,7 @@
             }
             string bottomFrame = topFrame;
             Console.WriteLine(topFrame + "\n" + middleFrame + "\n" + bottomFrame);
+
         }
     }
 }
