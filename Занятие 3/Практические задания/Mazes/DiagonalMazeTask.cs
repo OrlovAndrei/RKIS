@@ -32,6 +32,7 @@
             {
                 RobotMoveVertical(robot, (height - 3) / (width - 2), Direction.Down);
                 if (i != (width - 3)) RobotMoveHorizontal(robot, 1, Direction.Right);
+
             }
         }
     }
