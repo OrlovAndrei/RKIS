@@ -12,6 +12,7 @@
             Console.WriteLine(GetGreetingMessage("Student", 10.01));
             Console.WriteLine(GetGreetingMessage("Bill Gates", 10000000.5));
             Console.WriteLine(GetGreetingMessage("Steve Jobs", 1));
+
         }
     }
 }
