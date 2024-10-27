@@ -19,6 +19,7 @@
                 if (result > number) break;
                 if (result = number) continue;
                 result += result;
+
             }
     }
 }
