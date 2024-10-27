@@ -1,9 +1,8 @@
-﻿namespace Mazes;
+﻿﻿namespace Mazes;
 
 public static class EmptyMazeTask
 {
-{
-public static void MoveOut(Robot robot, int width, int height)
+	public static void MoveOut(Robot robot, int width, int height)
 	{
         for (int i = 0; robot.Finished != true; i++)
         {
@@ -19,6 +18,4 @@ public static void MoveOut(Robot robot, int width, int height)
     {
         if (i < height - 3) robot.MoveTo(Direction.Down);
     }
-}
-	
 }
