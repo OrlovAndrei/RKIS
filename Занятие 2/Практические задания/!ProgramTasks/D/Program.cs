@@ -35,6 +35,7 @@ namespace D
                 return false;
             }
             return shouldFire;
+
         }
 
         public static bool ShouldFire2(bool enemyInFront, string enemyName, int robotHealth)
