@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 
-namespace Fractals;
-
+namespace Fractals
 public class Pixels
 {
         public readonly List<Tuple<double, double>> PixelsSet;
