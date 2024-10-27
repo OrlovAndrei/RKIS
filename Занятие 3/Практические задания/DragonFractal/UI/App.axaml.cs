@@ -6,12 +6,11 @@ namespace Fractals.UI
 
 public partial class App : Application
 {
-    public public override void Initialize()
     {
         AvaloniaXamlLoader.Load(this);
     }
 
-    public override void OnFrameworkInitializationCompleted()
+    public public override void Initialize()
     {
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
