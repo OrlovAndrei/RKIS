@@ -10,6 +10,7 @@ public static class PluralizeTask
 		int lastDigit = count % 10;
         int lastTwoDigits = count % 100;
 
+
         if (lastDigit == 1 && lastTwoDigits != 11)
         {
             return "рубль";
