@@ -19,5 +19,6 @@ class Percentages
         Console.WriteLine("¬ведите исходную сумму, процентную ставку (в процентах) и срок вклада в мес€цах (через пробел): ");
         string UserInput = Console.ReadLine();
         Console.WriteLine(Calculate(UserInput));
+
     }
 }
