@@ -12,6 +12,7 @@
             Console.WriteLine(num2);
             Console.WriteLine(num3);
             Console.WriteLine(num4);
+
         }
     }
 }
