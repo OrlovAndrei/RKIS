@@ -1,43 +1,41 @@
-﻿namespace B
-{
+﻿using System;
+
 namespace B
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            var records = new List<string>
-            {
+            var contacts = new List<string>
+                 {
+                "Sasha:sasha1995@sasha.ru",
                 "Alex:alex99@mail.ru",
                 "Shurik:shurik2020@google.com",
             };
 
-            var emailDictionary = new Dictionary<string, HashSet<string>>();
+            var emailDictionary = new Dictionary<string, List<string>>();
 
-            foreach (var record in records)
+            foreach (var contact in contacts)
             {
-                var parts = record.Split(':');
+                var parts = contact.Split(':');
                 var name = parts[0];
                 var email = parts[1];
 
-                var key = name.Substring(0, 2).ToUpper();
+                var key = name.Substring(0, 2);
 
                 if (!emailDictionary.ContainsKey(key))
                 {
-                    emailDictionary[key] = new HashSet<string>();
+                    emailDictionary[key] = new List<string>();
                 }
+
                 emailDictionary[key].Add(email);
             }
 
-            foreach (var kvp in emailDictionary)
+            foreach (var key in emailDictionary.Keys)
             {
-                Console.WriteLine($"Key: {kvp.Key} -> Values: {string.Join(", ", kvp.Value)}");
-        {
+                Console.WriteLine($"Key: {key} -> Value: {string.Join(", ", emailDictionary[key])}");
+            }
         }
-     internal class Program
-    {
-        static void Main(string[] args)
-        {
-        }
+
     }
 }
