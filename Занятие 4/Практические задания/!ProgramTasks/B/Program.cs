@@ -2,8 +2,23 @@
  {
         static void Main(string[] args)
         {
-             double num1 = +5.5e-2;
-             float num2 = 7.8f;
-             int num3 = 0;
-             long num4 = 2000000000000L;
+            Console.WriteLine(MaxIndex(new[] { 1.0, .2, 100, 2e+10 }));
         }
+
+        static double Min(double[] array)
+
+        public static int MaxIndex(double[] array)
+        {
+            if (array.Length == 0) return -1;
+            var max = double.MinValue;
+            int res = 0;
+            for (var i = 0; i < array.Length; i++)
+                if (array[i] > max)
+                {
+                    max = array[i];
+                    res = i;
+                }
+            return res;
+        }
+    }
+}
