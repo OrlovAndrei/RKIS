@@ -1,8 +1,18 @@
-﻿1 Балл
+namespace G
+{
+    internal class Program
+    {
+        private static string GetGreetingMessage(string name, double salary)
+        {
+            // возвращает "Hello, <name>, your salary is <salary>"
+            ...
+            // возвращает "Hello, <name>, your salary is <salary>.
+            {
+                return $"Hello, {name}, your salary is {Math.Ceiling(salary)}.";
+            }
+        }
 
-Вася до завтра должен написать важную подпрограмму для Доброго Работодателя. 
-Оставалось дописать всего один метод, когда Вася от переутомления крепчайше заснул.
-
-Напишите метод, который принимает на вход имя и зарплату и возвращает строку вида: Hello, <Name>, your salary is <Salary>.
-
-Но так как Работодатель Добр, он всегда округляет зарплату до ближайшего целого числа вверх.
+        static void Main(string[] args)
+            Console.WriteLine(GetGreetingMessage("Steve Jobs", 1));
+        }
+    }
