@@ -1,34 +1,44 @@
 using System;
- 
+
 namespace Names
 {
     internal static class HeatmapTask
     {
-        public static string[] NomerDayGet(NameData[] names)
-        {
-            var nomerDayArr = new string[30];
-            for (int i = 0; i<30; i++)
-                nomerDayArr[i] = (i+2).ToString();
-            return nomerDayArr;
-        }
-        
-        public static string[] NomerMounthGet(NameData[] names)
-        {
-            var nomerMounthArr = new string[12];
-            for (int i = 0; i<12; i++)
-                {nomerMounthArr[i] = (i+1).ToString();}        
-            return nomerMounthArr;
-        }
-        
         public static HeatmapData GetBirthsPerDateHeatmap(NameData[] names)
         {
-            string[] mounth = NomerMounthGet(names);
-            string[] day = NomerDayGet(names);
-            double[,] mounthDay  = new double[30, 12];
-            foreach (var mname in names)
-                if (mname.BirthDate.Day !=1)
-                    mounthDay[mname.BirthDate.Day-2, mname.BirthDate.Month-1]++;
-            return new HeatmapData("Пример карты интенсивностей", mounthDay, day, mounth);
+            const int minimumDay = 2;
+            const int maximumDay = 31;
+            const int minimumMonth = 1;
+            const int maximumMonth = 12;
+
+            // Подготовка подписей по оси X (дни месяца от 2 до 31)
+            var days = new string[maximumDay - minimumDay + 1];
+            for (var i = 0; i < days.Length; i++)
+            {
+                days[i] = (i + minimumDay).ToString();
+            }
+
+            // Подготовка подписей по оси Y (месяцы от 1 до 12)
+            var months = new string[maximumMonth];
+            for (var i = 0; i < months.Length; i++)
+            {
+                months[i] = (i + minimumMonth).ToString();
+            }
+
+            // Инициализация двумерного массива для подсчета рождения в зависимости от дня и месяца
+            var birthCounts = new double[days.Length, months.Length];
+
+            // Подсчет количества рождений
+            foreach (var name in names)
+            {
+                // Учитываются только дни, начиная с 2-го
+                if (name.BirthDate.Day >= minimumDay)
+                {
+                    birthCounts[name.BirthDate.Day - minimumDay, name.BirthDate.Month - minimumMonth]++;
+                }
+            }
+
+            return new HeatmapData("Карта интенсивностей рождаемости", birthCounts, days, months);
         }
     }
 }
