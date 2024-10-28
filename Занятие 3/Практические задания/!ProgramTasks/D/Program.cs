@@ -1,6 +1,16 @@
 ﻿namespace D
- {
-double amount = 1.11; //количество биткоинов от одного человека
-int peopleCount = 60; // количество человек
-int totalMoney = (int)amount * peopleCount; // ← исправьте ошибку в этой строке
-int totalMoney = (int)Math.Round(amount*peopleCount); // ← исправьте ошибку в этой строке
+ private static void WriteBoard(int size)
+        {
+            var sharp = "#";
+            var dot = ".";
+            for (int с = 1; с <= size; с++)
+            {
+                for (int с2 = 1; с2 <= size; с2++)
+                {
+                    Console.Write((с2 + с) % 2 == 0 ? sharp : dot);
+                }
+                Console.WriteLine();
+            }
+            Console.WriteLine();
+        }
+    }
