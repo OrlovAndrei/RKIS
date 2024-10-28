@@ -1,8 +1,20 @@
-﻿1 Балл
+namespace H
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        public static void Main()
+        {
+            Print(GetSquare(42));
+	        Print(GetSquare(42));
+        }
+       static void Print(int number)
+        {
+	        Console.WriteLine(number);
+        }
 
-Многие знают, что ответ на главный вопрос жизни, вселенной и всего такого — 42. 
-Но Вася хочет большего! Он желает знать квадрат этого числа!
-
-Вы разделили с Васей работу — он написал главный метод Main, а вам осталось лишь дописать методы Print и GetSquare.
-
-Создайте два метода Print и GetSquare, так, чтобы код заработал.
+        static int GetSquare(int number)
+        {
+	        return (int)Math.Pow(number, 2);	// Math.Pow = number * number
+        }
+    }
