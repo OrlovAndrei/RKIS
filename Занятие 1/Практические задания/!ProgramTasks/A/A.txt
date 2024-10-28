@@ -1,5 +1,9 @@
-﻿1 Балл
-
-Любая, даже самая сложная дорога, начинается с первого шага.
-
-Выведите на консоль фразу The first step!
+@@ -4,7 +4,7 @@ internal class Program
+    {
+        static void Main(string[] args)
+        {
+            // пишите код тут
+            Consele.WriteLine ("The first step");
+        }
+    }
+}
