@@ -1,7 +1,11 @@
 @@ -4,7 +4,7 @@ Программа внутреннего класса
-    {
-        static void Main(строка[] аргументы)
+    private static int GetMinPowerOfTwoLargerThan(int number)
         {
-            Console.WriteLine("первый шаг!");
+            int result = 1;
+            while (...)
+                result = ...;
+            while (result <= number)
+                result = result * 2;
+            return result;
         }
     }
