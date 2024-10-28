@@ -1,5 +1,5 @@
 using System;
- 
+
 namespace DistanceTask
 {
     public static class DistanceTask
@@ -7,23 +7,37 @@ namespace DistanceTask
         // Расстояние от точки (x, y) до отрезка AB с координатами A(ax, ay), B(bx, by)
         public static double GetDistanceToSegment(double ax, double ay, double bx, double by, double x, double y)
         {
-            double ak = Math.Sqrt(((x - ax)*(x - ax))+((y-ay)*(y-ay)));
-            double kb = Math.Sqrt(((x - bx)*(x - bx))+((y-by)*(y-by)));
-            double ab = Math.Sqrt(((ax - bx)*(ax - bx))+((ay-by)*(ay-by)));
-            
-            if(x >= ax && x <= bx && ab != 0 )
-            {
-                
-                double p = (ak + kb + ab)/2;
-                double s = Math.Sqrt((p*(p - ak)*(p - kb)*(p - ab)));
-                
-                return (2 * s)/ab;
-            }
-            
-            else if((x <= ax || x >= bx) && ab != 0)
-            {
-                return Math.Min(ak,kb);
-            }else return 0;
+            double abx = bx - ax;
+            double aby = by - ay;
+
+            double apx = x - ax;
+            double apy = y - ay;
+
+            double bpx = x - bx;
+            double bpy = y - by;
+
+            double ab2 = abx * abx + aby * aby; // Квадрат длины отрезка AB
+            double ap_ab = apx * abx + apy * aby; // Проекция AP на AB
+
+            if (ab2 == 0) // A и B совпадают
+                return Math.Sqrt(apx * apx + apy * apy); // Расстояние до точки A
+
+            double t = ap_ab / ab2;
+
+            if (t < 0) // Проекция за пределами A
+                return Math.Sqrt(apx * apx + apy * apy); // Расстояние до точки A
+            else if (t > 1) // Проекция за пределами B
+                return Math.Sqrt(bpx * bpx + bpy * bpy); // Расстояние до точки B
+
+            // Проекция на отрезок
+            double projx = ax + t * abx;
+            double projy = ay + t * aby;
+
+            // Расстояние до проекции
+            double dx = projx - x;
+            double dy = projy - y;
+
+            return Math.Sqrt(dx * dx + dy * dy);
         }
     }
 }
