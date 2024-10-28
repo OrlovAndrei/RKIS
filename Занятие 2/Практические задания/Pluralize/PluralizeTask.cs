@@ -1,9 +1,24 @@
-public static void Main(string[] args)
+﻿namespace Pluralize
 {
-    int n = int.Parse(Console.ReadLine());
-    string s = "рублей";
-    if (n % 10 == 1) s = "рубль";
-    if (n % 10 >= 2 && n % 10 <= 4) s = "рубля";
-    Console.WriteLine("{0} {1}", n, s);
-    Console.ReadKey();
+    public static class PluralizeTask
+    {
+        public static string PluralizeRubles(int count)
+        {
+            int lastDigit = count % 10;
+            int lastTwoDigits = count % 100;
+
+            if (lastDigit == 1 && lastTwoDigits != 11)
+            {
+                return "рубль";
+            }
+            else if (lastDigit >= 2 && lastDigit <= 4 && (lastTwoDigits < 12 || lastTwoDigits > 14))
+            {
+                return "рубля";
+            }
+            else
+            {
+                return "рублей";
+            }
+        }
+    }
 }
