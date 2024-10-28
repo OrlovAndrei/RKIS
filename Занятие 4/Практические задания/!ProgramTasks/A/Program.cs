@@ -1,7 +1,13 @@
 ﻿namespace A
  {
-        static void Main(string[] args)
+ public static int[] GetFirstEvenNumbers(int count)
         {
-            Console.WriteLine("first step!");
+            int[] nums = new int[count];
+            for (int i = 0; i < count; i++)
+            {
+                nums[i] = (i + 1) * 2;
+            }
+            return nums;
+        }
+
     }
-}
