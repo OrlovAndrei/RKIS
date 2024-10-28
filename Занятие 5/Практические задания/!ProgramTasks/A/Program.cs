@@ -1,37 +1,24 @@
-﻿namespace A
+namespace A
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+
 namespace A
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            var records = new List<string>
-            {
-                "Alex:alex99@mail.ru",
-                "Shurik:shurik2020@google.com",
-            };
+            string text = @"решИла нЕ Упрощать и зашифРОВАтЬ Все послаНИЕ
+                            дАже не Старайся нИЧЕГО у тЕбя нЕ получится с расшифРОВкой
+                            Сдавайся НЕ твоего ума Ты не споСОбЕн Но может быть
+                            если особенно упорно подойдешь к делу
+                            будет Трудно конечнО
+                            Код ведЬ не из простых
+                            очень ХОРОШИЙ код
+                            то у тебя все получится
+                            и я буДу Писать тЕбЕ еще
+                            чао";}
+    }
+}
 
-            var emailDictionary = new Dictionary<string, HashSet<string>>();
-
-            foreach (var record in records)
-            {
-                var parts = record.Split(':');
-                var name = parts[0];
-                var email = parts[1];
-
-                var key = name.Substring(0, 2).ToUpper();
-
-                if (!emailDictionary.ContainsKey(key))
-                {
-                    emailDictionary[key] = new HashSet<string>();
-                }
-                emailDictionary[key].Add(email);
-            }
-
-            foreach (var kvp in emailDictionary)
-            {
-                Console.WriteLine($"Key: {kvp.Key} -> Values: {string.Join(", ", kvp.Value)}");
-        {
-        }
