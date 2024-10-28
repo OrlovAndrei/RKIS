@@ -16,30 +16,8 @@ namespace D
 
         public static void Test(bool enemyInFront, string enemyName, int robotHealth)
         {
-            Console.WriteLine(ShouldFire(enemyInFront, enemyName, robotHealth) == ShouldFire2(enemyInFront, enemyName, robotHealth));
-        }
-
-        public static bool ShouldFire(bool enemyInFront, string enemyName, int robotHealth)
-        {
-            bool shouldFire = true;
-            if (enemyInFront == true)
-            {
-                if (enemyName == "boss")
-                {
-                    if (robotHealth < 50) shouldFire = false;
-                    if (robotHealth > 100) shouldFire = true;
-                }
-            }
-            else
-            {
-                return false;
-            }
-            return shouldFire;
-        }
-
-        public static bool ShouldFire2(bool enemyInFront, string enemyName, int robotHealth)
-        {
             return enemyInFront && (...);
+            return enemyInFront && (enemyName != "boss" || robotHealth >= 50);
         }
     }
 }
