@@ -2,15 +2,19 @@ namespace Billiards;
 
 public static class BilliardsTask
 {
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="directionRadians">Угол направления движения шара</param>
-    /// <param name="wallInclinationRadians">Угол</param>
-    /// <returns></returns>
     public static double BounceWall(double directionRadians, double wallInclinationRadians)
     {
         //TODO
         return 0.0;
-    }
-}
+        wallInclinationRadians += 90;
+        directionRadians += 180;
+
+        double diff = wallInclinationRadians - directionRadians;
+        double res = directionRadians + 2 * diff + 360 * 5;
+
+        res %= 360;
+        if (res > 180)
+        {
+            res -= 360;
+        }
+        return res;     

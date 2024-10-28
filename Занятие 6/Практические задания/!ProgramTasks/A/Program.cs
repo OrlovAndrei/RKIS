@@ -4,17 +4,36 @@ namespace A
 {
     internal class Program
     {
-        static void Main(string[] args)
-        {
-            var city = new City();
-            city.Name = "Novorossiysk";
-            city.Location = new GeoLocation();
-            city.Location.Latitude = 44.43;
-            city.Location.Longitude = 37.46;
-            Console.WriteLine("I love {0} located at ({1}, {2})",
-                city.Name,
-                city.Location.Longitude.ToString(CultureInfo.InvariantCulture),
-                city.Location.Latitude.ToString(CultureInfo.InvariantCulture));
-        }
-    }
-}
+              static void Main()
+        string[] commands = {
+                "push Привет! Это снова я! Пока!",
+                "pop 5",
+                "push Как твои успехи? Плохо?",
+                "push qwertyuiop",
+                "push 1234567890",
+                "pop 26"
+            };
+
+            Stack<string> stack = new Stack<string>();
+            string text = "";
+
+            foreach (var command in commands)
+            {
+                if (command.StartsWith("push"))
+                {
+                    string toPush = command.Substring(5);
+                    stack.Push(toPush);
+                    text += toPush;
+                }
+                else if (command.StartsWith("pop"))
+                {
+                    int count = int.Parse(command.Substring(4));
+                    if (text.Length >= count)
+                    {
+                        text = text.Substring(0, text.Length - count);
+                    }
+                }
+            }
+
+            Console.WriteLine("Результат:");
+            Console.WriteLine(text);

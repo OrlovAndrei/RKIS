@@ -1,6 +1,20 @@
-﻿1 Балл
+﻿namespace I
+using System.Text;
 
-Напишите тело метода так, чтобы он возвращал вторую половину строки text, из которой затем удалены пробелы. 
-Можете считать, что text всегда четной длины.
+namespace I
+{
+    internal class Program
+    {
+        static string GetLastHalf(string text)
+        {
+            ...
 
-Всю информацию о доступных методах класса String вы можете прочитать в официальной документации
+            text = text.Substring(text.Length / 2);
+            string c = text.Replace(" ", String.Empty);
+            return c;
+        }
+
+        static void Main(string[] args)
+            Console.WriteLine(GetLastHalf("до ре ми фа соль ля си"));
+        }
+    }

@@ -1,8 +1,15 @@
-﻿1 Балл
-
-Вася нашел крутое приложение на телефон. Можно фотографировать текст и преобразовывать фотографию в текстовый документ.
-
-Вася тут же сфотографировал код с экрана своего одногруппника и с сожалением обнаружил, что результат не компилируется. 
-По-видимому, некоторые символы распознались неверно.
-
-Исправьте все ошибки так, чтобы код работал правильно.
+namespace J
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine{ 'Hello, World!'};
+            var numher = 5,5;
+            Console.WriteLine("Hello, World!");
+            double number = 5.5;
+            number += 7;
+            Console.Writeline(number):
+            Console.WriteLine(number);
+        }
+    }
