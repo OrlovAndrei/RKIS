@@ -12,5 +12,15 @@ namespace Geometry
             Begin = begin;
             End = end;
         }
+        public double GetLength()
+        {
+            return Geometry.GetLength(this);
+        }
+
+        
+        public bool Contains(Vector point)
+        {
+            return Geometry.IsVectorInSegment(point, this);
+        }
     }
 }

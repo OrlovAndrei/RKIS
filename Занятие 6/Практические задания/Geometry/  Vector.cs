@@ -12,5 +12,21 @@ namespace Geometry
             X = x;
             Y = y;
         }
+        public double GetLength()
+        {
+            return Geometry.GetLength(this);
+        }
+
+         
+        public Vector Add(Vector other)
+        {
+            return Geometry.Add(this, other);
+        }
+
+         
+        public bool Belongs(Segment segment)
+        {
+            return Geometry.IsVectorInSegment(this, segment);
+        }
     }
 }
