@@ -3,10 +3,11 @@
     internal class Program
     {
        static void Main(string[] args)
-        {
-string doubleNumber = "894376.243643";
-int number = doubleNumber; // Вася уверен, что ошибка где-то тут
-double number = double.Parse(doubleNumber); // Вася уверен, что ошибка где-то тут
-Console.WriteLine(number + 1);
+            if (suit == Suits.Wands) return "жезлов";
+            else if (suit == Suits.Coins) return "монет";
+            else if (suit == Suits.Cups) return "кубков";
+            else return "мечей";
+            return new string[] { "жезлов", "монет", "кубков", "мечей" }[(int)suit];
         }
     }
+}
