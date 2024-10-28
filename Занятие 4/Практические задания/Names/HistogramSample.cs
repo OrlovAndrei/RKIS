@@ -1,37 +1,33 @@
 using System;
-using System.Linq;
- 
-namespace Names
+
+namespace Names;
+
+internal static class HistogramSample
 {
-    internal static class HistogramTask
-    {
-        public static HistogramData GetBirthsPerDayHistogram(NameData[] names, string name)
-        {
- 
-            var days = new string [31];
-            int g = 1;
-            for (int i = 0; i < days.Length; i++)
-            { 
-                string  f = Convert.ToString(g);
-                days[i] = "" + f;
-                    g++;
- 
-            }
-          
-            var birthsCounts = new double[31];
-            
-            foreach (var man in names)
-            {    
-                if (man.Name == name && man.BirthDate.Day != 1)
-                birthsCounts[man.BirthDate.Day - 1]++;
-                
-            }
-               
-           return new HistogramData(
-             string.Format("Рождаемость людей с именем '{0}'", name), 
-             days, 
-             birthsCounts);
-           
-        }
-    }
+	// Пример подготовки данных для построения графиков:
+	public static HistogramData GetHistogramBirthsByYear(NameData[] names)
+	{
+		/*
+		Подготовка данных для построения гистограммы 
+		— количества людей в выборке в зависимости от года их рождения.
+		*/
+
+		Console.WriteLine("Статистика рождаемости по годам");
+		var minYear = int.MaxValue;
+		var maxYear = int.MinValue;
+		foreach (var name in names)
+		{
+			minYear = Math.Min(minYear, name.BirthDate.Year);
+			maxYear = Math.Max(maxYear, name.BirthDate.Year);
+		}
+
+		var years = new string[maxYear - minYear + 1];
+		for (var y = 0; y < years.Length; y++)
+			years[y] = (y + minYear).ToString();
+		var birthsCounts = new double[maxYear - minYear + 1];
+		foreach (var name in names)
+			birthsCounts[name.BirthDate.Year - minYear]++;
+
+		return new HistogramData("Рождаемость по годам", years, birthsCounts);
+	}
 }
