@@ -1,4 +1,4 @@
-﻿using Avalonia.Controls;
+using Avalonia.Controls;
 using Avalonia.Media;
 using Color = Avalonia.Media.Color;
 using Pen = Avalonia.Media.Pen;
