@@ -1,12 +1,23 @@
 ﻿namespace B
 {
         static void Main(строка[] аргументы)
+          }
+
+        public static string RemoveStartSpaces(string text)
+
         {
-            ... число1 = +5.5e-2;
-            ... число2 = 7.8f;
-            ... число3 = 0;
-            ... число4 = 2000000000000L;
-            двойное число1 = +5.5e-2;
-            число с плавающей точкой num2 = 7.8f;
-             int  num3  =  0 ;
-            длинное число4 = 2000000000000L;
+            if (char.IsWhiteSpace(text[0])) return text.Substring(1);
+            else return text;
+            int y = 0;
+            while (char.IsWhiteSpace(text[y]))
+            {
+                y++;
+                if (y == text.Length)
+                {
+                    return null;
+                }
+            }
+            return text.Substring(y);
+        }
+    }
+}
