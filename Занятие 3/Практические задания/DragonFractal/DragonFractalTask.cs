@@ -1,24 +1,45 @@
-namespace
-var x = 1.0;
-var y = 0.0;
-var angle45 = Math.PI * 45 / 180;
-var angle135 = Math.PI * 135 / 180;
-var random = new Random(seed);
-for (int i = 0; i < iterationsCount; i++)
+using System;
+
+namespace Fractals
 {
-    var nextNumber = random.Next(1, 3);
-    if (nextNumber == 1)
+    internal static class DragonFractalTask
     {
-        var x1 = (x * Math.Cos(angle45) - y * Math.Sin(angle45)) / Math.Sqrt(2);
-        var y1 = (x * Math.Sin(angle45) + y * Math.Cos(angle45)) / Math.Sqrt(2);
-        x = x1; // !!!
-        y = y1; // !!!
+        public static void DrawDragonFractal(Pixels pixels, int iterationsCount, int seed)
+        {
+            // Начальная точка
+            float x = 1.0f;
+            float y = 0.0f;
+
+            // Создание генератора случайных чисел с указанным seed
+            var random = new Random(seed);
+            const double sqrt2 = Math.Sqrt(2);
+            const double angle45 = Math.PI / 4; // 45°
+            const double angle135 = 3 * Math.PI / 4; // 135°
+
+            for (int i = 0; i < iterationsCount; i++)
+            {
+                // Выбор случайного преобразования
+                int transformation = random.Next(2); // 0 или 1
+
+                if (transformation == 0)
+                {
+                    // Преобразование 1
+                    float newX = (float)((x * Math.Cos(angle45) - y * Math.Sin(angle45)) / sqrt2);
+                    float newY = (float)((x * Math.Sin(angle45) + y * Math.Cos(angle45)) / sqrt2);
+                    x = newX;
+                    y = newY;
+                }
+                else
+                {
+                    // Преобразование 2
+                    float newX = (float)((x * Math.Cos(angle135) - y * Math.Sin(angle135)) / sqrt2) + 1;
+                    float newY = (float)((x * Math.Sin(angle135) + y * Math.Cos(angle135)) / sqrt2);
+                    x = newX;
+                    y = newY;
+                }
+
+                pixels.SetPixel((int)(x * 100), (int)(y * 100)); // Умножаем на 100 для масштабирования
+            }
+        }
     }
-    if (nextNumber == 2)
-    {
-        var x1 = (x * Math.Cos(angle135) - y * Math.Sin(angle135)) / Math.Sqrt(2) + 1;
-        var y1 = (x * Math.Sin(angle135) + y * Math.Cos(angle135)) / Math.Sqrt(2);
-        x = x1; // !!!
-        y = y1; // !!!
-    }
-    pixels.SetPixel(x, y);
+}
