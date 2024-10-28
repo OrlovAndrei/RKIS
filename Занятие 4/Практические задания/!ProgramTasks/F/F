@@ -1,13 +1,4 @@
-﻿namespace F
-{
-    internal class Program
-    {
-        static void Main(string[] args)
+ public static bool CheckFirstElement(int[] array)
         {
-var a = 5; // ← исправьте эту строку
-            double a = 5; // ← исправьте эту строку
-            a += 0.5;
-            Console.WriteLine(a);
-        }
-    }
-}
+            return array != null & array.Length != 0 & array[0] == 0;
+            return array != null && array.Length != 0 & array[0] == 0;
