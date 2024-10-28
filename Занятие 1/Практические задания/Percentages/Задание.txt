@@ -1,8 +1,10 @@
-{ 
-string[] values = userInput.Split(' '); 
-double sum = Convert.ToDouble(values[0]); 
-double rate = Convert.ToDouble(values[1]); 
-double months = Convert.ToDouble(values[2]); 
+public static double Calculate(string userInput)
+        {
+            string[] values = userInput.Split(' ');
 
-return sum * Math.Pow(1 + rate / 12 / 100, months); 
-} 
+            var sum = double.Parse(values[0]);
+            var rank = double.Parse(values[1]);
+            var deposit = double.Parse(values[2]);
+
+            return (sum * (Math.Pow(1 + rank / 1200, deposit)));
+        }	
