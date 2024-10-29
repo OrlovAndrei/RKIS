@@ -1,13 +1,11 @@
 ﻿using System;
-
 namespace Fractals;
-
 internal static class DragonFractalTask
 {
     public static void DrawDragonFractal(Pixels pixels, int iterationsCount, int seed)
     {
-        float x = 1.0f;
-        float y = 0.0f;
+        double x = 1.0f;
+        double y = 0.0f;
         var random = new Random(seed);
         const double sqrt2 = Math.Sqrt(2);
         const double angle45 = Math.PI / 4;
@@ -19,15 +17,13 @@ internal static class DragonFractalTask
             {
                 float newX = (float)((x * Math.Cos(angle45) - y * Math.Sin(angle45)) / sqrt2);
                 float newY = (float)((x * Math.Sin(angle45) + y * Math.Cos(angle45)) / sqrt2);
-                x = newX;
-                y = newY;
+                x = newX; y = newY;
             }
             else
             {
                 float newX = (float)((x * Math.Cos(angle135) - y * Math.Sin(angle135)) / sqrt2) + 1;
                 float newY = (float)((x * Math.Sin(angle135) + y * Math.Cos(angle135)) / sqrt2);
-                x = newX;
-                y = newY;
+                x = newX; y = newY;
             }
 
             pixels.SetPixel((int)(x * 100), (int)(y * 100));
