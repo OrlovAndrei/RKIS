@@ -1,4 +1,4 @@
-﻿using Color = Avalonia.Media.Color;
+using Color = Avalonia.Media.Color;
 using Pen = Avalonia.Media.Pen;
 
 namespace RefactorMe.Common;
