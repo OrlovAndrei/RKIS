@@ -9,7 +9,15 @@
 
         public static int GetElementCount(int[] items, int itemToCount)
         {
-            ...
+            nt count = 0; // Переменная для хранения количества вхождений
+            foreach (var item in items) // Перебираю элементы массива
+            {
+                if (item == itemToCount) // Проверяю, совпадает ли элемент с искомым
+                {
+                    count++; // Увеличиваю счетчик
+                }
+            }
+            return count; // Возвращаю количество вхождений
         }
     }
 }
