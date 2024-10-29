@@ -1,5 +1,6 @@
-﻿namespace Names;
+﻿using System;
 
+namespace Names;
 internal static class HeatmapTask
 {
     public static HeatmapData GetBirthsPerDateHeatmap(NameData[] names)
