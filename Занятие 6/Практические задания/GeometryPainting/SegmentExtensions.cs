@@ -19,4 +19,5 @@ namespace GeometryPainting {
             }
             return Color.Black;
         }
+    }
 }
