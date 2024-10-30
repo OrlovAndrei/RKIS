@@ -1,10 +1,11 @@
-﻿namespace B
+﻿﻿namespace B
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            Console.WriteLine(MaxIndex(new[] {1.0, .2, 100, 2e+10}));
+            Console.WriteLine(MaxIndex(new[] { 1.0, .2, 100, 2e+10 }));
+            Console.WriteLine(MaxIndex(new double[] { })); // Выводит -1 для пустого массива
         }
 
         static double Min(double[] array)
