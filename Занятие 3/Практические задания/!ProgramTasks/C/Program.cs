@@ -13,6 +13,12 @@
 
         private static void WriteTextWithBorder(string text)
         {
+            string formattedText = $" {text} ";
+            int width = formattedText.Length + 2; // 2 for the border spaces
+
+            Console.WriteLine("+" + new string('-', width - 2) + "+");
+            Console.WriteLine("|" + formattedText + "|");
+            Console.WriteLine("+" + new string('-', width - 2) + "+");
         }
     }
 }
