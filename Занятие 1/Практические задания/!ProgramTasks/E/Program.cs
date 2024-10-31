@@ -1,14 +1,12 @@
-using System.Globalization;
-
-namespace E
+namespace F
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            string doubleNumber = "894376.243643";
-            double number = double.Parse(doubleNumber, CultureInfo.InvariantCulture); // ���� ������, ��� ������ ���-�� ���
-            Console.WriteLine(number + 1);
+            double a = 5; // ← исправьте эту строку
+            a += 0.5;
+            Console.WriteLine(a);
         }
     }
 }
