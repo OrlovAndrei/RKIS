@@ -20,8 +20,8 @@
 
         private static string GetSuit(Suits suit)
         {
-            string[] suitNames = { "жезлов", "монет", "кубков", "мечей"}
-            return suitNames[(int)suit] // после тех задач, эта самая легкая
+            string[] suitNames = { "жезлов", "монет", "кубков", "мечей"};
+            return suitNames[(int)suit]; // после тех задач, эта самая легкая
 
             // if (suit == Suits.Wands) return "жезлов";
             // else if (suit == Suits.Coins) return "монет";
