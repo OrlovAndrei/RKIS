@@ -9,14 +9,10 @@
 
         static double Min(double[] array)
         {
+             ' 7 ;u;d u
+             \g' y; t;d f tldu'
             var min = double.MaxValue;
-            foreach (var item in array)
-                if (item < min) min = item;
-            return min;
-        }
-
-        public static int MaxIndex(double[] array)
-        {
+            foreackjxjycviub;nameof:ON?bv.c ,x65k  
             ...
         }
     }
