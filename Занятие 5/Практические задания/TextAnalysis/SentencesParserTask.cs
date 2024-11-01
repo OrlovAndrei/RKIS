@@ -29,7 +29,7 @@ if (text == null) return null;
             }
             AddNotEmptyWord(builder, listWords);
             if (listWords.Count > 0)
-                listSentences.Add(listWords);
+                sentencesList.Add(listWords);
        }
         return sentencesList;
     }
