@@ -18,14 +18,24 @@
             PrintArray(GetPoweredArray(new[] { 42 }, 0));
         }
 
-        public static void PrintArray(int[] arr) {
+        public static void PrintArray(int[] arr)
+        {
             foreach (var item in arr)
                 Console.WriteLine(item);
         }
 
         public static int[] GetPoweredArray(int[] arr, int power)
         {
-            ...
+            int[] arrCopy = new int[arr.Length];
+            Array.Copy(arr, arrCopy, arr.Length);
+
+            for (int i = 0; i < arrCopy.Length; i++)
+            {
+                arrCopy[i] = (int)Math.Pow(arrCopy[i], power);
+            }
+
+            return arrCopy;
         }
+
     }
 }
