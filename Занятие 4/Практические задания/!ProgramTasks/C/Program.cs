@@ -10,10 +10,8 @@
         public static int GetElementCount(int[] items, int itemToCount)
         {
             int count = 0;
-            foreach (var item in items)
-            {
-                if (item == itemToCount) count++;
-            }
+            foreach (var el in items)
+                if (el == itemToCount) count++;
             return count;
         }
     }
