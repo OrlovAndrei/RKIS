@@ -18,7 +18,7 @@
 
         public static int MaxIndex(double[] array)
         {
-            if (array.Length == 0) return -1; // Проверка на пустой массив
+            if (array.Length == 0) return -1;
 
             double max = array[0];
             int firstIndex = 0;
