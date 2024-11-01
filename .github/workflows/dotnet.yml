@@ -1,0 +1,55 @@
+name: Check
+
+on:
+  pull_request:
+    branches: ["master"]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 6.0.x
+      - name: Build and restore all projects with error annotations
+        continue-on-error: true
+        run: |
+          build_failed=false
+
+          mapfile -t projects < <(find ./Занятие\ 4 ./Занятие\ 5 -name '*.csproj')
+
+          for project in "${projects[@]}"; do
+            echo "Restoring dependencies for project: \"$project\""
+            dotnet restore "$project"
+
+            echo "Building project: \"$project\""
+            build_output=$(dotnet build "$project" --no-restore  || true)
+
+            if [[ $build_output == *"error"* ]]; then
+              build_failed=true
+            fi
+
+            echo "$build_output"| awk '!seen[$0]++' | while read -r line; do
+              if [[ "$line" =~ ^(.*[a-zA-Z0-9_/.]+)\(([0-9]+),([0-9]+)\):\ error\ (.*)$ ]]; then
+                file="${BASH_REMATCH[1]}"
+                line_number="${BASH_REMATCH[2]}"
+                column_number="${BASH_REMATCH[3]}"
+                error_message="${BASH_REMATCH[4]}"
+                echo "::error file=$file,line=$line_number,col=$column_number::$error_message"
+              fi
+            done
+          done
+          echo "build_failed=$build_failed" >> $GITHUB_ENV
+          echo "$build_failed"
+          
+      - name: Check for build errors
+        if: env.build_failed == 'true'
+        run: |
+          echo "Build failed due to errors in the projects."
+          exit 1
+
+      - name: Success
+        if: env.build_failed == 'false'
+        run: echo "Build completed successfully without errors."
