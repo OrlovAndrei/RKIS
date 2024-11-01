@@ -16,7 +16,7 @@
 
         public static int MaxIndex(double[] array)
         {
-            ...
+          
             var max = double.MinValue;
             int index = -1;
 
