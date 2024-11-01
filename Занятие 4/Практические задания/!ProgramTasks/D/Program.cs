@@ -1,5 +1,4 @@
 ﻿using System;
-
 namespace D
 {
     internal class Program
@@ -8,7 +7,6 @@ namespace D
         {
             Console.WriteLine(FindSubarrayStartIndex(new[] { 1, 2, 4, 1, 2 }, new[] { 1, 2 }));
         }
-
         public static int FindSubarrayStartIndex(int[] array, int[] subArray)
         {
             for (var i = 0; i < array.Length - subArray.Length + 1; i++)
@@ -27,6 +25,5 @@ namespace D
             }
             return true;
         }
-    }
     }
 }
