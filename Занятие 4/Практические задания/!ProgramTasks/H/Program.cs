@@ -54,20 +54,19 @@
                 {
                     return true;
                 }
-            }
+            
             for (int i = 0; i < 3; i++)
             {
                 if (field[0, i] == marker && field[1, i] == marker && field[2, i] == marker)
                 {
                     return true;
                 }
+                if ((field[0, 0] == marker && field[1, 1] == marker && field[2, 2] == marker) || (field[0, 2] == marker && field[1, 1] == marker && field[2, 0] == marker))
+                {
+                    return true;
+                }
+                return false;
             }
-            if ((field[0, 0] == marker && field[1, 1] == marker && field[2, 2] == marker) ||
-                (field[0, 2] == marker && field[1, 1] == marker && field[2, 0] == marker))
-            {
-                return true;
-            }
-            return false;
         }
         private static void Run(string description)
         {
@@ -86,3 +85,4 @@
         }
     }
 }
+
