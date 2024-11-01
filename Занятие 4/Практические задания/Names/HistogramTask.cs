@@ -2,43 +2,32 @@
 {
     internal static class HistogramTask
     {
-        public static HistogramData GetHistogramBirthsPerDay(NameData[] names, string name)
+        public static HistogramData GetBirthsPerDayHistogram(NameData[] names, string name)
         {
-            // Определяем диапазон дней
-            const int minimumDay = 2;
-            int maximumDay = int.MinValue;
-
-            // Находим максимальный день рождения
-            foreach (var day in names)
+            // Инициализируем массив дней от 1 до 31
+            var days = new string[31];
+            for (int i = 0; i < days.Length; i++)
             {
-                maximumDay = Math.Max(maximumDay, day.BirthDate.Day);
+                days[i] = (i + 1).ToString(); // Корректный подход к заполнению дней
             }
 
-            // Создаем массив дней
-            var days = new string[maximumDay - minimumDay + 1];
-            for (var i = 0; i < days.Length; i++)
-            {
-                days[i] = (i + minimumDay).ToString();
-            }
+            var birthsCounts = new double[31];
 
-            // Создаем массив для подсчета рождений
-            var birthCounts = new double[maximumDay - minimumDay + 1];
-
-            // Подсчитываем рождения по дням для указанного имени
-            foreach (var day in names)
+            // Проходим по каждому имени
+            foreach (var man in names)
             {
-                if (day.Name == name && day.BirthDate.Day > 1)
+                // Учитываем только тех, кто не родился 1 числа
+                if (man.Name == name && man.BirthDate.Day != 1)
                 {
-                    birthCounts[day.BirthDate.Day - minimumDay]++;
+                    birthsCounts[man.BirthDate.Day - 1]++; // Увеличиваем счетчик для соответствующего дня
                 }
             }
 
-            // Возвращаем данные гистограммы
+            // Создаем и возвращаем объект гистограммы
             return new HistogramData(
                 string.Format("Рождаемость людей с именем '{0}'", name),
                 days,
-                birthCounts
-            );
+                birthsCounts);
         }
     }
 }
