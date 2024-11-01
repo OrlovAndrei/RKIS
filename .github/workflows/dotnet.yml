@@ -43,5 +43,5 @@ jobs:
           done
           echo "build_failed=$build_failed" >> $GITHUB_ENV
       - name: Fail if there were build errors
-        if: env.build_failed == 'true' || ${{ failure() }}
+        if: env.build_failed == 'true'
         run: exit 1
