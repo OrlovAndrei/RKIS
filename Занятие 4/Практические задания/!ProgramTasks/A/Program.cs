@@ -10,7 +10,7 @@
 
         public static int[] GetFirstEvenNumbers(int count)
         {
-            ...
+            return new int[5];
         }
 
     }

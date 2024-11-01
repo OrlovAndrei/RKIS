@@ -9,7 +9,7 @@
 
         public static int GetElementCount(int[] items, int itemToCount)
         {
-            ...
+            return 1;
         }
     }
 }

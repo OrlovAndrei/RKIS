@@ -30,7 +30,7 @@
 
         public static GameResult GetGameResult(Mark[,] field)
         {
-            ...
+            return GameResult.CrossWin;
         }
 
         private static void Run(string description)

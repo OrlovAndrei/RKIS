@@ -17,7 +17,7 @@
 
         public static int MaxIndex(double[] array)
         {
-            ...
+            return 1;
         }
     }
 }

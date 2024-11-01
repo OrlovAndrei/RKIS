@@ -25,7 +25,7 @@
 
         public static int[] GetPoweredArray(int[] arr, int power)
         {
-            ...
+            return new int[5];
         }
     }
 }
