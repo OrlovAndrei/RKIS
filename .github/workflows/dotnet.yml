@@ -42,6 +42,13 @@ jobs:
             done
           done
           echo "build_failed=$build_failed" >> $GITHUB_ENV
-      - name: Fail if there were build errors
+          
+      - name: Check for build errors
         if: env.build_failed == 'true'
-        run: exit 1
+        run: |
+          echo "Build failed due to errors in the projects."
+          exit 1
+
+      - name: Success
+        if: env.build_failed == 'false'
+        run: echo "Build completed successfully without errors."
