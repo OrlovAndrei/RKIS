@@ -1,4 +1,6 @@
-﻿namespace B
+﻿using System;
+
+namespace B
 {
     internal class Program
     {
@@ -17,7 +19,18 @@
 
         public static int MaxIndex(double[] array)
         {
-            ...
+            
+            if (array.Length == 0) return -1; //проверка на пустой массив
+
+            var max = double.MinValue;
+            var num = 0;
+            for (int i = 0; i < array.Length; i++) 
+            {
+                if (array[i] > max) 
+                        max = array[i];         
+                        num = i; 
+            }
+            return num;
         }
     }
 }
