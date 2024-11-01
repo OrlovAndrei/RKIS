@@ -1,54 +1,68 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Globalization;
+
 
 namespace TextAnalysis
 {
     static class SentencesParserTask
     {
+        static char[] endSimbol = new char[] { '.', '!', '?', ';', ':', '(', ')' };
+
+        public static readonly string[] StopWords =
+        {
+            "the", "and", "to", "a", "of", "in", "on", "at", "that",
+            "as", "but", "with", "out", "for", "up", "one", "from", "into"
+        };
+
         public static List<List<string>> ParseSentences(string text)
         {
-            var sentencesList = new List<List<string>>();
-            var sentenceSeparators = new char[] { '.', '!', '?', ';', ':', '(', ')' };
-            var sentences = text.Split(sentenceSeparators, StringSplitOptions.RemoveEmptyEntries);
+            text = text.ToLower();
+            List<List<string>> list = new List<List<string>>();
+            string[] textSeparation = text.Split(endSimbol);
 
-            foreach (var sentence in sentences)
+            foreach (var word in textSeparation)
             {
-                var words = ExtractWordsFromSentence(sentence);
-                if (words.Count > 0)
+                List<string> tempList = new List<string>();
+                var textSentence = SeparateSimbol(word);
+
+                string[] wrd = textSentence.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+
+                foreach (var VARIABLE in wrd)
                 {
-                    sentencesList.Add(words);
+                    if (BadWord(VARIABLE) && VARIABLE != "")
+                        tempList.Add(VARIABLE);
                 }
+
+                if (tempList.Count == 0) continue;
+                else list.Add(tempList);
             }
 
-            return sentencesList;
+            return list;
         }
 
-        private static List<string> ExtractWordsFromSentence(string sentence)
+
+        private static string SeparateSimbol(string word)
         {
-            var words = new List<string>();
-            var currentWord = new StringBuilder();
+            var textSentence = "";
 
-            foreach (var ch in sentence)
+            foreach (var simbol in word)
             {
-                if (char.IsLetter(ch) || ch == '\'')
-                {
-                    currentWord.Append(char.ToLower(ch));
-                }
-                else if (currentWord.Length > 0)
-                {
-                    words.Add(currentWord.ToString());
-                    currentWord.Clear();
-                }
+                if (char.IsLetter(simbol) || (simbol == '\''))
+                    textSentence = textSentence + simbol;
+                else textSentence = textSentence + ' ';
             }
+            return textSentence;
+        }
 
-            if (currentWord.Length > 0)
-            {
-                words.Add(currentWord.ToString());
-            }
 
-            return words;
+
+        public static bool BadWord(string sentence)
+        {
+            foreach (var wrd in StopWords)
+                if (wrd == sentence)
+                    return false;
+            return true;
         }
     }
 }
