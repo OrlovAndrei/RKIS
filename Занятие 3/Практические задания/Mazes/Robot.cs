@@ -33,11 +33,11 @@ public class Robot
 
     public void MoveTo(Direction dir)
     {
-        int[] dxs = {0, 0, -1, 1};
-        int[] dys = {-1, 1, 0, 0};
+        int[] dxs = { 0, 0, -1, 1 };
+        int[] dys = { -1, 1, 0, 0 };
         TryMoveTo(new Point(
-            X + dxs[(int) dir],
-            Y + dys[(int) dir]));
+            X + dxs[(int)dir],
+            Y + dys[(int)dir]));
     }
 
     private void TryMoveTo(Point destination)
