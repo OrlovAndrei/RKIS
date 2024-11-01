@@ -1,25 +1,26 @@
 ﻿namespace Names
-
-internal static class HistogramTask
 {
-    public static HistogramData GetBirthsPerDayHistogram(NameData[] names, string name)
+    internal static class HistogramTask
     {
-        var days = new string[31];
-        int g = 1;
-        for (int i = 0; i < days.Length; i++)
+        public static HistogramData GetBirthsPerDayHistogram(NameData[] names, string name)
         {
-            string f = Convert.ToString(g);
-            days[i] = "" + f;
-            g++;
-        }
-        var birthsCounts = new double[31];
-        foreach (var man in names)
-        {
-            if (man.Name == name && man.BirthDate.Day != 1)
+            var days = new string[31];
+            int g = 1;
+            for (int i = 0; i < days.Length; i++)
             {
-                birthsCounts[man.BirthDate.Day - 1]++;
+                string f = Convert.ToString(g);
+                days[i] = "" + f;
+                g++;
             }
-        }    
-        return new HistogramData(string.Format("Рождаемость людей с именем '{0}'", name),days,birthsCounts)
+            var birthsCounts = new double[31];
+            foreach (var man in names)
+            {
+                if (man.Name == name && man.BirthDate.Day != 1)
+                {
+                    birthsCounts[man.BirthDate.Day - 1]++;
+                }
+            }    
+            return new HistogramData(string.Format("Рождаемость людей с именем '{0}'", name),days,birthsCounts)
+        }
     }
-}
+ }
