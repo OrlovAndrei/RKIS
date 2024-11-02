@@ -26,7 +26,7 @@ namespace Names
                     birthCounts[(name.BirthDate.Day - minDay), (name.BirthDate.Month - minMonth)]++;
                 }
             }
-            return new HeatmapData("Карта интенсивностей рождаемости", birthCounts, days, months)
+            return new HeatmapData("Карта интенсивностей рождаемости", birthCounts, days, months);
         }
     }
 }
