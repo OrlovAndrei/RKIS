@@ -25,7 +25,10 @@
 
         public static int[] GetPoweredArray(int[] arr, int power)
         {
-            ...
+            var pow = new int[arr.Length];
+            for (int i = 0; i < arr.Length; i++)
+                pow[i] = (int)Math.Pow(arr[i], power);
+            return pow;
         }
     }
 }
