@@ -1,6 +1,6 @@
-﻿namespace TextAnalysis
+﻿namespace FrequencyAnalysisTask
 {
-    static class FrequencyAnalysisTask
+    static class TextAnalysisTask
     {
         public static Dictionary<string, string> GetMostFrequentNextWords(List<List<string>> sentences)
         {
@@ -40,8 +40,8 @@
             foreach (var entry in wordConnections)
             {
                 var mostFrequent = entry.Value
-                    .OrderByDescending(kvp => kvp.Value)
-                    .ThenBy(kvp => kvp.Key)
+                    .OrderByDescending(kvp => kvp.Value);
+                    .ThenBy(kvp => kvp.Key);
                     .First();
                 result[entry.Key] = mostFrequent.Key;
             }
