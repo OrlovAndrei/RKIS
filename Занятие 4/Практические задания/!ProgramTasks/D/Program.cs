@@ -23,6 +23,7 @@ namespace D
                 if (array[index + j] != subArray[j])
                 {
                     return false;
+
                 }
             }
             return true;
