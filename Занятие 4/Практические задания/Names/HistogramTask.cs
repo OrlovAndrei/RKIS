@@ -8,7 +8,7 @@ namespace Names
 
 		public static HistogramData GetHistogramBirthsPerDay(NameData[] names, string name)
 		{
-            var minimunDay = 2;
+            var minimumDay = 2;
             var maximumDay = int.MinValue;
             foreach (var day in names)
                 maximumDay = Math.Max(maximumDay, day.BirthDate.Day);
