@@ -17,7 +17,6 @@ namespace TextAnalysis
             {
                 string key = null;
 
-                // Проверяем, можем ли мы использовать два последних слова
                 if (phrase.Count >= 2)
                 {
                     key = $"{phrase[^2]} {phrase[^1]}"; // последние два слова
@@ -27,7 +26,6 @@ namespace TextAnalysis
                     key = phrase[^1]; // только последнее слово
                 }
 
-                // Проверяем наличие ключа в словаре
                 if (key != null && nextWords.TryGetValue(key, out var options) && options.Count > 0)
                 {
                     var nextWord = options[new Random().Next(options.Count)];
@@ -52,7 +50,6 @@ namespace TextAnalysis
     {
         static void Main()
         {
-            // Пример словаря nextWords
             var nextWords = new Dictionary<string, List<string>>
             {
                 { "привет", new List<string> { "как", "что", "зачем" } },
