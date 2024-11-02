@@ -1,6 +1,6 @@
-﻿namespace SentencesParserTask
+﻿namespace TextAnalysis
 {
-    static class TextAnalysis
+    static class SentencesParserTask
     {
         public static List<List<string>> ParseSentences(string text)
         {
