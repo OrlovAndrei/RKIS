@@ -1,40 +1,40 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace TextAnalysis
 {
     static class TextGeneratorTask
     {
         public static string ContinuePhrase(
-            Dictionary<string, List<string>> nextWords,
+            Dictionary<string, string> nextWords,
             string phraseBeginning,
             int wordsCount)
         {
-            var phrase = phraseBeginning.Split(' ').ToList();
+            var words = phraseBeginning.Split(' ');
+            var result = new List<string>(words);
 
             for (int i = 0; i < wordsCount; i++)
             {
-                string key = null;
+                string lastTwoWordsKey = null;
+                string lastWordKey = null;
 
-                if (phrase.Count >= 2)
+                if (result.Count >= 2)
                 {
-                    key = $"{phrase[^2]} {phrase[^1]}";
-                }
-                else if (phrase.Count == 1)
-                {
-                    key = phrase[^1]; 
+                    lastTwoWordsKey = result[^2] + " " + result[^1];
                 }
 
-                if (key != null && nextWords.TryGetValue(key, out var options) && options.Count > 0)
+                if (result.Count >= 1)
                 {
-                    var nextWord = options[new Random().Next(options.Count)];
-                    phrase.Add(nextWord);
+                    lastWordKey = result[^1];
                 }
-                else if (phrase.Count >= 1 && nextWords.TryGetValue(phrase[^1], out options) && options.Count > 0)
+
+                if (lastTwoWordsKey != null && nextWords.ContainsKey(lastTwoWordsKey))
                 {
-                    var nextWord = options[new Random().Next(options.Count)];
-                    phrase.Add(nextWord);
+                    result.Add(nextWords[lastTwoWordsKey]);
+                }
+                else if (lastWordKey != null && nextWords.ContainsKey(lastWordKey))
+                {
+                    result.Add(nextWords[lastWordKey]);
                 }
                 else
                 {
@@ -42,30 +42,7 @@ namespace TextAnalysis
                 }
             }
 
-            return string.Join(" ", phrase);
-        }
-    }
-
-    class Program
-    {
-        static void Main()
-        {
-            var nextWords = new Dictionary<string, List<string>>
-            {
-                { "привет", new List<string> { "как", "что", "зачем" } },
-                { "как", new List<string> { "дела", "поживаешь" } },
-                { "что", new List<string> { "нового", "происходит" } },
-                { "дела как", new List<string> { "у тебя", "у нас" } },
-                { "поживаешь", new List<string> { "хорошо", "нормально" } },
-            };
-
-            Console.Write("Введите начало фразы: ");
-            string phraseBeginning = Console.ReadLine();
-            Console.Write("Введите количество слов для дополнения: ");
-            int wordsCount = int.Parse(Console.ReadLine());
-
-            string result = TextGeneratorTask.ContinuePhrase(nextWords, phraseBeginning, wordsCount);
-            Console.WriteLine("Сгенерированная фраза: " + result);
+            return string.Join(" ", result);
         }
     }
 }
