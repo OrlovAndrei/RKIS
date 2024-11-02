@@ -55,17 +55,6 @@
                     ans[x, y] = field[x][y] == 'X' ? Mark.Cross : (field[x][y] == 'O' ? Mark.Circle : Mark.Empty);
             return ans;
         }
-        public static GameResult GetGameResult(Mark[,] field)
-        
-        {
-            bool circleWin = testWin(field, Mark.Circle);
-            bool crossWin = testWin(field, Mark.Cross);
-
-            if (circleWin == crossWin) return GameResult.Draw;
-
-            if (circleWin) return GameResult.CircleWin;
-            else return GameResult.CrossWin;
-        }
 
         public static bool testDiagonal(Mark[,] field, Mark mark)
         {
