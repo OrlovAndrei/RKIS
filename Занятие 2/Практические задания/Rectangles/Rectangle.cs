@@ -18,5 +18,6 @@ public class Rectangle
     public override string ToString()
     {
         return $"Left: {Left}, Top: {Top}, Width: {Width}, Height: {Height}";
+
     }
 }

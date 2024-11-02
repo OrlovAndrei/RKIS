@@ -38,5 +38,6 @@ public class Maze
                 .Select(c => c == '#')
                 .ToArray())
             .ToArray();
+
     }
 }
