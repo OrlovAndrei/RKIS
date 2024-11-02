@@ -10,7 +10,7 @@ namespace TextAnalysis
         {
             var sentencesList = new List<List<string>>();
 
-            if (text == null) return null;
+                if (text == null) return null;
 
             text = text.ToLower();
 
