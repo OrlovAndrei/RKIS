@@ -1,6 +1,6 @@
-﻿namespace FrequencyAnalysisTask
+﻿namespace TextAnalysisTask
 {
-    static class TextAnalysisTask
+    static class FrequencyAnalysisTask
     {
         public static Dictionary<string, string> GetMostFrequentNextWords(List<List<string>> sentences)
         {
