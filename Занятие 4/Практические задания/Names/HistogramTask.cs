@@ -20,7 +20,7 @@
                     birthsCounts[man.BirthDate.Day - 1]++;
                 }
             }    
-            return new HistogramData(string.Format("Рождаемость людей с именем '{0}'", name),days,birthsCounts)
+            return new HistogramData(string.Format("Рождаемость людей с именем '{0}'", name),days,birthsCounts);
         }
     }
  }
