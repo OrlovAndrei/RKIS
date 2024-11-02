@@ -33,7 +33,7 @@ namespace TextAnalysis
                         bigramCounts[bigram][followWord]++;
                     }
 
-                    if (i < sentence.Count - 2)
+                        if (i < sentence.Count - 2)
                     {
                         var trigram = sentence[i] + " " + sentence[i + 1];
                         var followWord = sentence[i + 2];
