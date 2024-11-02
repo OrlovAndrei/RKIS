@@ -35,7 +35,8 @@
 
             if (circleWin == crossWin) return GameResult.Draw;
 
-            return if (circleWin) GameResult.CircleWin else GameResult.CrossWin;
+            if (circleWin) return GameResult.CircleWin;
+            else return GameResult.CrossWin;
         }
 
         private static void Run(string description)
@@ -54,7 +55,19 @@
                     ans[x, y] = field[x][y] == 'X' ? Mark.Cross : (field[x][y] == 'O' ? Mark.Circle : Mark.Empty);
             return ans;
         }
-        public static bool testLines(Mark[,] field, Mark mark)
+        public static GameResult GetGameResult(Mark[,] field)
+        
+        {
+            bool circleWin = testWin(field, Mark.Circle);
+            bool crossWin = testWin(field, Mark.Cross);
+
+            if (circleWin == crossWin) return GameResult.Draw;
+
+            if (circleWin) return GameResult.CircleWin;
+            else return GameResult.CrossWin;
+        }
+
+        public static bool testDiagonal(Mark[,] field, Mark mark)
         {
             bool winner = false;
             for (int i = 0; i < field.GetLength(0); i++)
@@ -74,14 +87,14 @@
             return winner;
         }
 
-        public static bool testColumn(Mark[,] field, Mark mark)
+        public static bool testWin(Mark[,] field, Mark mark)
         {
             bool winner = false;
-            for (int nomerStroki = 0; nomerStroki < field.GetLength(0); nomerStroki++)
+            for (int numberLine = 0; numberLine < field.GetLength(0); numberLine++)
             {
                 var a = 0;
-                for (int nomerKolonki = 0; nomerKolonki < field.GetLength(1); nomerKolonki++)
-                    if (mark == field[nomerKolonki, nomerStroki])
+                for (int numberColumn = 0; numberColumn < field.GetLength(1); numberColumn++)
+                    if (mark == field[numberColumn, numberLine])
                     {
                         a = a + 1;
                         if (a == 3)
@@ -104,9 +117,9 @@
         public static bool testWin(Mark[,] field, Mark mark)
         {
             bool diagonal = testDiagonal(field, mark);
-            bool stroka = testLines(field, mark);
-            bool kolonka = testColon(field, mark);
-            return (diagonal || stroka || kolonka);
+            bool line = testLines(field, mark);
+            bool column = testColumn(field, mark);
+            return (diagonal || line || column);
         }
     }
 }
