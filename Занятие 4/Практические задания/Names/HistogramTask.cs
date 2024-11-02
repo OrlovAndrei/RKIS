@@ -1,4 +1,6 @@
-﻿namespace Names
+﻿using System;
+
+namespace Names
 {
     internal static class HistogramTask
     {

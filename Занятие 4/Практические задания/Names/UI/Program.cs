@@ -26,9 +26,9 @@ public static class Program
 	{
 		var namesData = ReadData();
 		Charts.ShowHeatmap(HeatmapTask.GetBirthsPerDateHeatmap(namesData), "Тепловая карта рождаемости в течение года");
-		Charts.ShowHistogram(HistogramTask.GetBirthsPerDayHistogram(namesData, "юрий"),
+		Charts.ShowHistogram(HistogramTask.GetHistogramBirthsPerDay(namesData, "юрий"),
 			"Рождаемость людей с именем Юрий");
-		Charts.ShowHistogram(HistogramTask.GetBirthsPerDayHistogram(namesData, "владимир"),
+		Charts.ShowHistogram(HistogramTask.GetHistogramBirthsPerDay(namesData, "владимир"),
 			"Рождаемость людей с именем Владимир");
 		//CreativityTask.ShowYourStatistics(namesData);
 	}
