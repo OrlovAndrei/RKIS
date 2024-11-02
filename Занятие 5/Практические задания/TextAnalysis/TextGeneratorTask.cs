@@ -19,11 +19,11 @@ namespace TextAnalysis
 
                 if (phrase.Count >= 2)
                 {
-                    key = $"{phrase[^2]} {phrase[^1]}"; // последние два слова
+                    key = $"{phrase[^2]} {phrase[^1]}";
                 }
                 else if (phrase.Count == 1)
                 {
-                    key = phrase[^1]; // только последнее слово
+                    key = phrase[^1]; 
                 }
 
                 if (key != null && nextWords.TryGetValue(key, out var options) && options.Count > 0)
@@ -38,7 +38,7 @@ namespace TextAnalysis
                 }
                 else
                 {
-                    break; // Завершаем генерацию фразы
+                    break;
                 }
             }
 
