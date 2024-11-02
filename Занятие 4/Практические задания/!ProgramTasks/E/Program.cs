@@ -1,4 +1,6 @@
-﻿namespace E
+﻿using System;
+
+namespace E
 {
     internal class Program
     {
@@ -20,10 +22,9 @@
 
         private static string GetSuit(Suits suit)
         {
-            if (suit == Suits.Wands) return "жезлов";
-            else if (suit == Suits.Coins) return "монет";
-            else if (suit == Suits.Cups) return "кубков";
-            else return "мечей";
+           
+            string[] translations = { "Wands", "Coins", "Cups", "Swords" };
+            return translations[(int)suit];
         }
     }
 }
