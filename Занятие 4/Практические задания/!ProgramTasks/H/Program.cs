@@ -56,17 +56,6 @@
             return ans;
         }
 
-        public static GameResult GetGameResult(Mark[,] field)
-        {
-            bool circleWin = testWin(field, Mark.Circle);
-            bool crossWin = testWin(field, Mark.Cross);
-
-            if (circleWin == crossWin) return GameResult.Draw;
-
-            if (circleWin) return GameResult.CircleWin;
-            else return GameResult.CrossWin;
-        }
-
         public static bool testLines(Mark[,] field, Mark mark)
         {
             bool winner = false;
