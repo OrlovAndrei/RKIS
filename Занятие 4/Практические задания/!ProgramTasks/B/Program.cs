@@ -4,7 +4,7 @@
     {
         static void Main(string[] args)
         {
-            Console.WriteLine(MaxIndex(new[] {1.0, .2, 100, 2e+10}));
+            Console.WriteLine(MaxIndex(new[] { 1.0, .2, 100, 2e+10 }));
         }
 
         static double Min(double[] array)
@@ -17,7 +17,18 @@
 
         public static int MaxIndex(double[] array)
         {
-            ...
+            var max = double.MinValue;
+            int index = -1;
+
+            for (int i = 0; i < array.Length; i++)
+            {
+                if (max < array[i])
+                {
+                    max = array[i];
+                    index = i;
+                }
+            }
+            return index;
         }
     }
 }
