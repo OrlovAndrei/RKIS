@@ -1,9 +1,11 @@
-﻿namespace Mazes;
+﻿using System;
+namespace Mazes
 
 public static class SnakeMazeTask
 {
     public static void MoveOut(Robot robot, int width, int height)
     {
+<<<<<<< HEAD
         while (!robot.Finished)
         {
             MoveRight(robot, width, height);
@@ -35,6 +37,24 @@ public static class SnakeMazeTask
         while (robot.X != 1)
         {
             robot.MoveTo(Direction.Left);
+=======
+        int count = height - 2;
+        while (count != 0)
+        {
+            count -= 2;
+            Move(robot, width - 3, Direction.Right);
+            Move(robot, 2, Direction.Down);
+            Move(robot, width - 3, Direction.Left);
+            if (count != 0) Move(robot, 2, Direction.Down);
+                        }
+        }
+        private static void Move(Robot robot, int stepCount, Direction direction)
+        {
+            for (int y = 0; y < stepCount; y++)
+            {
+                robot.MoveTo(direction);
+            }
+>>>>>>> 52d5f4957f1733d3e520c1b8ee447bdfec5cd061
         }
     }
-}
+}   
