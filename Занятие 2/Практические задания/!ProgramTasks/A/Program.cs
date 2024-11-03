@@ -12,7 +12,7 @@
             Console.WriteLine(IsLeapYear(400) == true);
             Console.WriteLine(IsLeapYear(600) == false);
             Console.WriteLine(IsLeapYear(3200) == true);
-        }
+        } 
 
         public static bool IsLeapYear(int year)
         {
