@@ -39,6 +39,7 @@ namespace D
 
             Console.WriteLine("Результат:");
             Console.WriteLine(text);
+
         }
     }
 }
