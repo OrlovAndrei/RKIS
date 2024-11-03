@@ -13,7 +13,7 @@
         {
             Console.WriteLine("{0}-{1} {2}", from, to, IsCorrectMove(from, to));
         }
-
+ 
         public static bool IsCorrectMove(string from, string to)
         {
             var dx = Math.Abs(to[0] - from[0]); //смещение фигуры по горизонтали
