@@ -1,16 +1,11 @@
-namespace Billiards;
+using System;
 
-public static class BilliardsTask
+namespace AngryBirds;
+
+public static class AngryBirdsTask
 {
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="directionRadians">Угол направления движения шара</param>
-    /// <param name="wallInclinationRadians">Угол</param>
-    /// <returns></returns>
-    public static double BounceWall(double directionRadians, double wallInclinationRadians)
+    public static double FindSightAngle(double v, double distance)
     {
-        //TODO
-        return 0.0;
+        return Math.PI / 4;
     }
 }
