@@ -1,4 +1,6 @@
-﻿namespace C
+﻿using System;
+
+namespace C
 {
     internal class Program
     {
@@ -13,6 +15,14 @@
 
         private static void WriteTextWithBorder(string text)
         {
+
+            string framedText = $"| {text} |";
+
+            string border = new string('-', framedText.Length - 2);
+           
+            Console.WriteLine($"+{border}+");
+            Console.WriteLine(framedText);
+            Console.WriteLine($"+{border}+");    
         }
     }
 }
