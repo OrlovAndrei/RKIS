@@ -6,11 +6,7 @@ namespace TextAnalysis
     static class SentencesParserTask
     {
         static char[] sentenceEndSymbols = new char[] { '.', '!', '?', ';', ':', '(', ')' };
-        public static readonly string[] stopWordsList =
-        {
-            "the", "and", "to", "a", "of", "in", "on", "at", "that",
-            "as", "but", "with", "out", "for", "up", "one", "from", "into"
-        };
+        public static readonly string[] stopWordsList ={"the", "and", "to", "a", "of", "in", "on", "at", "that","as", "but", "with", "out", "for", "up", "one", "from", "into"};
         public static List<List<string>> ParseSentences(string inputText)
         {
             inputText = inputText.ToLower();
@@ -21,24 +17,27 @@ namespace TextAnalysis
                 List<string> wordList = new List<string>();
                 var processedSentence = SeparateSimbol(currentSentence);
                 string[] wordsArray = processedSentence.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-                foreach (var currentWord in wordsArray)
+                foreach (var curWord in wordsArray)
                 {
-                    if (BadWord(currentWord) && currentWord != "")
-                        wordList.Add(currentWord);
+                    if (BadWord(curWord) && curWord != "")
+                        wordList.Add(curWord);
                 }
-                if (wordList.Count == 0) continue;
-                else sentenceList.Add(wordList);
+                if (wordList.Count == 0) 
+                    continue;
+                else 
+                    sentenceList.Add(wordList);
             }
             return sentenceList;
         }
-        private static string SeparateSimbol(string currentWord)
+        private static string SeparateSimbol(string curWord)
         {
             var processedText = "";
-            foreach (var currentChar in currentWord)
+            foreach (var curChar in curWord)
             {
-                if (char.IsLetter(currentChar) || (currentChar == '\''))
-                    processedText = processedText + currentChar;
-                else processedText = processedText + ' ';
+                if (char.IsLetter(curChar) || (curChar == '\''))
+                    processedText = processedText + curChar;
+                else 
+                    processedText = processedText + ' ';
             }
             return processedText;
         }
