@@ -18,12 +18,30 @@
             Console.WriteLine(GetSuit(Suits.Swords));
         }
 
-        private static string GetSuit(Suits suit)
+         public enum Suits
+    {
+        Wands,
+        Pentacles,
+        Cups,
+        Swords
+    }
+
+    private static string GetSuit(Suits suit)
+    {
+        return new[] { "жезлов", "монет", "кубков", "мечей" }[(int)suit];
+    }
+using System;
+
+namespace F
+{
+    internal class Program
+    {
+        static void Main(string[] args)
         {
-            if (suit == Suits.Wands) return "жезлов";
-            else if (suit == Suits.Coins) return "монет";
-            else if (suit == Suits.Cups) return "кубков";
-            else return "мечей";
+            Console.WriteLine(CheckFirstElement(null)); // Вывод: False
+            Console.WriteLine(CheckFirstElement(new int[0])); // Вывод: False
+            Console.WriteLine(CheckFirstElement(new[] { 1 })); // Вывод: False
+            Console.WriteLine(CheckFirstElement(new[] { 0 })); // Вывод: True
         }
     }
 }
