@@ -30,18 +30,5 @@
     {
         return new[] { "жезлов", "монет", "кубков", "мечей" }[(int)suit];
     }
-using System;
-
-namespace F
-{
-    internal class Program
-    {
-        static void Main(string[] args)
-        {
-            Console.WriteLine(CheckFirstElement(null)); // Вывод: False
-            Console.WriteLine(CheckFirstElement(new int[0])); // Вывод: False
-            Console.WriteLine(CheckFirstElement(new[] { 1 })); // Вывод: False
-            Console.WriteLine(CheckFirstElement(new[] { 0 })); // Вывод: True
-        }
     }
 }
