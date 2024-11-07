@@ -6,33 +6,41 @@ internal static class DragonFractalTask
 {
     public static void DrawDragonFractal(Pixels pixels, int iterationsCount, int seed)
     {
-        double x = 1.0;
-        double y = 0.0;
-        var random = new Random(seed);
-        double sqrt2 = Math.Sqrt(2);
-        double cos45 = Math.Cos(Math.PI / 4);
-        double sin45 = Math.Sin(Math.PI / 4);
-        double cos135 = Math.Cos(3 * Math.PI / 4);
-        double sin135 = Math.Sin(3 * Math.PI / 4);
-        for (int i = 0; i < iterationsCount; i++)
-        {
-            int transformation = random.Next(2);
-            if (transformation == 0)
-            {
-                double newX = (x * cos45 - y * sin45) / sqrt2;
-                double newY = (x * sin45 + y * cos45) / sqrt2;
-                x = newX;
-                y = newY;
-            }
-            else
-            {
-                double newX = (x * cos135 - y * sin135) / sqrt2 + 1;
-                double newY = (x * sin135 + y * cos135) / sqrt2;
-                x = newX;
-                y = newY;
-            }
+       {
+            // Начальная точка
+            float x = 1.0f;
+            float y = 0.0f;
 
-        pixels.SetPixel((int)Math.Round(x), (int)Math.Round(y));
+            // Создание генератора случайных чисел с указанным seed
+            var random = new Random(seed);
+            const double sqrt2 = Math.Sqrt(2);
+            const double angle45 = Math.PI / 4; // 45°
+            const double angle135 = 3 * Math.PI / 4; // 135°
+
+            for (int i = 0; i < iterationsCount; i++)
+            {
+                // Выбор случайного преобразования
+                int transformation = random.Next(2); // 0 или 1
+
+                if (transformation == 0)
+                {
+                    // Преобразование 1
+                    float newX = (float)((x * Math.Cos(angle45) - y * Math.Sin(angle45)) / sqrt2);
+                    float newY = (float)((x * Math.Sin(angle45) + y * Math.Cos(angle45)) / sqrt2);
+                    x = newX;
+                    y = newY;
+                }
+                else
+                {
+                    // Преобразование 2
+                    float newX = (float)((x * Math.Cos(angle135) - y * Math.Sin(angle135)) / sqrt2) + 1;
+                    float newY = (float)((x * Math.Sin(angle135) + y * Math.Cos(angle135)) / sqrt2);
+                    x = newX;
+                    y = newY;
+                }
+
+                pixels.SetPixel((int)(x * 100), (int)(y * 100)); // Умножаем на 100 для масштабирования
+            }
         }
     }
 }
