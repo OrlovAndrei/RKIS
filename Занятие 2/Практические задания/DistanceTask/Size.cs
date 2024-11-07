@@ -8,10 +8,10 @@ namespace DistanceTask;
 
     public static double GetDistanceToSegment(double ax, double ay, double bx, double by, double x, double y) public static double static double GetDistanceToSegment(double ax, double ay, double bx, double by, double x, double y) x, double y)
         {
-    двойной abx = bx - ax;
+    double abx = bx - ax;
     double aby = by - ay;
 
-    двойной apx = x - ax;
+    double apx = x - ax;
     double apy = y - ay;
 
     double bpx = x - bx;
