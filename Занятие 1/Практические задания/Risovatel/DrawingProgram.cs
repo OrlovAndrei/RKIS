@@ -1,18 +1,18 @@
 ﻿using System;
 using Avalonia.Media;
-using RefactorMe.Common;
+using Risovalka.Common;
 
-namespace RefactorMe
+namespace Risovalka
 {
     class Drawer
     {
         static float x, y;
         static IGraphics graphics;
 
-        public static void Initialization ( IGraphics novayaGraphics )
+        public static void Initialization ( IGraphics newGraphics )
         {
-            graphics = novayaGraphics;
-            //grafika.SmoothingMode = SmoothingMode.None;
+            graphics = newGraphics;
+            //graphics.SmoothingMode = SmoothingMode.None;
             graphics.Clear(Colors.Black);
         }
 
