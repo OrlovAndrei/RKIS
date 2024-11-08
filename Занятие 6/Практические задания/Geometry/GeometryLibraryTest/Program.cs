@@ -8,24 +8,22 @@ class Program
         Vector v1 = new Vector(3, 4);
         Vector v2 = new Vector(1, 2);
 
-        double length = Geometry.GetLength(v1);
+        double length = v1.GetLength();
         Console.WriteLine($"Length of v1: {length}");
 
-        Vector result = Geometry.Add(v1, v2);
+        Vector result = v1.Add(v2);   
         Console.WriteLine($"Sum of v1 and v2: ({result.X}, {result.Y})");
-
+ 
         Segment segment = new Segment(new Vector(0, 0), new Vector(4, 3));
 
-        // Вычисляем длину отрезка
-        double segmentLength = Geometry.GetLength(segment);
+        double segmentLength = segment.GetLength();   
         Console.WriteLine($"Length of the segment: {segmentLength}");
 
-        // Проверяем, лежит ли точка на отрезке
-        Vector point1 = new Vector(2, 1.5); // Точка, лежащая на отрезке
-        Vector point2 = new Vector(5, 4);   // Точка, не лежащая на отрезке
+        Vector point1 = new Vector(2, 1.5);   
+        Vector point2 = new Vector(5, 4);     
 
-        Console.WriteLine($"Is point (2, 1.5) in segment: {Geometry.IsVectorInSegment(point1, segment)}");
-        Console.WriteLine($"Is point (5, 4) in segment: {Geometry.IsVectorInSegment(point2, segment)}");
+        Console.WriteLine($"Is point (2, 1.5) in segment: {segment.Contains(point1)}");
+        Console.WriteLine($"Is point (5, 4) in segment: {segment.Contains(point2)}");
 
         Console.ReadKey();
     }
