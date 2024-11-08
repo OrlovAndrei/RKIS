@@ -163,6 +163,7 @@ public class Monster : ICreature
         return null;
     }
 
+
     private bool CanMoveTo(int x, int y)
     {
         if (x < 0 || y < 0 || x >= Game.MapWidth || y >= Game.MapHeight)
@@ -172,6 +173,7 @@ public class Monster : ICreature
         return !(target is Terrain || target is Sack || target is Monster);
     }
 }
+
 public static ICreature[,] CreateMap()
 {
     return new ICreature[,]
