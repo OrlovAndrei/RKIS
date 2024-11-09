@@ -2,7 +2,7 @@
 
 namespace Geometry
 {
-    internal class Geometry
+    public class Geometry
     {
         public static double GetLength(Vector vector)
         {
