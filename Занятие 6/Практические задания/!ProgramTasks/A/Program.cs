@@ -1,9 +1,20 @@
 ﻿using System.Globalization;
-
 namespace A
 {
     internal class Program
     {
+        class City
+        {
+            public string Name { get; set; }
+            public GeoLocation Location { get; set; }
+        }
+
+        class GeoLocation
+        {
+            public double Latitude { get; set; }
+            public double Longitude { get; set; }
+        }
+
         static void Main(string[] args)
         {
             var city = new City();
