@@ -3,11 +3,13 @@ namespace GeometryTasks
     public static class Geometry
     {
         public static double GetLength(Vector vector)
+            
         {
             return Math.Sqrt(Math.Pow(vector.X, 2) + Math.Pow(vector.Y, 2));
         }
 
         public static double GetLength(Segment segment)
+            
         {
             double deltaX = segment.End.X - segment.Begin.X;
             double deltaY = segment.End.Y - segment.Begin.Y;
@@ -15,6 +17,7 @@ namespace GeometryTasks
         }
 
         public static Vector Add(Vector firstVector, Vector secondVector)
+            
         {
             Vector resultVector = new Vector();
             resultVector.X = firstVector.X + secondVector.X;
@@ -23,6 +26,7 @@ namespace GeometryTasks
         }
 
         public static bool IsVectorInSegment(Vector point, Segment segment)
+            
         {
             double segmentLength = Geometry.GetLength(segment);
             double lengthToBegin = Math.Sqrt(Math.Pow(point.X - segment.Begin.X, 2) + Math.Pow(point.Y - segment.Begin.Y, 2));
@@ -31,6 +35,7 @@ namespace GeometryTasks
         }
 
         public static bool Equal(double firstValue, double secondValue)
+            
         {
             const double epsilon = 0.1;
             return Math.Abs(firstValue - secondValue) < epsilon;
