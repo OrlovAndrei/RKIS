@@ -2,12 +2,11 @@
 using Avalonia.Media;
 using GeometryTasks;
 
-namespace GeometryPainting;
-
-
+namespace GeometryPainting
+{
     public static class SegmentExtensions
     {
-        private static readonly Dictionary<Segment, Color> SegmentColors = new();
+        private static readonly Dictionary<Segment, Color> SegmentColors = new Dictionary<Segment, Color>();
 
         public static Color GetColor(this Segment segment)
         {
@@ -19,3 +18,5 @@ namespace GeometryPainting;
             SegmentColors[segment] = color;
         }
     }
+}
+
