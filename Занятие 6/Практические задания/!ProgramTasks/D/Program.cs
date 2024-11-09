@@ -16,13 +16,16 @@
                 new FileInfo(@"D:\Скачанное\песня7.wav"),
                 new FileInfo(@"C:\Музыка\Былина\песня8.txt")
             };
-
             GetAlbums(testFiles);
         }
 
         public static List<DirectoryInfo> GetAlbums(List<FileInfo> files)
         {
-            ...
+            return files
+                .Where(file => file.Extension == ".mp3" || file.Extension == ".wav")
+                .Select(file => file.Directory)
+                .Distinct()
+                .ToList();
         }
     }
 }
