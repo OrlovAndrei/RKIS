@@ -1,6 +1,27 @@
 ﻿using System;
 using Avalonia.Input;
 
-namespace Digger;
+namespace Digger
+{
+    public class Terrain : ICreature
+    {
+        public string GetImageFileName()
+        {
+            return "Terrain.png";
+        }
 
-//Напишите здесь классы Player, Terrain и другие.
+        public int GetDrawingPriority()
+        {
+            return 1; 
+        }
+
+        public (Direction, ICreature) DoAction()
+        {
+            return (Direction.None, this); 
+        }
+
+        public bool ResolveCollision(ICreature creature)
+        {
+            return true;
+        }
+    }
