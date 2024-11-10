@@ -1,6 +1,7 @@
 name: Check
 
 on:
+  workflow_dispatch:
   pull_request:
     branches: ["master"]
 
@@ -42,6 +43,14 @@ jobs:
             done
           done
           echo "build_failed=$build_failed" >> $GITHUB_ENV
-      - name: Fail if there were build errors
-        if: env.build_failed == 'true' || ${{ failure() }}
-        run: exit 1
+          echo "$build_failed"
+          
+      - name: Check for build errors
+        if: env.build_failed == 'true'
+        run: |
+          echo "Build failed due to errors in the projects."
+          exit 1
+
+      - name: Success
+        if: env.build_failed == 'false'
+        run: echo "Build completed successfully without errors."
