@@ -3,54 +3,54 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Shapes;
 using Avalonia.Media;
-using GeometryTasks;
-using Vector = GeometryTasks.Vector;
+using Vector = Geometry.Vector;
+using GeometryPainting;
 
 namespace GeometryPainting.UI;
 
 public partial class MainWindow : Window
 {
-	public MainWindow()
-	{
-		InitializeComponent();
-		Opened += (_, __) =>
-		{
-			DrawSegments();
-		};
-	}
-	
-	private List<Segment> CreateSegments()
-	{
-		var result = new List<Segment>();
-		for (byte i = 0; i <= 254; i++)
-		{
-			var segment = new Segment
-			{
-				Begin = new Vector {X = 0, Y = i},
-				End = new Vector {X = 255, Y = i}
-			};
-			if (i != 0) segment.SetColor(Color.FromArgb(255, i, i, i));
-			result.Add(segment);
-		}
+    public MainWindow()
+    {
+        InitializeComponent();
+        Opened += (_, __) =>
+        {
+            DrawSegments();
+        };
+    }
 
-		return result;
-	}
+    private List<Segment> CreateSegments()
+    {
+        var result = new List<Segment>();
+        for (byte i = 0; i <= 254; i++)
+        {
+            var segment = new Segment
+            {
+                Begin = new Vector { X = 0, Y = i },
+                End = new Vector { X = 255, Y = i }
+            };
+            if (i != 0) segment.SetColor(Color.FromArgb(255, i, i, i));
+            result.Add(segment);
+        }
 
-	private void DrawSegments()
-	{
-		var segments = CreateSegments();
-		foreach (var segment in segments)
-		{
-			var pen = new Pen(segment.GetColor().ToUint32());
+        return result;
+    }
 
-			var line = new Line
-			{
-				StartPoint = new Point(segment.Begin.X, segment.Begin.Y),
-				EndPoint = new Point(segment.End.X, segment.End.Y),
-				Stroke = pen.Brush
-			};
+    private void DrawSegments()
+    {
+        var segments = CreateSegments();
+        foreach (var segment in segments)
+        {
+            var pen = new Pen(segment.GetColor().ToUint32());
 
-			Canvas.Children.Add(line);
-		}
-	}
+            var line = new Line
+            {
+                StartPoint = new Point(segment.Begin.X, segment.Begin.Y),
+                EndPoint = new Point(segment.End.X, segment.End.Y),
+                Stroke = pen.Brush
+            };
+
+            Canvas.Children.Add(line);
+        }
+    }
 }
