@@ -1,4 +1,4 @@
-namespace Geometry
+namespace Geometry;
 {
     public static class Geometry
     {

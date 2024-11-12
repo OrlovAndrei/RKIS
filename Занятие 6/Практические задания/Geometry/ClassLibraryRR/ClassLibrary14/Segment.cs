@@ -1,6 +1,6 @@
 using System;
 
-namespace Geometry
+namespace Geometry;
 {
     public class Segment
     {
