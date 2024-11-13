@@ -22,6 +22,11 @@
         {
             if (char.IsWhiteSpace(text[0])) return text.Substring(1);
             else return text;
+            while (text.Length > 0 && char.IsWhiteSpace(text[0]))
+            {
+                text = text.Substring(1);
+            }
+            return text;
         }
     }
 }
