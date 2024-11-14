@@ -1,0 +1,11 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="PocketGoogle.UI.App">
+    <Application.Styles>
+        <FluentTheme Mode="Light"/>
+        <Style Selector="DataValidationErrors">
+            <Setter Property="Template" Value="{DynamicResource TooltipDataValidationContentTemplate}" />
+            <Setter Property="ErrorTemplate" Value="{DynamicResource TooltipDataValidationErrorTemplate}" />
+        </Style>
+    </Application.Styles>
+</Application>
