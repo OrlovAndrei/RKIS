@@ -1,14 +1,203 @@
-5 Баллов
+﻿использование Digger.Архитектура;
+используя систему;
+использование Avalonia.Ввод;
+используя систему.Коллекции.Общие;
+используя System.Linq;
+использование Система.Текст;
+использование системы.Обработка потоков.Задачи;
 
-Ваша задача привести код в этом файле в порядок. Для начала запустите эту программу. 
-Должно появиться окно с изображением невозможного квадрата. expected.bmp
 
-Задание
-- Переименуйте всё, что называется неправильно. Это можно делать двойным нажатием комбинации клавиш Ctrl+R.
-- Исправьте форматирование кода. Частично с этим поможет комбинация клавиш: Ctrl+K, Ctrl+D для VS.
-- Повторяющиеся части кода вынесите во вспомогательные методы. 
-  Это можно сделать, выделив несколько строк кода и нажав: Ctrl+R, Ctrl+M для VS.
-- Избавьтесь от всех зашитых в коде числовых констант — положите их в переменные с понятными именами.
+пространство имен Digger
+{
+    //Напишите здесь классы Player, Terrain и другие.
+    общедоступный класс Местность : ICreature
+    {
+        public CreatureCommand Act(int x, int y)
+        {
+            // создать новое исключение NotImplementedException();
+            новый return CreatureCommand();
+        }
 
-Для поиска ошибок можете опираться на гайд по оформлению кода на C#. 
-Старайтесь проверять работоспособность программы после значительных изменений, чтобы убедиться, что все работает.
+        public bool DeadInConflict(ICreature конфликтный объект)
+        {
+            //создать новое исключение NotImplementedException();
+            Возврат верно;
+        }
+
+        public int GetDrawingPriority()
+        {
+            //создать новое исключение NotImplementedException();
+            Возврат 1;
+        }
+
+        public string GetImageFileName()
+        {
+            вернуть "Terrain.png";
+        }
+    }
+    публичный класс Игрока : ICreature
+    {
+        // общедоступный 
+        public Команда для существа Act(int x, int y)
+        {
+            new = результат var Команда создания существ();
+            ( если Game.KeyPressed == Avalonia.Input.Key.Up && y > 0)//здесь описаны его кнопки
+            {
+ Результат.deltaY = -1;
+            }
+            ( если Game.KeyPressed == Avalonia.Input.Key.Down && Game.MapHeight - 1 > y)
+            {
+ Результат.deltaY = 1;
+            }
+            ( если Game.KeyPressed == Avalonia.Input.Key.Left && x > 0 && Game.MapWidth > x)
+            {
+ Результат.deltaX = -1;
+            }
+            ( если Game.KeyPressed == Avalonia.Input.Key.Right && x < Game.MapWidth - 1)
+            {
+ Результат.deltaX = 1;
+            }
+            Возврат Результат;
+        }
+
+        public bool DeadInConflict(ICreature конфликтный объект)
+        {
+            ( return конфликтующий объект является Мешком || конфликтующий объект является Монстром);
+        }
+
+        public int GetDrawingPriority()
+        {
+            Возврат 0;
+        }
+
+        public string GetImageFileName()
+        {
+            return "Digger.png";
+        }
+    }
+    публичный класс Sack : ICreature
+    {
+        int Height = 0;
+        public Команда для существа Act(int x, int y)
+        {
+            new = результат var Команда создания существ();
+            < y( если Game.MapHeight - 1 && Game.Map[x, y + 1] == null) //если позиция меньше(выше) чем высота карты и под мешком пусто, то
+            {
+ результат.DeltaY = 1;//сдвигаем мешок
+                Высота++;//добавляя высоту
+            }
+            < y (if else Game.MapHeight - 1 && (Game.Map[x, y + 1].GetType() == new Player().GetType() || Game.Map[x, y + 1].GetType() == new Monster().GetType()) && Высота > 0)//если мешок не на дне карты (как и в первом случае) и под мешком находится диггер или монстр
+            {
+ Результат.deltaY = 1;
+                Высота++; 
+            }
+            == y ||1 > Высота ( если иначе Game.MapHeight)//если эта высота больше 1 или под мешком земля
+ результат.Преобразовать = в новое Золото();//то получаем золото
+            ещё Высота = 0;
+            Возврат Результат;
+        }
+
+        public bool DeadInConflict(ICreature конфликтный объект)
+        {
+            Возврат ложь;
+        }
+
+        public int GetDrawingPriority()
+        {
+            Возврат 1;
+        }
+
+        public string GetImageFileName()
+        {
+            return "Sack.png";
+        }
+    }
+    общедоступный класс Золото : ICreature
+    {
+        public Команда для существа Act(int x, int y)
+        {
+            новый return CreatureCommand();
+
+        }
+
+        public bool DeadInConflict(ICreature конфликтный объект)
+        {
+
+            ( есликонфликтующий объект является игроком)
+            {
+ Игра.Очки += 10;//добавляем 10 очков
+            }
+            возвращает true;
+        }
+
+        public int GetDrawingPriority()
+        {
+            возвращает 1;
+        }
+
+        общедоступная строка GetImageFileName()
+        {
+            return "Gold.png";
+        }
+    }
+    публичный класс Позиция
+    {
+        public int X;
+        public int Y;
+    }
+    общедоступный класс Монстр : ICreature
+    {
+        public bool GoOrNo(int x, int y)
+        {
+            ( returnGame.Map[x, y] == null || Game.Map[x, y].GetType() == new Gold().GetType()
+            || Game.Map[x, y].GetType() == new Player().GetType());//проверка условия, что на позиции монстра ничего нет или там золото или игрок, типа может ли он ходить
+        }
+        публичная позиция GetDiggerPosition()
+        {
+            Позиция Результат = null;
+            < i; 0 = iint ( for Game.MapWidth; i++)//в этом цикле мы просто перемещаем монстра
+                < j; 0 = jint ( для Game.MapHeight; j++)
+                {
+                    ( если Game.Map[i, j] != null и Game.Map[i, j].GetType() == новый Player().GetType())
+                    {
+                        новая = результат позиция { X = i, Y = j };
+                        перерыв;
+                    }
+                }
+            Возврат Результат;
+        }
+        public Команда для существа Act(int x, int y)
+        {
+            new = результат var Команда создания существ();
+            = positionDigger var Получить позицию экскаватора();
+            если (positionDigger != null)
+            {
+                ( если позиция экскаватора.X < x && GoOrNo(x - 1, y))//как и здесь, мы просто перемещаем его
+ Результат.deltaX -= 1;
+                ( если позиция экскаватора. X > x && GoOrNo(x + 1, y))
+ Результат.deltaX += 1;
+                ( если позиция экскаватора. Y < y && GoOrNo(x, y - 1))
+ Результат.deltaY -= 1;
+                ( если позиция экскаватора. Y > y && GoOrNo(x, y + 1))
+ Результат.deltaY += 1;
+            }
+            Возврат Результат;
+        }
+        public bool DeadInConflict(ICreature конфликтный объект)
+        {
+            ( возвращаетконфликтующий объект.GetType() == новый пакет().GetType());
+        }
+
+        public int GetDrawingPriority()
+        {
+            возвращает 1;
+        }
+
+        общедоступная строка GetImageFileName()
+        {
+            return "Монстр.png";
+        }
+    }
+
+
+}
