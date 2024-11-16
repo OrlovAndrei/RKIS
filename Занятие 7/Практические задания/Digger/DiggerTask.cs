@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace Digger
 {
@@ -146,35 +147,108 @@ namespace Digger
         public ICreature OnCollision(ICreature other) => this;
     }
 
+    // Класс Monster (Монстр)
+    public class Monster : ICreature
+    {
+        public int X { get; set; }
+        public int Y { get; set; }
+        public bool IsDead { get; private set; }
+
+        public Monster(int x, int y)
+        {
+            X = x;
+            Y = y;
+            IsDead = false;
+        }
+
+        public string GetImageFileName() => "Monster.png";
+        public int GetDrawPriority() => 2; // Монстр рисуется поверх земли, но под золотом
+        public (int dx, int dy) GetMoveDirection() => (0, 0); // Для движения будет использоваться другой алгоритм
+
+        public ICreature OnCollision(ICreature other)
+        {
+            // Если монстр сталкивается с игроком (диггером), он умирает
+            if (other is Player)
+            {
+                return null; // Игрок умирает
+            }
+
+            // Если монстр сталкивается с золотом, оно исчезает
+            if (other is Gold)
+            {
+                return null; // Золото исчезает
+            }
+
+            // Мешок может лежать на монстре, он не двигается
+            if (other is Sack)
+            {
+                return this; // Монстр не двигается
+            }
+
+            // Если монстр сталкивается с другим монстром, оба умирают
+            if (other is Monster)
+            {
+                return null; // Оба монстра умирают
+            }
+
+            return this;
+        }
+
+        public void MoveTowardsPlayer(Player player)
+        {
+            // Если игрок существует, монстр двигается к нему по горизонтали или вертикали
+            if (player != null && !IsDead)
+            {
+                int dx = player.X - X;
+                int dy = player.Y - Y;
+
+                // Двигаемся по вертикали или горизонтали в сторону игрока
+                if (Math.Abs(dx) > Math.Abs(dy))
+                {
+                    X += Math.Sign(dx); // Двигаемся по горизонтали
+                }
+                else
+                {
+                    Y += Math.Sign(dy); // Двигаемся по вертикали
+                }
+            }
+        }
+    }
+
     // Основной класс игры
     public class Game
     {
         private static Player player;
-        private static ICreature[,] map;  // Массив для хранения объектов на карте
+        private static List<ICreature> creatures = new List<ICreature>();  // Список всех объектов игры
         public static int Scores { get; set; } = 0;
 
         public static void CreateMap()
         {
-            map = new ICreature[10, 10];  // Создаём карту размером 10x10
+            // Добавляем на карту объекты (земля, игрок, монстр, мешок и золото)
+            player = new Player { X = 1, Y = 1 };
+            creatures.Add(player);
+
+            // Добавляем монстра
+            var monster = new Monster(5, 5);
+            creatures.Add(monster);
+
+            // Добавляем мешок с золотом и золото
+            var sack = new Sack(3, 3);
+            creatures.Add(sack);
+            var gold = new Gold(4, 4);
+            creatures.Add(gold);
 
             // Заполняем карту землёй
-            for (int x = 0; x < 10; x++)
+            for (int i = 0; i < 10; i++)
             {
-                for (int y = 0; y < 10; y++)
+                for (int j = 0; j < 10; j++)
                 {
-                    map[x, y] = new Terrain();
+                    if (i != player.X || j != player.Y)
+                    {
+                        creatures.Add(new Terrain());
+                    }
                 }
             }
-
-            // Создаём игрока на позиции (1, 1)
-            player = new Player { X = 1, Y = 1 };
-            map[1, 1] = player;
-
-            // Добавляем объекты на карту (мешки и золото)
-            map[3, 3] = new Sack(3, 3);
-            map[4, 4] = new Sack(4, 4);
-            map[5, 5] = new Gold(5, 5);
-            map[9, 9] = new Edge(); // Край карты
         }
 
         public static void KeyPressed(ConsoleKey key)
@@ -184,72 +258,48 @@ namespace Digger
             // Определяем направление движения в зависимости от нажатой клавиши
             switch (key)
             {
-                case ConsoleKey.UpArrow:
-                    dy = -1;
-                    break;
-                case ConsoleKey.DownArrow:
-                    dy = 1;
-                    break;
-                case ConsoleKey.LeftArrow:
-                    dx = -1;
-                    break;
-                case ConsoleKey.RightArrow:
-                    dx = 1;
-                    break;
+                case ConsoleKey.UpArrow: dy = -1; break;
+                case ConsoleKey.DownArrow: dy = 1; break;
+                case ConsoleKey.LeftArrow: dx = -1; break;
+                case ConsoleKey.RightArrow: dx = 1; break;
             }
 
             // Пробуем переместить игрока
-            int newX = player.X + dx;
-            int newY = player.Y + dy;
-
-            // Проверяем, что игрок не выходит за пределы карты
-            if (newX >= 0 && newX < 10 && newY >= 0 && newY < 10)
-            {
-                ICreature target = map[newX, newY];
-                ICreature newTile = target.OnCollision(player);
-
-                if (newTile == null)
-                {
-                    map[newX, newY] = newTile;  // Если взаимодействие прошло успешно
-                }
-
-                // Перемещаем игрока
-                player.X = newX;
-                player.Y = newY;
-            }
+            player.Move(dx, dy);
         }
 
         public static void Update()
         {
-            // Обновление состояния объектов на карте (падение мешков)
-            for (int x = 0; x < 10; x++)
+            // Обновление положения всех объектов
+            foreach (var creature in creatures)
             {
-                for (int y = 0; y < 10; y++)
+                if (creature is Monster monster && !monster.IsDead)
                 {
-                    var creature = map[x, y];
-                    if (creature is Sack)
-                    {
-                        var sack = (Sack)creature; // Явно кастуем мешок
-                        sack.Fall();  // Мешок падает
-                    }
+                    monster.MoveTowardsPlayer(player);
+                }
+
+                if (creature is Sack sack)
+                {
+                    sack.Fall();  // Мешок будет падать, если нужно
                 }
             }
         }
 
         public static void PrintMap()
         {
-            // Метод для вывода карты в консоль
-            for (int y = 0; y < 10; y++)
+            // Выводим карту
+            for (int i = 0; i < 10; i++)
             {
-                for (int x = 0; x < 10; x++)
+                for (int j = 0; j < 10; j++)
                 {
-                    Console.Write(map[x, y] is Terrain ? "." :
-                                  map[x, y] is Player ? "P" :
-                                  map[x, y] is Sack ? "S" :
-                                  map[x, y] is Gold ? "G" : "E");
+                    var creature = creatures.Find(c => c is Terrain);
+                    if (creature != null)
+                    {
+                        Console.Write(".");
+                    }
                 }
-                Console.WriteLine();
             }
+
             Console.WriteLine("Scores: " + Scores);
         }
     }
@@ -260,22 +310,15 @@ namespace Digger
         public static void Main(string[] args)
         {
             Game.CreateMap();
-
-            // Основной цикл игры
             bool gameIsRunning = true;
             while (gameIsRunning)
             {
                 Console.Clear();
-                Game.Update();  // Обновляем состояние объектов
-                Game.PrintMap();  // Отображаем текущую карту
+                Game.Update();
+                Game.PrintMap();
 
-                // Получаем ввод от пользователя
                 var key = Console.ReadKey(true).Key;
-
-                // Обрабатываем нажатую клавишу
                 Game.KeyPressed(key);
-
-                // Пауза между итерациями
                 System.Threading.Thread.Sleep(100);
             }
         }
