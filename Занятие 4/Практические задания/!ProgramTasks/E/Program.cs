@@ -20,10 +20,8 @@
 
         private static string GetSuit(Suits suit)
         {
-            if (suit == Suits.Wands) return "жезлов";
-            else if (suit == Suits.Coins) return "монет";
-            else if (suit == Suits.Cups) return "кубков";
-            else return "мечей";
+            string[] suitsInRussian = { "жезлов", "монет", "кубков", "мечей" };
+            return suitsInRussian[(int)suit];
         }
     }
 }
