@@ -1,6 +1,3 @@
-![image](https://github.com/user-attachments/assets/d7844b45-e611-449d-88e2-acbe8fb63b35)
-❗❗❗УДАЛИЛ ЗАДАНИЯ !ProgramTasks В 5, 6, 7 ЗАНЯТИЯХ❗❗❗
-
 **[Ссылка на таблицу с баллами](https://docs.google.com/spreadsheets/d/1lTc9L9D51gNhiKB_6AAoq7qbp0YHdIKYBKi1LoPV4zQ/edit?usp=sharing)**
 
 Оформление названий коммитов: `<lesson>: <action> <task>`
@@ -112,6 +109,20 @@ Cписки (List), Словари (Dictionary), Неизменяемость с
 ### Темы:
 
 Целостность данных, private, readonly, Свойства, Конструкторы
+
+### Максимальное кол-во баллов:
+
+20
+
+### Дедлайн:
+
+24 Ноября
+
+## Занятие 9 - Тестирование
+
+### Темы:
+
+Тестирование, Модульное тестирование, NUnit, Библиотеки классов
 
 ### Максимальное кол-во баллов:
 
