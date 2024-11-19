@@ -16,7 +16,14 @@ public class FieldParserTaskTests
 		}
 	}
 
-	// Скопируйте сюда метод с тестами из предыдущей задачи.
+    [TestCase("text", new[] { "text" })]
+    [TestCase("hello world", new[] { "hello", "world" })]
+    // Вставляйте сюда свои тесты
+    public static void RunTests(string input, string[] expectedOutput)
+    {
+        // Тело метода изменять не нужно
+        Test(input, expectedOutput);
+    }
 }
 
 public class FieldsParserTask
