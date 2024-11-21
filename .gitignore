@@ -1,3 +1,10 @@
 bin
 obj
 .vs
+/Занятие 6/Практические задания/Geometry/GeometryLibrary/GeometryLibrary/Class1.cs
+/Занятие 6/Практические задания/Geometry/GeometryLibrary/GeometryLibrary/Geometry.cs
+/Занятие 6/Практические задания/Geometry/GeometryLibrary/GeometryLibrary/GeometryLibrary.csproj
+/Занятие 6/Практические задания/Geometry/GeometryLibrary/GeometryLibrary/Vector.cs
+/Занятие 6/Практические задания/Geometry/GeometryLibrary/GeometryLibraryTest/GeometryLibraryTest.csproj
+/Занятие 6/Практические задания/Geometry/GeometryLibrary/GeometryLibraryTest/Program.cs
+/Занятие 6/Практические задания/Geometry/GeometryLibrary/GeometryLibrary.sln
