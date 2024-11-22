@@ -8,23 +8,43 @@ namespace PocketGoogle;
 
 public class Indexer : IIndexer
 {
-	public void Add(int id, string documentText)
-	{
-		throw new NotImplementedException();
-	}
+    private readonly Dictionary<int, string> indexes = new();
 
-	public List<int> GetIds(string word)
-	{
-		throw new NotImplementedException();
-	}
+    public void Add(int id, string documentText)
+    {
+        indexes[id] = documentText.ToLower(); // Сохранение текста в нижнем регистре для поиска
+    }
 
-	public List<int> GetPositions(int id, string word)
-	{
-		throw new NotImplementedException();
-	}
+    public List<int> GetIds(string word)
+    {
+        word = word.ToLower(); // Приведение слова к нижнему регистру
+        return indexes
+            .Where(entry => entry.Value
+                .Split(new[] { ' ', '.', ',', '!', '?', ':', '-', '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries)
+                .Contains(word))
+            .Select(entry => entry.Key)
+            .ToList();
+    }
 
-	public void Remove(int id)
-	{
-		throw new NotImplementedException();
-	}
+    public List<int> GetPositions(int id, string word)
+    {
+        if (!indexes.ContainsKey(id)) return new List<int>(); // Проверка существования документа
+
+        List<int> positions = new();
+        string[] words = indexes[id].ToLower()
+            .Split(new[] { ' ', '.', ',', '!', '?', ':', '-', '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+
+        for (int i = 0; i < words.Length; i++)
+        {
+            if (words[i] == word.ToLower())
+                positions.Add(i);
+        }
+
+        return positions;
+    }
+
+    public void Remove(int id)
+    {
+        indexes.Remove(id);
+    }
 }
