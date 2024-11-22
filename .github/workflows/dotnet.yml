@@ -19,7 +19,7 @@ jobs:
         run: |
           build_failed=false
 
-          mapfile -t projects < <(find ./Занятие\ 6 ./Занятие\ 7 ./Занятие\ 8 -name '*.csproj')
+          mapfile -t projects < <(find ./Занятие\ 8 ./Занятие\ 9 -name '*.csproj')
 
           for project in "${projects[@]}"; do
             echo "Restoring dependencies for project: \"$project\""
@@ -44,7 +44,7 @@ jobs:
           done
           echo "build_failed=$build_failed" >> $GITHUB_ENV
           echo "$build_failed"
-          
+
       - name: Check for build errors
         if: env.build_failed == 'true'
         run: |
