@@ -1,0 +1,14 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="PocketGoogle.UI.MainWindow"
+        Title="PocketGoogle"
+        Height="450"
+        Width="300">
+    <StackPanel>
+        <Grid ColumnDefinitions="*,*">
+            <TextBox Name="Request" Watermark="search...">Я</TextBox>
+            <Button Name="Run" Grid.Column="1">i feel lucky!</Button>
+        </Grid>
+        <ListBox Name="Results" />
+    </StackPanel>
+</Window>
