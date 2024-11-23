@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace HotelAccounting;
 
+master
 public class AccountingModel : ModelBase
 {
     private double _price;
@@ -101,3 +102,6 @@ public class AccountingModel : ModelBase
             throw new ArgumentException($"{propertyName} должен быть больше 0.");
     }
 }
+=======
+//создайте класс AccountingModel здесь
+master
