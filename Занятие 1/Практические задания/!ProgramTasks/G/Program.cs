@@ -4,8 +4,9 @@
     {
         private static string GetGreetingMessage(string name, double salary)
         {
-            // возвращает "Hello, <name>, your salary is <salary>"
-            ...
+            // load... ✈█ █
+            int roundedSalary = (int)Math.Ceiling(salary);
+            return $"Hello, {name}, your salary is {roundedSalary}";
         }
 
         static void Main(string[] args)
