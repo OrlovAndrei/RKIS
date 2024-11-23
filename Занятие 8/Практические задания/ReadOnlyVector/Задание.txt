@@ -1,25 +1,23 @@
 
-Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.11.35327.3
-MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReadOnlyVector", "ReadOnlyVector\ReadOnlyVector.csproj", "{1D5D61F1-CA8F-47B0-BF40-E9AF4FEA15B2}"
-EndProject
-Global
-	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Any CPU = Debug|Any CPU
-		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{1D5D61F1-CA8F-47B0-BF40-E9AF4FEA15B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1D5D61F1-CA8F-47B0-BF40-E9AF4FEA15B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1D5D61F1-CA8F-47B0-BF40-E9AF4FEA15B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1D5D61F1-CA8F-47B0-BF40-E9AF4FEA15B2}.Release|Any CPU.Build.0 = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {D8232F4E-935D-41DA-86BC-6DD724FF3C26}
-	EndGlobalSection
-EndGlobal
+﻿using System;
+
+namespace ReadOnlyVector
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            ReadOnlyVector vector1 = new ReadOnlyVector(3.0, 4.0);
+            ReadOnlyVector vector2 = new ReadOnlyVector(1.0, 2.0);
+
+            ReadOnlyVector sum = vector1.Add(vector2);
+            Console.WriteLine($"Sum: X = {sum.X}, Y = {sum.Y}");
+
+            ReadOnlyVector modifiedX = vector1.WithX(10.0);
+            Console.WriteLine($"Modified X: X = {modifiedX.X}, Y = {modifiedX.Y}");
+
+            ReadOnlyVector modifiedY = vector1.WithY(20.0);
+            Console.WriteLine($"Modified Y: X = {modifiedY.X}, Y = {modifiedY.Y}");
+        }
+    }
+}
