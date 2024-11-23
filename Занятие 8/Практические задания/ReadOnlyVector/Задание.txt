@@ -1,23 +1,39 @@
 
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace ReadOnlyVector
 {
-    class Program
+    public class ReadOnlyVector
     {
-        static void Main(string[] args)
+        public double X { get; }
+        public double Y { get; }
+
+        public ReadOnlyVector(double x, double y)
         {
-            ReadOnlyVector vector1 = new ReadOnlyVector(3.0, 4.0);
-            ReadOnlyVector vector2 = new ReadOnlyVector(1.0, 2.0);
+            X = x;
+            Y = y;
+        }
 
-            ReadOnlyVector sum = vector1.Add(vector2);
-            Console.WriteLine($"Sum: X = {sum.X}, Y = {sum.Y}");
+        public ReadOnlyVector Add(ReadOnlyVector other)
+        {
+            if (other == null)
+                throw new ArgumentNullException(nameof(other));
 
-            ReadOnlyVector modifiedX = vector1.WithX(10.0);
-            Console.WriteLine($"Modified X: X = {modifiedX.X}, Y = {modifiedX.Y}");
+            return new ReadOnlyVector(X + other.X, Y + other.Y);
+        }
 
-            ReadOnlyVector modifiedY = vector1.WithY(20.0);
-            Console.WriteLine($"Modified Y: X = {modifiedY.X}, Y = {modifiedY.Y}");
+        public ReadOnlyVector WithX(double newX)
+        {
+            return new ReadOnlyVector(newX, Y);
+        }
+
+        public ReadOnlyVector WithY(double newY)
+        {
+            return new ReadOnlyVector(X, newY);
         }
     }
 }
