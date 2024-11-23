@@ -10,8 +10,10 @@
 
         public static int[] GetFirstEvenNumbers(int count)
         {
-            ...
+            int[] evenNumbers = new int[count];
+            for (int i = 0; i < count; i++)
+                evenNumbers[i] = 2 * (i + 1);
+            return evenNumbers;
         }
-
     }
 }
