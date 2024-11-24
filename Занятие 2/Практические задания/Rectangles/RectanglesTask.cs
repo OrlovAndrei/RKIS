@@ -52,16 +52,5 @@ public static class RectanglesTask
 
         return -1;  
     }
+  }
 }
-}
-
-
-
-
-
-
-
-
-
-
-
