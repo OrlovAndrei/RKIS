@@ -18,7 +18,18 @@
         {
             var dx = Math.Abs(to[0] - from[0]); //смещение фигуры по горизонтали
             var dy = Math.Abs(to[1] - from[1]); //смещение фигуры по вертикали
-            ...
+            var max = double.MinValue;
+            int index = -1;
+
+            for (int i = 0; i < array.Length; i++)
+            {
+                if (max < array[i])
+                {
+                    max = array[i];
+                    index = i;
+                }
+            }
+            return index;
         }
     }
 }
