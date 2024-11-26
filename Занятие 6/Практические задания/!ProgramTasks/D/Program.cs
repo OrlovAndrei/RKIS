@@ -17,12 +17,22 @@
                 new FileInfo(@"C:\Музыка\Былина\песня8.txt")
             };
 
-            GetAlbums(testFiles);
+            var albums = GetAlbums(testFiles);
+            foreach (var album in albums)
+            {
+                Console.WriteLine(album.FullName);
+            }
         }
 
         public static List<DirectoryInfo> GetAlbums(List<FileInfo> files)
         {
-            ...
+            return files
+                .Where(f => f.Extension.Equals(".mp3", StringComparison.OrdinalIgnoreCase) ||
+                            f.Extension.Equals(".wav", StringComparison.OrdinalIgnoreCase))
+                .Select(f => f.Directory)
+                .Where(d => d != null)
+                .Distinct()
+                .ToList();
         }
     }
 }
