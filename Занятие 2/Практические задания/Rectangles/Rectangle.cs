@@ -1,4 +1,4 @@
-﻿namespace Rectangles;
+﻿﻿namespace Rectangles;
 
 public class Rectangle
 {

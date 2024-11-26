@@ -1,4 +1,4 @@
-﻿namespace D
+﻿﻿namespace D
 {
     internal class Program
     {
@@ -13,6 +13,16 @@
 
         private static void WriteBoard(int size)
         {
+            string symbol = "#";
+            for (int i = 0; i < size; i++)
+            {
+                Console.Write(symbol);
+                for (int k = 0; k < size - 1; k++)
+                {
+                    if (symbol == "#") symbol = ".";
+                    else if (symbol == ".") symbol = "#";
+                    Console.Write(symbol);
+                }
 
             Console.WriteLine("#.#.#.#.");
             Console.WriteLine(".#.#.#.#");
@@ -22,7 +32,14 @@
             Console.WriteLine(".#.#.#.#");
             Console.WriteLine("#.#.#.#.");
             Console.WriteLine(".#.#.#.#");
+                if (size % 2 != 0)
+                {
+                    if (symbol == "#") symbol = ".";
+                    else if (symbol == ".") symbol = "#";
+                }
+
+                Console.WriteLine();
+            }
             Console.WriteLine();
         }
     }
-}
