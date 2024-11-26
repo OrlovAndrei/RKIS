@@ -2,8 +2,8 @@
 using Digger.Architecture;
 
 namespace Digger;
-// Задание 2
-// Класс террайн 
+// Задание 3
+// террайн
 class Terrain : ICreature
 {
     public CreatureCommand Act(int x, int y) => new CreatureCommand
@@ -20,7 +20,7 @@ class Terrain : ICreature
     public string GetImageFileName() => "Terrain.png";
 }
 
-// класс игрок
+// игрок
 class Player : ICreature
 {
     public CreatureCommand Act(int x, int y)
@@ -59,7 +59,7 @@ class Player : ICreature
     public string GetImageFileName() => "Digger.png";
 }
 
-// сак класс
+// сак
 class Sack : ICreature
 {
     private int fallCount;
@@ -135,7 +135,7 @@ class Sack : ICreature
     public string GetImageFileName() => "Sack.png";
 }
 
-// класс залото
+// золото
 class Gold : ICreature
 {
     public CreatureCommand Act(int x, int y) => new();
@@ -150,4 +150,48 @@ class Gold : ICreature
     public int GetDrawingPriority() => 10;
 
     public string GetImageFileName() => "Gold.png";
+}
+
+// монстры
+class Monster : ICreature
+{
+    public CreatureCommand Act(int x, int y)
+    {
+        var player = FindPlayer();
+        if (player == null)
+            return new CreatureCommand();
+
+        var deltaX = Math.Sign(player.X - x);
+        var deltaY = Math.Sign(player.Y - y);
+        if (CanMove(x + deltaX, y))
+            return new CreatureCommand { DeltaX = deltaX, DeltaY = 0 };
+        if (CanMove(x, y + deltaY))
+            return new CreatureCommand { DeltaX = 0, DeltaY = deltaY };
+
+        return new CreatureCommand();
+    }
+
+    private static bool CanMove(int x, int y)
+    {
+        if (x < 0 || y < 0 || x >= Game.MapWidth || y >= Game.MapHeight)
+            return false;
+
+        var cell = Game.Map.GetValue(x, y);
+        return cell == null || cell is Player || cell is Gold;
+    }
+
+    private static (int X, int Y)? FindPlayer()
+    {
+        for (var x = 0; x < Game.MapWidth; x++)
+            for (var y = 0; y < Game.MapHeight; y++)
+                if (Game.Map.GetValue(x, y) is Player)
+                    return (x, y);
+        return null;
+    }
+
+    public bool DeadInConflict(ICreature conflictedObject) => conflictedObject is Player || conflictedObject is Monster || conflictedObject is Sack;
+
+    public int GetDrawingPriority() => 5;
+
+    public string GetImageFileName() => "Monster.png";
 }
