@@ -12,5 +12,8 @@ public static class BilliardsTask
     {
         //TODO
         return 0.0;
-    }
-}
+        double incidenceAngel = directionRadians - wallInclinationRadians;
+        double reflectionAngle = -incidenceAngel;
+        double newDirection = wallInclinationRadians + reflectionAngle;
+        newDirection = (newDirection + 2 * Math.PI) % (2 * Math.PI);
+        return newDirection;
