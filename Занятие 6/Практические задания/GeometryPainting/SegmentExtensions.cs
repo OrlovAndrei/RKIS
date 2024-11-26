@@ -4,4 +4,23 @@ using GeometryTasks;
 
 namespace GeometryPainting;
 
-//Напишите здесь код, который заставит работать методы segment.GetColor и segment.SetColor
+public class Data
+    {
+        public Color Col;
+    }
+    public static class SegmentExtensions
+    {
+        public static ConditionalWeakTable<Segment, Data> Table = new ConditionalWeakTable<Segment, Data>();
+        public static void SetColor(this Segment segment, Color color)
+        {
+            Table.Add(segment, new Data { Col = color });
+        }
+        public static Color GetColor(this Segment segment)
+        {
+            Data color;
+            if (Table.TryGetValue(segment, out color))
+                return color.Col;
+            return Color.Black;
+        }
+    }
+}
