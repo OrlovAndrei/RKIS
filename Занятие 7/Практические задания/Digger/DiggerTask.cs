@@ -1,186 +1,270 @@
 ﻿using System;
 using Avalonia.Input;
-using global::Digger.Architecture;
+using Digger.Architecture;
 
 namespace Digger
 {
     public class Terrain : ICreature
     {
-        public CreatureCommand Act(int x, int y) => CreatureCommand.Stay();
+        public CreatureCommand Act(int positionX, int positionY)
+        {
+            return new CreatureCommand() { DeltaX = 0, DeltaY = 0 };
+        }
 
-        public bool DeadInConflict(ICreature other) => true; // Уничтожается при столкновении
+        public bool DeadInConflict(ICreature conflictingObject)
+        {
+            return true;
+        }
 
-        public int GetDrawingPriority() => 2;
+        public int GetDrawingPriority()
+        {
+            return 2;
+        }
 
-        public string GetImageFileName() => "Terrain.png";
+        public string GetImageFileName()
+        {
+            return "Terrain.png";
+        }
     }
 
     public class Player : ICreature
     {
-        public static int posX = 0, posY = 0; // Положение Digger на карте
+        public static int playerX, playerY = 0;
+        public static int playerDeltaX, playerDeltaY = 0;
 
-        public CreatureCommand Act(int x, int y)
+        public CreatureCommand Act(int positionX, int positionY)
         {
-            UpdatePosition(x, y);
+            playerX = positionX;
+            playerY = positionY;
 
             switch (Game.KeyPressed)
             {
-                case Key.A: return TryMove(-1, 0); // Движение влево
-                case Key.W: return TryMove(0, -1); // Движение вверх
-                case Key.D: return TryMove(1, 0); // Движение вправо
-                case Key.S: return TryMove(0, 1); // Движение вниз
-                default: return CreatureCommand.Stay(); // Остается на месте
+                case Avalonia.Input.Key.Left:
+                    playerDeltaY = 0;
+                    playerDeltaX = -1;
+                    break;
+
+                case Avalonia.Input.Key.Up:
+                    playerDeltaY = -1;
+                    playerDeltaX = 0;
+                    break;
+
+                case Avalonia.Input.Key.Right:
+                    playerDeltaY = 0;
+                    playerDeltaX = 1;
+                    break;
+
+                case Avalonia.Input.Key.Down:
+                    playerDeltaY = 1;
+                    playerDeltaX = 0;
+                    break;
+
+                default:
+                    Stay();
+                    break;
             }
-        }
 
-        private void UpdatePosition(int x, int y)
-        {
-            posX = x;
-            posY = y;
-        }
+            if (!(positionX + playerDeltaX >= 0 && positionX + playerDeltaX < Game.MapWidth &&
+                positionY + playerDeltaY >= 0 && positionY + playerDeltaY < Game.MapHeight))
+                Stay();
 
-        private CreatureCommand TryMove(int deltaX, int deltaY)
-        {
-            if (IsMoveValid(posX + deltaX, posY + deltaY))
+            if (Game.Map[positionX + playerDeltaX, positionY + playerDeltaY] != null)
             {
-                var nextCell = Game.Map[posX + deltaX, posY + deltaY];
-                if (nextCell is Sack)
-                {
-                    return CreatureCommand.Stay(); // Останавливается, если впереди Sack
-                }
-
-                return new CreatureCommand { DeltaX = deltaX, DeltaY = deltaY };
+                if (Game.Map[positionX + playerDeltaX, positionY + playerDeltaY].ToString() == "Digger.Sack")
+                    Stay();
             }
-            return CreatureCommand.Stay(); // Если движение невозможно, остаётся на месте
+
+            return new CreatureCommand() { DeltaX = playerDeltaX, DeltaY = playerDeltaY };
         }
 
-        private bool IsMoveValid(int x, int y)
+        public bool DeadInConflict(ICreature conflictingObject)
         {
-            return x >= 0 && x < Game.MapWidth && y >= 0 && y < Game.MapHeight;
-        }
-
-        public bool DeadInConflict(ICreature other)
-        {
-            if (other is Gold)
+            var adjacentObject = conflictingObject.ToString();
+            if (adjacentObject == "Digger.Gold")
+                Game.Scores += 10;
+            if (adjacentObject == "Digger.Sack" ||
+                adjacentObject == "Digger.Monster")
             {
-                Game.Scores += 10; // За золото
-                return false; // Digger не погибает
+                return true;
             }
-            return other is Sack || other is Monster; // Digger погибает при столкновении с Sack или Monster
+            return false;
         }
 
-        public int GetDrawingPriority() => 1;
+        public int GetDrawingPriority()
+        {
+            return 1;
+        }
 
-        public string GetImageFileName() => "Digger.png";
+        public string GetImageFileName()
+        {
+            return "Digger.png";
+        }
+
+        private static void Stay()
+        {
+            playerDeltaX = 0;
+            playerDeltaY = 0;
+        }
     }
 
     public class Sack : ICreature
     {
-        private int fallSteps = 0;
+        private int fallCounter = 0;
+        public static bool isDeadlyForPlayer = false;
 
-        public CreatureCommand Act(int x, int y)
+        public CreatureCommand Act(int positionX, int positionY)
         {
-            if (CanFall(x, y))
+            if (positionY < Game.MapHeight - 1)
             {
-                fallSteps++;
-                return CreatureCommand.Fall(); // Падает вниз
+                var nextMapCell = Game.Map[positionX, positionY + 1];
+                if (nextMapCell == null ||
+                    (fallCounter > 0 && (nextMapCell.ToString() == "Digger.Player" ||
+                    nextMapCell.ToString() == "Digger.Monster")))
+                {
+                    fallCounter++;
+                    return Fall();
+                }
             }
 
-            if (fallSteps > 1)
+            if (fallCounter > 1)
             {
-                fallSteps = 0;
-                return new CreatureCommand { TransformTo = new Gold() }; // Превращается в золото
+                fallCounter = 0;
+                return new CreatureCommand() { DeltaX = 0, DeltaY = 0, TransformTo = new Gold() };
             }
-
-            return CreatureCommand.Stay(); // Остается на месте
+            fallCounter = 0;
+            return DoNothing();
         }
 
-        private bool CanFall(int x, int y)
+        public bool DeadInConflict(ICreature conflictingObject)
         {
-            return (y < Game.MapHeight - 1 && Game.Map[x, y + 1] == null);
+            return false;
         }
 
-        public bool DeadInConflict(ICreature other) => false;
+        public int GetDrawingPriority()
+        {
+            return 5;
+        }
 
-        public int GetDrawingPriority() => 5;
+        public string GetImageFileName()
+        {
+            return "Sack.png";
+        }
 
-        public string GetImageFileName() => "Sack.png";
+        private CreatureCommand Fall()
+        {
+            return new CreatureCommand() { DeltaX = 0, DeltaY = 1 };
+        }
+
+        private CreatureCommand DoNothing()
+        {
+            return new CreatureCommand() { DeltaX = 0, DeltaY = 0 };
+        }
     }
 
     public class Gold : ICreature
     {
-        public CreatureCommand Act(int x, int y) => CreatureCommand.Stay();
+        public CreatureCommand Act(int positionX, int positionY)
+        {
+            return new CreatureCommand() { DeltaX = 0, DeltaY = 0 };
+        }
 
-        public bool DeadInConflict(ICreature other) => other is Player || other is Monster;
+        public bool DeadInConflict(ICreature conflictingObject)
+        {
+            var adjacentObject = conflictingObject.ToString();
+            return (adjacentObject == "Digger.Player" ||
+               adjacentObject == "Digger.Monster");
+        }
 
-        public int GetDrawingPriority() => 3;
+        public int GetDrawingPriority()
+        {
+            return 3;
+        }
 
-        public string GetImageFileName() => "Gold.png";
+        public string GetImageFileName()
+        {
+            return "Gold.png";
+        }
     }
 
     public class Monster : ICreature
     {
-        public CreatureCommand Act(int x, int y)
+        public CreatureCommand Act(int positionX, int positionY)
         {
-            if (IsPlayerAlive(out int playerX, out int playerY))
+            int monsterDeltaX = 0;
+            int monsterDeltaY = 0;
+
+            if (IsPlayerAlive())
             {
-                return MoveTowardsPlayer(x, y, playerX, playerY);
-            }
-            return CreatureCommand.Stay();
-        }
-
-        private CreatureCommand MoveTowardsPlayer(int x, int y, int playerX, int playerY)
-        {
-            int deltaX = (playerX > x) ? 1 : -1;
-            int deltaY = (playerY > y) ? 1 : -1;
-
-            if (CanMove(x + deltaX, y))
-                return new CreatureCommand { DeltaX = deltaX, DeltaY = 0 };
-            if (CanMove(x, y + deltaY))
-                return new CreatureCommand { DeltaX = 0, DeltaY = deltaY };
-
-            return CreatureCommand.Stay(); // Если ни одно из направлений невозможно, остаётся на месте
-        }
-
-        private bool CanMove(int x, int y)
-        {
-            return (x >= 0 && x < Game.MapWidth && y >= 0 && y < Game.MapHeight
-                && !(Game.Map[x, y] is Terrain || Game.Map[x, y] is Sack || Game.Map[x, y] is Monster));
-        }
-
-        public bool DeadInConflict(ICreature other) => other is Sack || other is Monster;
-
-        public int GetDrawingPriority() => 0;
-
-        public string GetImageFileName() => "Monster.png";
-
-        private static bool IsPlayerAlive(out int playerX, out int playerY)
-        {
-            for (int i = 0; i < Game.MapWidth; i++)
-            {
-                for (int j = 0; j < Game.MapHeight; j++)
+                if (Player.playerX == positionX)
                 {
-                    ICreature cell = Game.Map[i, j];
-                    if (cell is Player)
-                    {
-                        playerX = i;
-                        playerY = j;
-                        return true; // Digger найден
-                    }
+                    if (Player.playerY < positionY) monsterDeltaY = -1;
+                    else if (Player.playerY > positionY) monsterDeltaY = 1;
+                }
+                else if (Player.playerY == positionY)
+                {
+                    if (Player.playerX < positionX) monsterDeltaX = -1;
+                    else if (Player.playerX > positionX) monsterDeltaX = 1;
+                }
+                else
+                {
+                    if (Player.playerX < positionX) monsterDeltaX = -1;
+                    else if (Player.playerX > positionX) monsterDeltaX = 1;
                 }
             }
-            playerX = playerY = -1; // Указываем, что Digger не найден
+            else return Stay();
+
+            if (!(positionX + monsterDeltaX >= 0 && positionX + monsterDeltaX < Game.MapWidth &&
+                positionY + monsterDeltaY >= 0 && positionY + monsterDeltaY < Game.MapHeight))
+                return Stay();
+
+            var nextMapCell = Game.Map[positionX + monsterDeltaX, positionY + monsterDeltaY];
+            if (nextMapCell != null)
+                if (nextMapCell.ToString() == "Digger.Terrain" ||
+                    nextMapCell.ToString() == "Digger.Sack" ||
+                    nextMapCell.ToString() == "Digger.Monster")
+                    return Stay();
+            return new CreatureCommand() { DeltaX = monsterDeltaX, DeltaY = monsterDeltaY };
+        }
+
+        public bool DeadInConflict(ICreature conflictingObject)
+        {
+            var adjacentObject = conflictingObject.ToString();
+            return (adjacentObject == "Digger.Sack" ||
+            adjacentObject == "Digger.Monster");
+        }
+
+        public int GetDrawingPriority()
+        {
+            return 0;
+        }
+
+        public string GetImageFileName()
+        {
+            return "Monster.png";
+        }
+
+        static private CreatureCommand Stay()
+        {
+            return new CreatureCommand() { DeltaX = 0, DeltaY = 0 };
+        }
+
+        static private bool IsPlayerAlive()
+        {
+            for (int i = 0; i < Game.MapWidth; i++)
+                for (int j = 0; j < Game.MapHeight; j++)
+                {
+                    var nextMapCell = Game.Map[i, j];
+                    if (nextMapCell != null)
+                    {
+                        if (nextMapCell.ToString() == "Digger.Player")
+                        {
+                            Player.playerX = i;
+                            Player.playerY = j;
+                            return true;
+                        }
+                    }
+                }
             return false;
         }
-    }
-
-    public class CreatureCommand
-    {
-        public int DeltaX { get; set; } = 0;
-        public int DeltaY { get; set; } = 0;
-        public ICreature TransformTo { get; set; } = null;
-
-        public static CreatureCommand Stay() => new CreatureCommand { DeltaX = 0, DeltaY = 0 };
-        public static CreatureCommand Fall() => new CreatureCommand { DeltaX = 0, DeltaY = 1 };
     }
 }
