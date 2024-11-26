@@ -2,8 +2,8 @@
 using Digger.Architecture;
 
 namespace Digger;
-// ЗАДАНИЕ 1
-// класс терраин
+// Задание 2
+// Класс террайн 
 class Terrain : ICreature
 {
     public CreatureCommand Act(int x, int y) => new CreatureCommand
@@ -20,7 +20,7 @@ class Terrain : ICreature
     public string GetImageFileName() => "Terrain.png";
 }
 
-// класс плейер 
+// класс игрок
 class Player : ICreature
 {
     public CreatureCommand Act(int x, int y)
@@ -57,4 +57,97 @@ class Player : ICreature
     public int GetDrawingPriority() => 0;
 
     public string GetImageFileName() => "Digger.png";
+}
+
+// сак класс
+class Sack : ICreature
+{
+    private int fallCount;
+    private bool isFalling;
+    public bool IsFalling => isFalling;
+
+    public CreatureCommand Act(int x, int y)
+    {
+        var command = new CreatureCommand
+        {
+            DeltaX = 0,
+            DeltaY = 1,
+            TransformTo = this
+        };
+
+        bool canFall = CanFallTo(x + command.DeltaX, y + command.DeltaY);
+
+        if (canFall)
+        {
+            fallCount++;
+            isFalling = true;
+            return CreateMovementCommand(0, 1);
+        }
+
+        if (fallCount > 1)
+        {
+            return CreateTransformToGoldCommand();
+        }
+
+        ResetFallState();
+        return CreateMovementCommand(0, 0);
+    }
+
+    private CreatureCommand CreateMovementCommand(int deltaX, int deltaY)
+    {
+        return new CreatureCommand
+        {
+            DeltaX = deltaX,
+            DeltaY = deltaY
+        };
+    }
+
+    private CreatureCommand CreateTransformToGoldCommand()
+    {
+        return new CreatureCommand
+        {
+            DeltaX = 0,
+            DeltaY = 0,
+            TransformTo = new Gold()
+        };
+    }
+
+    private void ResetFallState()
+    {
+        fallCount = 0;
+        isFalling = false;
+    }
+
+    private bool CanFallTo(int x, int y)
+    {
+        if (x < 0 || y < 0 || x >= Game.MapWidth || y >= Game.MapHeight)
+            return false;
+
+        var cell = Game.Map.GetValue(x, y);
+
+        return cell == null || (cell is Monster || cell is Player) && fallCount > 0;
+    }
+
+    public bool DeadInConflict(ICreature conflictedObject) => false;
+
+    public int GetDrawingPriority() => 10;
+
+    public string GetImageFileName() => "Sack.png";
+}
+
+// класс залото
+class Gold : ICreature
+{
+    public CreatureCommand Act(int x, int y) => new();
+
+    public bool DeadInConflict(ICreature conflictedObject)
+    {
+        if (conflictedObject is Player)
+            Game.Scores += 10;
+        return true;
+    }
+
+    public int GetDrawingPriority() => 10;
+
+    public string GetImageFileName() => "Gold.png";
 }
