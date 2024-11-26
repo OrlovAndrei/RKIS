@@ -1,15 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-    <PropertyGroup>
-        <OutputType>WinExe</OutputType>
-        <TargetFramework>net6.0</TargetFramework>
-        <Nullable>enable</Nullable>
-        <!--Avalonia doesen't support TrimMode=link currently,but we are working on that https://github.com/AvaloniaUI/Avalonia/issues/6892 -->
-        <TrimMode>copyused</TrimMode>
-        <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
-        <RootNamespace>GeometryPainting</RootNamespace>
-        <StartupObject>GeometryPainting.UI.Program</StartupObject>
-    </PropertyGroup>
-    <ItemGroup>
+ <ItemGroup>
         <None Remove=".gitignore" />
         <Compile Remove="*.Initial.*" />
         <None Include="*.Initial.*" />
@@ -31,5 +20,10 @@
         <PackageReference Include="NUnit" Version="3.13.3" />
         <PackageReference Include="NUnit3TestAdapter" Version="4.2.1" />
         <PackageReference Include="XamlNameReferenceGenerator" Version="1.3.4" />
+    </ItemGroup>
+    <ItemGroup>
+      <Reference Include="GeometryTasks">
+        <HintPath>..\Geometry\GeometryTasks\bin\Debug\net6.0\GeometryTasks.dll</HintPath>
+      </Reference>
     </ItemGroup>
 </Project>
