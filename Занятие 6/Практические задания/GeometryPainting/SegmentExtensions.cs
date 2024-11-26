@@ -1,7 +1,13 @@
 ﻿using System.Collections.Generic;
 using Avalonia.Media;
-using GeometryTasks;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace GeometryPainting;
 
-//Напишите здесь код, который заставит работать методы segment.GetColor и segment.SetColor
+
+public class Segment : Geometry.Segment
+{
+    public Color Color = Colors.Black;
+    public Color GetColor() => Color;
+    public void SetColor(Color color) => Color = color;
+}
