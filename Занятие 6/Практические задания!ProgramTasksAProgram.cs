@@ -1,5 +1,4 @@
 ﻿using System.Globalization;
-
 namespace A
 {
     internal class Program
@@ -15,6 +14,17 @@ namespace A
                 city.Name,
                 city.Location.Longitude.ToString(CultureInfo.InvariantCulture),
                 city.Location.Latitude.ToString(CultureInfo.InvariantCulture));
+        }
+        class City
+        {
+            public string Name { get; set; }
+            public GeoLocation Location { get; set; }
+        }
+
+        class GeoLocation
+        {
+            public double Latitude { get; set; }
+            public double Longitude { get; set; }
         }
     }
 }
