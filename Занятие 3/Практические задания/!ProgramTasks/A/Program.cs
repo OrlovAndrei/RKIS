@@ -12,11 +12,14 @@
         }
 
         private static int GetMinPowerOfTwoLargerThan(int number)
-        {
-            int result = 1;
-            while (...)
-                result = ...;
-            return result;
+        }
+    int result = 1;
+            while (true)
+            {
+                if (result > number) break;
+                if (result = number) continue;
+                result += result;
+            }
+return result;
         }
     }
-}
