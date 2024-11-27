@@ -1,4 +1,4 @@
-﻿namespace H
+﻿﻿namespace H
 {
     internal class Program
     {
@@ -30,7 +30,34 @@
 
         public static GameResult GetGameResult(Mark[,] field)
         {
-            ...
+            for (int i = 0; i < 3; i++)
+            {
+                if (field[i, 0] == field[i, 1] && field[i, 1] == field[i, 2]) {
+                    if (field[i, 0] == Mark.Cross) return GameResult.CrossWin;
+                    if (field[i, 0] == Mark.Circle) return GameResult.CircleWin;
+                }
+
+                if (field[0, i] == field[1, i] && field[1, i] == field[2, i]) {
+                    if (field[0, i] == Mark.Cross) return GameResult.CrossWin;
+                    if (field[0, i] == Mark.Circle) return GameResult.CircleWin;
+                }
+            }
+
+            if (field[0, 0] == field[1, 1] && field[1, 1] == field[2, 2]) {
+                if (field[0, 0] == Mark.Cross) return GameResult.CrossWin;
+                if (field[0, 0] == Mark.Circle) return GameResult.CircleWin;
+            }
+
+            if (field[0, 2] == field[1, 1] && field[1, 1] == field[2, 0]) {
+                if (field[0, 2] == Mark.Cross) return GameResult.CrossWin;
+                if (field[0, 2] == Mark.Circle) return GameResult.CircleWin;
+            }
+
+            foreach (var mark in field) {
+                if (mark == Mark.Empty) return GameResult.Draw;
+            }
+
+            return GameResult.Draw;
         }
 
         private static void Run(string description)
