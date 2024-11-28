@@ -1,18 +1,19 @@
-﻿namespace G
+namespace H
 {
     internal class Program
     {
-        private static string GetGreetingMessage(string name, double salary)
+        public static void Main()
         {
-            // возвращает "Hello, <name>, your salary is <salary>"
-            ...
+	        Print(GetSquare(42));
+        }
+       static void Print(int number)
+        {
+	        Console.WriteLine(number);
         }
 
-        static void Main(string[] args)
+        static int GetSquare(int number)
         {
-            Console.WriteLine(GetGreetingMessage("Student", 10.01));
-            Console.WriteLine(GetGreetingMessage("Bill Gates", 10000000.5));
-            Console.WriteLine(GetGreetingMessage("Steve Jobs", 1));
+	        return (int)Math.Pow(number, 2);	// Math.Pow = number * number
         }
     }
 }
