@@ -2,24 +2,26 @@ using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 
-namespace AngryBirds.UI;
-
-public partial class App : Application
+namespace AngryBirds.UI
 {
-	public override void Initialize()
-	{
-		AvaloniaXamlLoader.Load(this);
-	}
 
-	public override void OnFrameworkInitializationCompleted()
+	public partial class App : Application
 	{
-		if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
+		public override void Initialize()
 		{
-			var mainWindow = new MainWindow();
-			mainWindow.CreateTestsCases(TestCases);
-			desktop.MainWindow = mainWindow;
+			AvaloniaXamlLoader.Load(this);
 		}
 
-		base.OnFrameworkInitializationCompleted();
+		public override void OnFrameworkInitializationCompleted()
+		{
+			if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
+			{
+				var mainWindow = new MainWindow();
+				mainWindow.CreateTestsCases(TestCases);
+				desktop.MainWindow = mainWindow;
+			}
+
+			base.OnFrameworkInitializationCompleted();
+		}
 	}
 }

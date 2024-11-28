@@ -1,7 +1,9 @@
-﻿namespace RefactorMe.Common;
-
-public static class WindowSettings
+﻿namespace RefactorMe.Common
 {
-	public const int Width = 800;
-	public const int Height = 600;
+
+	public static class WindowSettings
+	{
+		public const int Width = 800;
+		public const int Height = 600;
+	}
 }
