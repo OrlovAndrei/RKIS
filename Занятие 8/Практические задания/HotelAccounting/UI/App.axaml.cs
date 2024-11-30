@@ -2,7 +2,7 @@ using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 
-namespace PocketGoogle.UI;
+namespace HotelAccounting.UI;
 
 public partial class App : Application
 {
