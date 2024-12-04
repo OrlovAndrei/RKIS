@@ -6,5 +6,14 @@
         {
             Print(GetSquare(42));
         }
+        static void Print(int number)
+        {
+            Console.WriteLine(number);
+        }
+
+        static int GetSquare(int number)
+        {
+            return (int)Math.Pow(number, 2);    // Math.Pow = number * number
+        }
     }
 }

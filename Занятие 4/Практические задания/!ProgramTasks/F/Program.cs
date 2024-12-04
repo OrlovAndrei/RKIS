@@ -1,5 +1,6 @@
 ﻿namespace F
 {
+
     internal class Program
     {
         static void Main(string[] args)
@@ -12,7 +13,7 @@
 
         public static bool CheckFirstElement(int[] array)
         {
-            return array != null & array.Length != 0 & array[0] == 0;
+            return array != null && array.Length != 0 && array[0] == 0;
         }
     }
 }

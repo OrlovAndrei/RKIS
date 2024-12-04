@@ -9,7 +9,8 @@
 
         public static int GetElementCount(int[] items, int itemToCount)
         {
-            ...
+            var count = items.Count(num => num == itemToCount);
+            return count;
         }
     }
 }
