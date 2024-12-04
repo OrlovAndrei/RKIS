@@ -16,5 +16,13 @@ namespace D
                     return i;
             return -1;
         }
+
+        public static bool ContainsAtIndex(int[] array, int[] subArray, int k)
+        {
+            // array[k+i] == subarray[i] для всех i от 0 до subarray.Length-1
+            for (int i = 0; i < subArray.Length; i++)
+                if (array[k + i] != subArray[i]) return false;
+            return true;
+        }
     }
 }

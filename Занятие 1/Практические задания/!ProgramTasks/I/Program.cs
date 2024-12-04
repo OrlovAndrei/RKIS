@@ -4,7 +4,9 @@
     {
         static string GetLastHalf(string text)
         {
-            ...
+            text = text.Replace(" ", ""); //убирает пробелы в строке
+            string lusthulf = text.Substring(text.Length / 2);
+            return lusthulf;
         }
 
         static void Main(string[] args)

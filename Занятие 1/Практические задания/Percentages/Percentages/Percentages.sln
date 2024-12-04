@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35327.3
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Percentages", "Percentages.csproj", "{F2C8CE6E-812B-4EE0-83C1-36A08061D172}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F2C8CE6E-812B-4EE0-83C1-36A08061D172}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F2C8CE6E-812B-4EE0-83C1-36A08061D172}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F2C8CE6E-812B-4EE0-83C1-36A08061D172}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F2C8CE6E-812B-4EE0-83C1-36A08061D172}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7C008590-24F0-467F-BC32-A91004F32513}
+	EndGlobalSection
+EndGlobal
