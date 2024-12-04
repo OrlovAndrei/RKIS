@@ -17,7 +17,19 @@
 
         public static int MaxIndex(double[] array)
         {
-            ...
+            if (array.Length == 0) {
+                return -1;
+            }
+            int maxIndex = 0;
+            double maxValue = array[0];
+
+            for (int i = 1; i < array.Length; i++) {
+                if (array[i] > maxValue) {
+                    maxValue = array[i]
+                    maxIndex = i
+                }
+            }
+            return maxIndex
         }
     }
 }
