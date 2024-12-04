@@ -1,12 +1,17 @@
-﻿namespace TextAnalysis;
-
+﻿using System.Text;
+namespace TextAnalysis;
 static class TextGeneratorTask
 {
-    public static string ContinuePhrase(
-        Dictionary<string, string> nextWords,
-        string phraseBeginning,
-        int wordsCount)
+    public static string ContinuePhrase(Dictionary<string, string> frequentNextWords, string initialWord, int totalWordsCount)
     {
-        return phraseBeginning;
+        StringBuilder resultPhrase = new StringBuilder(initialWord);
+        for (int index = 1; index < totalWordsCount; index++)
+        {
+            if (!frequentNextWords.ContainsKey(initialWord))
+                break;
+            initialWord = frequentNextWords[initialWord];
+            resultPhrase.Append(" " + initialWord);
+        }
+        return resultPhrase.ToString();
     }
 }

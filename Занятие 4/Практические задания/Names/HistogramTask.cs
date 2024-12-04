@@ -1,12 +1,28 @@
-﻿namespace Names;
+﻿using System;
+using System.Linq;
 
-internal static class HistogramTask
+namespace Names
 {
-    public static HistogramData GetBirthsPerDayHistogram(NameData[] names, string name)
+    internal static class HistogramTask
     {
-        return new HistogramData(
-            $"Рождаемость людей с именем '{name}'", 
-            new [] {"1"}, 
-            new[] {0d});
+        public static HistogramData GetBirthsPerDayHistogram(NameData[] nameRecords, string name)
+        {
+            const int startingDay = 1;
+            int endingDay = nameRecords.Max(nd => nd.BirthDate.Day);
+
+            var daysArray = Enumerable.Range(startingDay, endingDay - startingDay + 1).Select(day => day.ToString()).ToArray();
+
+            var birthCountArray = new double[endingDay - startingDay + 1];
+
+            foreach (var record in nameRecords)
+            {
+                if (record.Name.Equals(name, StringComparison.OrdinalIgnoreCase) && record.BirthDate.Day > startingDay)
+                {
+                    birthCountArray[record.BirthDate.Day - startingDay]++;
+                }
+            }
+
+            return new HistogramData(string.Format("Рождаемость людей с именем '{0}'", name), daysArray, birthCountArray);
+        }
     }
 }
