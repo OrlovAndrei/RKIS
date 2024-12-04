@@ -13,16 +13,22 @@
 
         private static void WriteBoard(int size)
         {
-
-            Console.WriteLine("#.#.#.#.");
-            Console.WriteLine(".#.#.#.#");
-            Console.WriteLine("#.#.#.#.");
-            Console.WriteLine(".#.#.#.#");
-            Console.WriteLine("#.#.#.#.");
-            Console.WriteLine(".#.#.#.#");
-            Console.WriteLine("#.#.#.#.");
-            Console.WriteLine(".#.#.#.#");
-            Console.WriteLine();
+            for (int i = 0; i < size; i++)
+            {
+                for (int j = 0; j < size; j++)
+                {
+                    if ((i + j) % 2 == 0)
+                    {
+                        Console.Write("#");
+                    }
+                    else
+                    {
+                        Console.Write(".");
+                    }
+                }
+                Console.WriteLine(); 
+            }
+            Console.WriteLine(); 
         }
     }
 }
