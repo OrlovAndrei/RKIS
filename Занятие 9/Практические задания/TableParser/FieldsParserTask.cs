@@ -18,7 +18,11 @@ public class FieldParserTaskTests
 
     [TestCase("text", new[] { "text" })]
     [TestCase("hello world", new[] { "hello", "world" })]
-    // Вставляйте сюда свои тесты
+    [TestCase("", new string[0])] // Пустая строка
+	[TestCase("\"quoted\"", new[] { "quoted" })] // Поле в кавычках
+	[TestCase("\"he said \\\"hello\\\"\"", new[] { "he said \"hello\"" })] // Экранированные кавычки
+	[TestCase("  one    two  ", new[] { "one", "two" })] // Пробелы между полями
+	[TestCase("word \"quoted field\" last", new[] { "word", "quoted field", "last" })] // Смешанные поля
     public static void RunTests(string input, string[] expectedOutput)
     {
         // Тело метода изменять не нужно
@@ -28,20 +32,44 @@ public class FieldParserTaskTests
 
 public class FieldsParserTask
 {
-	// При решении этой задаче постарайтесь избежать создания методов, длиннее 10 строк.
-	// Подумайте как можно использовать ReadQuotedField и Token в этой задаче.
-	public static List<Token> ParseLine(string line)
-	{
-		return new List<Token> { ReadQuotedField(line, 0) }; // сокращенный синтаксис для инициализации коллекции.
-	}
-        
-	private static Token ReadField(string line, int startIndex)
-	{
-		return new Token(line, 0, line.Length);
-	}
+    public static List<Token> ParseLine(string line)
+    {
+        var tokens = new List<Token>();
+        int index = 0;
 
-	public static Token ReadQuotedField(string line, int startIndex)
-	{
-		return QuotedFieldTask.ReadQuotedField(line, startIndex);
-	}
+        while (index < line.Length)
+        {
+            SkipSpaces(line, ref index);
+            if (index >= line.Length) break;
+
+            var token = line[index] == '"' 
+                ? ReadQuotedField(line, index) 
+                : ReadField(line, index);
+
+            tokens.Add(token);
+            index = token.GetIndexNextToToken();
+        }
+
+        return tokens;
+    }
+
+    private static void SkipSpaces(string line, ref int index)
+    {
+        while (index < line.Length && char.IsWhiteSpace(line[index]))
+            index++;
+    }
+
+    private static Token ReadField(string line, int startIndex)
+    {
+        int endIndex = startIndex;
+        while (endIndex < line.Length && !char.IsWhiteSpace(line[endIndex]))
+            endIndex++;
+
+        return new Token(line, startIndex, endIndex - startIndex);
+    }
+
+    public static Token ReadQuotedField(string line, int startIndex)
+    {
+        return QuotedFieldTask.ReadQuotedField(line, startIndex);
+    }
 }
