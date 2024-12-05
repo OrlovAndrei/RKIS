@@ -5,6 +5,12 @@ using System.Runtime.CompilerServices;
 
 namespace StructBenchmarking;
 
+public class MethodCallTaskFactory : ITaskFactory
+{
+    public ITask CreateClassTask() => new ClassMethodCallTask();
+    public ITask CreateStructTask() => new StructMethodCallTask();
+}
+
 public class MethodCallWithStructArgumentTask : ITask
 {
 	private readonly int size;

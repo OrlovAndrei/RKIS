@@ -1,6 +1,8 @@
 ﻿namespace StructBenchmarking;
-
-public interface ITask
 {
-	void Run();
+    public interface ITaskFactory
+    {
+        ITask CreateClassTask();
+        ITask CreateStructTask();
+    }
 }

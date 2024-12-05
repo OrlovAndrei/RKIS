@@ -1,7 +1,15 @@
 using System;
 using System.Runtime.CompilerServices;
 
-namespace StructBenchmarking;
+namespace StructBenchmarking
+
+{
+    public class ArrayCreationTaskFactory : ITaskFactory
+    {
+        public ITask CreateClassTask() => new ClassArrayCreationTask();
+        public ITask CreateStructTask() => new StructArrayCreationTask();
+    }
+}
 
 public class StructArrayCreationTask : ITask
 {
