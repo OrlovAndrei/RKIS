@@ -18,14 +18,24 @@
             PrintArray(GetPoweredArray(new[] { 42 }, 0));
         }
 
-        public static void PrintArray(int[] arr) {
+        public static void PrintArray(int[] arr)
+        {
             foreach (var item in arr)
                 Console.WriteLine(item);
         }
 
         public static int[] GetPoweredArray(int[] arr, int power)
         {
-            ...
+            // Создаем новый массив той же длины
+            int[] poweredArray = new int[arr.Length];
+
+            // Заполняем новый массив результатами возведения в степень
+            for (int i = 0; i < arr.Length; i++)
+            {
+                poweredArray[i] = (int)Math.Pow(arr[i], power);
+            }
+
+            return poweredArray;
         }
     }
 }
