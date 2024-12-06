@@ -13,10 +13,12 @@
 
         private static int GetMinPowerOfTwoLargerThan(int number)
         {
-            int result = 1;
-            while (...)
-                result = ...;
-            return result;
+            if (number < 0)
+                return 1;
+ 
+            int power = (int)Math.Ceiling(Math.Log(number) / Math.Log(2));
+            int tempResult = 1 << power;
+            return (tempResult == number) ? tempResult << 1 : tempResult;
         }
     }
 }

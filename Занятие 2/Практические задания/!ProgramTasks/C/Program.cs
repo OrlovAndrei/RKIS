@@ -14,11 +14,19 @@
 
         public static int MiddleOf(int a, int b, int c)
         {
-            if (a > b)
-                if (b > c) return b;
-                else if (a > c) return ...
-            else
-                ...
-        }
-    }
+            { 
+                if (a > b) 
+                { 
+                    if (b > c) return b; 
+                    else if (a > c) return c; 
+                    else return a; 
+                }
+                else 
+                {
+                    if (a > c) return a; 
+                    else if (b < c) return b; 
+                    else return c; }	
+            }
+        }	
+    }            
 }

@@ -8,10 +8,15 @@
                 Console.WriteLine(num);
         }
 
-        public static int[] GetFirstEvenNumbers(int count)
+        static int[] GetFirstEvenNumbers(int count)
+    {
+        int[] numbers = new int[count];
+        for (int i = 0; i < count; i++)
         {
-            ...
+            numbers[i] = (i + 1) * 2;
         }
+        return numbers;
+    }
 
     }
 }

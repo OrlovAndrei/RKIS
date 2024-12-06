@@ -28,9 +28,10 @@
             Run(".O. XO. XOX");
         }
 
-        public static GameResult GetGameResult(Mark[,] field)
+         public static GameResult GetGameResult(Mark[,] field)
         {
-            ...
+            bool crossWin = IsThreeInARow(field, Mark.Cross), circleWin = IsThreeInARow(field, Mark.Circle);
+            return crossWin == circleWin ? GameResult.Draw : crossWin ? GameResult.CrossWin : GameResult.CircleWin;
         }
 
         private static void Run(string description)
