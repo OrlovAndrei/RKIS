@@ -1,4 +1,4 @@
-﻿namespace B
+namespace B
 {
     internal class Program
     {
@@ -20,7 +20,20 @@
 
         public static string RemoveStartSpaces(string text)
         {
-            if (char.IsWhiteSpace(text[0])) return text.Substring(1);
+            int counter = 0;
+            if (char.IsWhiteSpace(text[counter]))
+            {
+                counter++;
+                while (char.IsWhiteSpace(text[counter]))
+                    counter++;
+                return text.Substring(counter);
+            }
+            else
+                return text;
+        }
+        public static string RemoveStartSpaces2(string text)
+        {
+            if (char.IsWhiteSpace(text[0])) return RemoveStartSpaces2(text.Substring(1));
             else return text;
         }
     }

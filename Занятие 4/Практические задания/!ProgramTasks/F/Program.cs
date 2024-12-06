@@ -12,7 +12,9 @@
 
         public static bool CheckFirstElement(int[] array)
         {
-            return array != null & array.Length != 0 & array[0] == 0;
+            // Исправление: использование && вместо &
+            // & - побитовое И, && - логическое И. Логическое И более подходит для проверки условий.
+            return array != null && array.Length != 0 && array[0] == 0; 
         }
     }
 }

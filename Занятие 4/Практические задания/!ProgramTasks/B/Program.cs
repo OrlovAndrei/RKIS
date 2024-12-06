@@ -15,9 +15,25 @@
             return min;
         }
 
-        public static int MaxIndex(double[] array)
+         public static int MaxIndex(double[] array)
+    {
+        var max = double.MinValue;
+        foreach (var item in array)
         {
-            ...
+            if (item > max)
+            {
+                max = item;
+            }
         }
+
+        int index = -1;
+        if (array.Length == 0)
+        {
+            return index;
+        }
+
+        index = Array.IndexOf(array, max);
+        return index;
+    }
     }
 }
