@@ -18,7 +18,18 @@ public class FieldParserTaskTests
 
     [TestCase("text", new[] { "text" })]
     [TestCase("hello world", new[] { "hello", "world" })]
-    // Вставляйте сюда свои тесты
+     [TestCase("field1,field2", new[] { "field1", "field2" })]
+    [TestCase("'field with spaces'", new[] { "field with spaces" })]
+    [TestCase("'escaped \'quote\''", new[] { "escaped 'quote'" })]
+    [TestCase("'unclosed quote", new[] { "unclosed quote" })]
+    [TestCase("field1,'field2 with spaces'", new[] { "field1", "field2 with spaces" })]
+    [TestCase("", new string[] { })]
+    [TestCase("'field with, comma'", new[] { "field with, comma" })]
+    [TestCase("field1,,field3", new[] { "field1", "", "field3" })]
+    [TestCase(",,", new[] { "", "", "" })]
+    [TestCase("'nested \"quote\" example'", new[] { "nested \"quote\" example" })]
+    [TestCase("field1 , field2", new[] { "field1", "field2" })]
+    [TestCase(" \"leading and trailing spaces\" ", new[] { "leading and trailing spaces" })]
     public static void RunTests(string input, string[] expectedOutput)
     {
         // Тело метода изменять не нужно
@@ -28,8 +39,7 @@ public class FieldParserTaskTests
 
 public class FieldsParserTask
 {
-	// При решении этой задаче постарайтесь избежать создания методов, длиннее 10 строк.
-	// Подумайте как можно использовать ReadQuotedField и Token в этой задаче.
+	
 	public static List<Token> ParseLine(string line)
 	{
 		return new List<Token> { ReadQuotedField(line, 0) }; // сокращенный синтаксис для инициализации коллекции.
