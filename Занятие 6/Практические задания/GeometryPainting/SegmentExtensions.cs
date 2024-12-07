@@ -4,4 +4,25 @@ using GeometryTasks;
 
 namespace GeometryPainting;
 
-//Напишите здесь код, который заставит работать методы segment.GetColor и segment.SetColor
+public class Segment
+{
+    public Point A { get; set; }
+    public Point B { get; set; }
+    private IBrush color = Brushes.Black; 
+
+    public Segment(Point a, Point b)
+    {
+        A = a;
+        B = b;
+    }
+
+    public IBrush GetColor()
+    {
+        return color; 
+    }
+
+    public void SetColor(IBrush newColor)
+    {
+        color = newColor; 
+    }
+}

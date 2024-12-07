@@ -1,4 +1,6 @@
-﻿namespace A
+﻿using System.Reflection.Metadata.Ecma335;
+
+namespace A
 {
     internal class Program
     {
@@ -10,7 +12,12 @@
 
         public static int[] GetFirstEvenNumbers(int count)
         {
-            ...
+            int[] evenNumbers = new int[count];
+            for (int i = 0; i < count; i++)
+            { 
+               evenNumbers[i] = (i + 1) * 2;
+            }
+            return evenNumbers;
         }
 
     }
