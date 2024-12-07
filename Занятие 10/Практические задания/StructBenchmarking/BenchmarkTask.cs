@@ -9,7 +9,7 @@ public class Benchmark : IBenchmark
     public double MeasureDurationInMs(ITask task, int repetitionCount)
     {
         if (task == null) throw new ArgumentNullException(nameof(task));
-        if (repetitionCount <= 0) throw new ArgumentOutOfRangeException(nameof(repetitionCount), "Repetition count must be greater than zero.");
+        if (repetitionCount <= 0) throw new ArgumentOutOfRangeException(nameof(repetitionCount), "Количество повторений должно быть больше нуля.");
 
         task.Run();
 
