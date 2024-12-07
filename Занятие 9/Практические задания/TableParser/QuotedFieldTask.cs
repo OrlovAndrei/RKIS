@@ -63,6 +63,7 @@ namespace TableParser
                 else builder.Append(currentChar);
             }
             return new Token(builder.ToString(), startIndex, currentIndex - startIndex);
+              
         }
     }
 }

@@ -106,6 +106,7 @@ namespace TableParser
         public static Token ReadQuotedField(string line, int startIndex)
         {
             return QuotedFieldTask.ReadQuotedField(line, startIndex);
+
         }
     }
 }
