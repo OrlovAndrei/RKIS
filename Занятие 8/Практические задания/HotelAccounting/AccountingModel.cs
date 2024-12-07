@@ -26,7 +26,6 @@ public class AccountingModel
         }
     }
 
-
     public int NightsCount
     {
         get => _nightsCount;
