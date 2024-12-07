@@ -10,16 +10,45 @@ public class QuotedFieldTaskTests
 	public void Test(string line, int startIndex, string expectedValue, int expectedLength)
 	{
 		var actualToken = QuotedFieldTask.ReadQuotedField(line, startIndex);
-		Assert.AreEqual(new Token(expectedValue, startIndex, expectedLength), actualToken);
+        Assert.AreEqual(actualToken, new Token(expectedValue, startIndex, expectedLength));
 	}
 
-	// Добавьте свои тесты
+    public void MyTests(string line, int startIndex, string expectedValue, int expectedLength)
+    {
+        var actualToken = QuotedFieldTask.ReadQuotedField(line, startIndex);
+        Assert.AreEqual(actualToken, new Token(expectedValue, startIndex, expectedLength));
+    }
 }
 
 class QuotedFieldTask
 {
 	public static Token ReadQuotedField(string line, int startIndex)
 	{
-		return new Token(line, startIndex, line.Length - startIndex);
+        var builder = new StringBuilder();
+        var flag = false;
+        var currentIndex = startIndex;
+        var charFirst = line[currentIndex++];
+
+        while (currentIndex < line.Length)
+        {
+            var currentChar = line[currentIndex++];
+
+            if (currentChar == '\\')
+            {
+                flag = NewCharIsEcran(builder, currentChar, flag);
+            }
+
+            else if (currentChar == charFirst)
+            {
+                if (!flag)
+                {
+                    break;
+                }
+
+                flag = NewCharIsEcran(builder, currentChar, flag);
+            }
+            else builder.Append(currentChar);
+        }
+        return new Token(builder.ToString(), startIndex, currentIndex - startIndex);
 	}
 }
