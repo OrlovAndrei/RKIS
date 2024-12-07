@@ -8,20 +8,63 @@ public class Benchmark : IBenchmark
 {
     public double MeasureDurationInMs(ITask task, int repetitionCount)
     {
-        GC.Collect();                   // Эти две строчки нужны, чтобы уменьшить вероятность того,
-        GC.WaitForPendingFinalizers();  // что Garbadge Collector вызовется в середине измерений
-                                        // и как-то повлияет на них.
-           
-		throw new NotImplementedException();
-	}
+        if (task == null) throw new ArgumentNullException(nameof(task));
+        if (repetitionCount <= 0) throw new ArgumentOutOfRangeException(nameof(repetitionCount), "Количество повторений должно быть больше нуля.");
+
+        task.Run();
+
+        GC.Collect();
+        GC.WaitForPendingFinalizers();
+
+        var stopwatch = Stopwatch.StartNew();
+        for (int i = 0; i < repetitionCount; i++)
+        {
+            task.Run();
+        }
+        stopwatch.Stop();
+
+        return stopwatch.Elapsed.TotalMilliseconds / repetitionCount;
+    }
+}
+
+public interface ITask
+{
+    void Run();
 }
 
 [TestFixture]
 public class RealBenchmarkUsageSample
 {
+    private class StringTask : ITask
+    {
+        public void Run()
+        {
+            var str = new string('a', 1000);
+        }
+    }
+
+    private class StringBuilderTask : ITask
+    {
+        public void Run()
+        {
+            var sb = new System.Text.StringBuilder();
+            for (int i = 0; i < 1000; i++)
+            {
+                sb.Append('a');
+            }
+        }
+    }
+
     [Test]
     public void StringConstructorFasterThanStringBuilder()
     {
-        throw new NotImplementedException();
+        var benchmark = new Benchmark();
+        var stringTask = new StringTask();
+        var stringBuilderTask = new StringBuilderTask();
+
+        var stringDuration = benchmark.MeasureDurationInMs(stringTask, 1000);
+        var stringBuilderDuration = benchmark.MeasureDurationInMs(stringBuilderTask, 1000);
+
+        Assert.Less(stringDuration, stringBuilderDuration);
     }
 }
