@@ -2,9 +2,13 @@
 {
     internal class Program
     {
-        static void Main(string[] args)
+        static int GetSquare(int number)
         {
-            Print(GetSquare(42));
+            return number * number;
+        }
+        static void Print(int result)
+        {
+            Console.WriteLine(result);
         }
     }
 }
