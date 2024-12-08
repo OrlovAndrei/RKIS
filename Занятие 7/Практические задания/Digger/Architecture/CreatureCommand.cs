@@ -1,4 +1,4 @@
-﻿namespace Digger.Architecture;
+namespace Digger.Architecture;
 
 public class CreatureCommand
 {
