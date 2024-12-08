@@ -3,6 +3,56 @@ using System.Runtime.CompilerServices;
 
 namespace StructBenchmarking;
 
+public class ExperimentsTask
+{
+    private const int NumIterations = 100; // Количество измерений
+
+    public ChartData BuildChartDataForArrayCreation()
+    {
+        var results = new Dictionary<int, (long structTime, long classTime)>();
+
+        foreach (var size in Constants.FieldCounts)
+        {
+            long structTime = MeasureExecutionTime(() => new StructArrayCreationTask(size).Run(), NumIterations);
+            long classTime = MeasureExecutionTime(() => new ClassArrayCreationTask(size).Run(), NumIterations);
+
+            results[size] = (structTime, classTime);
+        }
+
+        return CreateChartData(results);
+    }
+
+    private long MeasureExecutionTime(Action action, int numIterations)
+    {
+        long totalTime = 0;
+        for (int i = 0; i < numIterations; i++)
+        {
+            try
+            {
+                var stopwatch = Stopwatch.StartNew();
+                action();
+                stopwatch.Stop();
+                totalTime += stopwatch.ElapsedMilliseconds;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Ошибка при измерении времени: {ex.Message}");
+            }
+        }
+        return totalTime / numIterations; // Возвращаем среднее время
+    }
+
+    private ChartData CreateChartData(Dictionary<int, (long structTime, long classTime)> results)
+    {
+        var chartData = new ChartData();
+        foreach (var entry in results)
+        {
+            chartData.AddPoint(entry.Key, entry.Value.structTime, entry.Value.classTime);
+        }
+        return chartData;
+    }
+
+
 public class StructArrayCreationTask : ITask
 {
 	private readonly int size;
@@ -52,7 +102,19 @@ public class ClassArrayCreationTask : ITask
 	public C256[] c256;
 	public C512[] c512;
 
-	public ClassArrayCreationTask(int size)
+}
+
+
+public class ChartData
+{
+    public List<ChartPoint> Points { get; } = new List<ChartPoint>();
+
+    public void AddPoint(int fieldCount, long structTime, long classTime) => Points.Add(new ChartPoint(fieldCount, structTime, classTime));
+
+    public string ToJson() => Newtonsoft.Json.JsonConvert.SerializeObject(Points); // Пример сериализации в JSON
+}
+
+public ClassArrayCreationTask(int size)
 	{
 		this.size = size;
 	}
