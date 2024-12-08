@@ -1,4 +1,5 @@
 ﻿namespace StructBenchmarking;
+master
 {
     public interface ITaskFactory
     {
@@ -6,3 +7,10 @@
         ITask CreateStructTask();
     }
 }
+
+
+public interface ITask
+{
+	void Run();
+}
+master

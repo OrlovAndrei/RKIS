@@ -3,6 +3,7 @@ using System.Runtime.CompilerServices;
 
 namespace StructBenchmarking;
 
+master
 public class ExperimentsTask
 {
     private const int NumIterations = 100; // Количество измерений
@@ -53,6 +54,8 @@ public class ExperimentsTask
     }
 
 
+
+master
 public class StructArrayCreationTask : ITask
 {
 	private readonly int size;
@@ -102,6 +105,7 @@ public class ClassArrayCreationTask : ITask
 	public C256[] c256;
 	public C512[] c512;
 
+master
 }
 
 
@@ -115,6 +119,9 @@ public class ChartData
 }
 
 public ClassArrayCreationTask(int size)
+=======
+	public ClassArrayCreationTask(int size)
+master
 	{
 		this.size = size;
 	}
@@ -152,4 +159,8 @@ public ClassArrayCreationTask(int size)
 				throw new ArgumentException();
 		}
 	}
+master
 }
+=======
+}
+master
