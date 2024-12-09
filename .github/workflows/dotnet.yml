@@ -19,7 +19,7 @@ jobs:
         run: |
           build_failed=false
 
-          mapfile -t projects < <(find ./Занятие\ 8 ./Занятие\ 9 -name '*.csproj')
+          mapfile -t projects < <(find ./Занятие\ 9 ./Занятие\ 10 ./Занятие\ 11 ./Занятие\ 12 -name '*.csproj')
 
           for project in "${projects[@]}"; do
             echo "Restoring dependencies for project: \"$project\""
