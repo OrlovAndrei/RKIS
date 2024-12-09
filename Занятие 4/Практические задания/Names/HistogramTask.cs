@@ -1,12 +1,35 @@
-﻿namespace Names;
+﻿using System;
+using System.Collections.Generic;
 
-internal static class HistogramTask
+
+
+
+public class HistogramTask
 {
-    public static HistogramData GetBirthsPerDayHistogram(NameData[] names, string name)
+    public int[] PrepareBirthData(List<Person> people, string name)
     {
-        return new HistogramData(
-            $"Рождаемость людей с именем '{name}'", 
-            new [] {"1"}, 
-            new[] {0d});
+
+
+        int[] frequency = new int[31];
+
+
+
+        foreach (var person in people)
+        {
+            if (person.Name.Equals(name, StringComparison.OrdinalIgnoreCase) && person.BirthDate.Day != 1)
+            {
+                frequency[person.BirthDate.Day - 1]++;
+            }
+        }
+
+
+
+        return frequency;
     }
+}
+public class Person
+{
+    public string Name { get; set; }
+    public DateTime BirthDate { get; set; }
+
 }
