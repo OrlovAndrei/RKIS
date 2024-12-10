@@ -1,4 +1,4 @@
-﻿namespace D
+﻿﻿namespace D
 {
     internal class Program
     {
@@ -14,14 +14,16 @@
         private static void WriteBoard(int size)
         {
 
-            Console.WriteLine("#.#.#.#.");
-            Console.WriteLine(".#.#.#.#");
-            Console.WriteLine("#.#.#.#.");
-            Console.WriteLine(".#.#.#.#");
-            Console.WriteLine("#.#.#.#.");
-            Console.WriteLine(".#.#.#.#");
-            Console.WriteLine("#.#.#.#.");
-            Console.WriteLine(".#.#.#.#");
+            var sharp = "#";
+            var dot = ".";
+            for (int с = 1; с <= size; с++)
+            {
+                for (int с2 = 1; с2 <= size; с2++)
+                {
+                    Console.Write((с2 + с) % 2 == 0 ? sharp : dot);
+                }
+                Console.WriteLine();
+            }
             Console.WriteLine();
         }
     }

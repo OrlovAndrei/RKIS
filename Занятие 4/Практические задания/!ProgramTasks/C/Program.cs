@@ -1,4 +1,4 @@
-﻿namespace C
+﻿namespace C 
 {
     internal class Program
     {
@@ -9,7 +9,10 @@
 
         public static int GetElementCount(int[] items, int itemToCount)
         {
-            ...
+            int count = 0;
+            foreach (var e in items)
+                if (e == itemToFind) count++;
+            return count;
         }
     }
 }
