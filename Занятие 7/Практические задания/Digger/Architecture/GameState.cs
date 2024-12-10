@@ -9,8 +9,9 @@ public class GameState
 {
 	public const int ElementSize = 32;
 	public List<CreatureAnimation> Animations = new();
-
-	public void BeginAct()
+    public static int MapWidth { get; internal set; }
+    public static int MapHeight { get; internal set; }
+    public void BeginAct()
 	{
 		Animations.Clear();
 		for (var x = 0; x < Game.MapWidth; x++)
