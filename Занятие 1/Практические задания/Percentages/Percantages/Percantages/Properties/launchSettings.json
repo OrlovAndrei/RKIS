@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Percantages": {
+      "commandName": "Project"
+    },
+    "Container (Dockerfile)": {
+      "commandName": "Docker"
+    }
+  }
+}
