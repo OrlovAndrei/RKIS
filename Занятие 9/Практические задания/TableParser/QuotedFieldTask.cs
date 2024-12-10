@@ -19,7 +19,18 @@ public class QuotedFieldTaskTests
 class QuotedFieldTask
 {
 	public static Token ReadQuotedField(string line, int startIndex)
-	{
-		return new Token(line, startIndex, line.Length - startIndex);
-	}
+    {
+        int index = startIndex + 1;
+        var value = new System.Text.StringBuilder();
+
+        while (index < line.Length && line[index] != '\'')
+        {
+            value.Append(line[index]);
+            index++;
+        }
+
+        int tokenLength = index - startIndex + (index < line.Length && line[index] == '\'' ? 1 : 0);
+
+        return new Token(value.ToString(), startIndex, tokenLength);
+    }
 }
