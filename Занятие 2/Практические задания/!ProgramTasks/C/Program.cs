@@ -14,11 +14,30 @@
 
         public static int MiddleOf(int a, int b, int c)
         {
-            if (a > b)
-                if (b > c) return b;
-                else if (a > c) return ...
-            else
-                ...
+            // Первый способ
+            int average = 0;
+            if ((a >= b) && (a >= c))
+            {
+                if (b >= c) average = b;
+                else average = c;
+            }
+            if ((b >= c) && (b >= a))
+            {
+                if (c >= a) average = c;
+                else average = a;
+            }
+            if ((c >= a) && (c >= b))
+            {
+                if (a >= b) average = a;
+                else average = b;
+            }
+            return average;
+
+            //Второй способ
+            //int sum = a + b + c;
+            //int max = Math.Max(a, Math.Max(b, c));
+            //int min = Math.Min(a, Math.Min(b, c));
+            //return sum - max - min;
         }
     }
 }
