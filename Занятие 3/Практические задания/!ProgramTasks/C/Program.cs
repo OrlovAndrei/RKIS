@@ -1,4 +1,4 @@
-﻿namespace C
+namespace C
 {
     internal class Program
     {
