@@ -8,23 +8,39 @@ namespace PocketGoogle;
 
 public class Indexer : IIndexer
 {
+	private Dictionary<int, string> indexes = new();
 	public void Add(int id, string documentText)
 	{
-		throw new NotImplementedException();
+
+		indexes[id] = documentText;
 	}
 
 	public List<int> GetIds(string word)
 	{
-		throw new NotImplementedException();
+		List<int> ids = new();
+		foreach (int id in indexes.Keys) 
+		{
+			foreach (string w in indexes[id].Split(new char[] { ' ', '.', ',', '!', '?', ':', '-', '\r', '\n' }).ToList())
+			{
+				if (w == word) 
+				{
+					ids.Add(id);
+					break;
+				}
+			}
+		}
+		return ids;
 	}
 
 	public List<int> GetPositions(int id, string word)
 	{
-		throw new NotImplementedException();
+		List<int> positions = new();
+		positions.Add(indexes[id].IndexOf(word));
+		return positions;
 	}
 
 	public void Remove(int id)
 	{
-		throw new NotImplementedException();
+		indexes.Remove(id);
 	}
 }
