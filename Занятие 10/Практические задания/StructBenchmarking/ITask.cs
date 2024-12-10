@@ -1,6 +1,7 @@
-﻿namespace StructBenchmarking;
-
-public interface ITask
+﻿namespace StructBenchmarking
 {
-	void Run();
+    public interface ITask
+    {
+        void Run();
+    }
 }
