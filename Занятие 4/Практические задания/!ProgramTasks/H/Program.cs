@@ -1,53 +1,36 @@
-﻿namespace H
+﻿namespace G
 {
     internal class Program
     {
-        public enum Mark
+        static void Main(string[] args)
         {
-            Empty,
-            Cross,
-            Circle
+            var arrayToPower = new[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+
+            // Метод PrintArray уже написан за вас
+            PrintArray(GetPoweredArray(arrayToPower, 1));
+
+            // если вы будете менять исходный массив, то следующие два теста сработают неверно:
+            PrintArray(GetPoweredArray(arrayToPower, 2));
+            PrintArray(GetPoweredArray(arrayToPower, 3));
+
+            // не забывайте про частные случаи:
+            PrintArray(GetPoweredArray(new int[0], 1));
+            PrintArray(GetPoweredArray(new[] { 42 }, 0));
         }
 
-        public enum GameResult
+        public static void PrintArray(int[] arr)
         {
-            CrossWin,
-            CircleWin,
-            Draw
+            foreach (var item in arr)
+                Console.WriteLine(item);
         }
 
-        public static void Main()
+        public static int[] GetPoweredArray(int[] arr, int power)
         {
-            Run("XXX OO. ...");
-            Run("OXO XO. .XO");
-            Run("OXO XOX OX.");
-            Run("XOX OXO OXO");
-            Run("... ... ...");
-            Run("XXX OOO ...");
-            Run("XOO XOO XX.");
-            Run(".O. XO. XOX");
-        }
-
-        public static GameResult GetGameResult(Mark[,] field)
-        {
-            ...
-        }
-
-        private static void Run(string description)
-        {
-            Console.WriteLine(description.Replace(" ", Environment.NewLine));
-            Console.WriteLine(GetGameResult(CreateFromString(description)));
-            Console.WriteLine();
-        }
-
-        private static Mark[,] CreateFromString(string str)
-        {
-            var field = str.Split(' ');
-            var ans = new Mark[3, 3];
-            for (int x = 0; x < field.Length; x++)
-                for (var y = 0; y < field.Length; y++)
-                    ans[x, y] = field[x][y] == 'X' ? Mark.Cross : (field[x][y] == 'O' ? Mark.Circle : Mark.Empty);
-            return ans;
+            for (int i = 0; i < arr.Length; i++)
+            {
+                arr[i] = (int)Math.Pow(i + 1, power);
+            }
+            return arr;
         }
     }
 }
