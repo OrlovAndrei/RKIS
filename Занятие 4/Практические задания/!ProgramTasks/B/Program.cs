@@ -18,6 +18,12 @@
         public static int MaxIndex(double[] array)
         {
             ...
+            if (array.Length == 0) return -1;
+            var maxIndex = 0;
+            for (int i = 1; i < array.Length; i++)
+            {
+                if (array[i] > maxIndex) maxIndex = i;
+            }
         }
     }
 }

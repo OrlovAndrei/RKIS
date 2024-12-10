@@ -1,4 +1,6 @@
-﻿namespace C
+﻿using System;
+
+namespace C
 {
     internal class Program
     {
@@ -10,6 +12,15 @@
         public static int GetElementCount(int[] items, int itemToCount)
         {
             ...
+            int count = 0;
+
+            for (int i = 0; i < items.Length; i++);
+            {
+                if (items[i] == itemToCount)
+                    count++;
+            }
+            return count;   
+           
         }
     }
 }
