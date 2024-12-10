@@ -1,4 +1,6 @@
-﻿namespace B
+﻿using System.ComponentModel.Design;
+
+namespace B
 {
     internal class Program
     {
@@ -17,7 +19,21 @@
 
         public static int MaxIndex(double[] array)
         {
-            ...
+            double maxindex = double.MinValue;
+            int index = -1;
+            {
+                for (var i = 0; i < array.Length; i++)
+                {
+                    if (array[i] > maxindex) 
+                    {
+                        maxindex = array[i];
+                        index = i;
+                    }
+                }
+                return index;
+            }
+
         }
+
     }
 }
