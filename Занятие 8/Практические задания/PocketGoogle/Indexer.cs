@@ -4,27 +4,56 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PocketGoogle;
-
+namespace PocketGoogle
+{
 public class Indexer : IIndexer
 {
-	public void Add(int id, string documentText)
-	{
-		throw new NotImplementedException();
-	}
+        private readonly Dictionary<string, Dictionary<int, List<int>>> index = new();
 
-	public List<int> GetIds(string word)
-	{
-		throw new NotImplementedException();
-	}
+        public void Add(int id, string documentText)
+        {
+            var words = documentText.ToLower().Split(new[] { ' ', '.', ',', '!', '?', ':', '-', '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
 
-	public List<int> GetPositions(int id, string word)
-	{
-		throw new NotImplementedException();
-	}
+            foreach (var word in words)
+            {
+                if (!index.ContainsKey(word))
+                {
+                    index[word] = new Dictionary<int, List<int>>();
+                }
 
-	public void Remove(int id)
-	{
-		throw new NotImplementedException();
-	}
+                if (!index[word].ContainsKey(id))
+                {
+                    index[word][id] = new List<int>();
+                }
+
+                index[word][id].Add(Array.IndexOf(words, word));
+            }
+        }
+
+        public List<int> GetIds(string word)
+        {
+            word = word.ToLower();
+            return index.ContainsKey(word) ? index[word].Keys.ToList() : new List<int>();
+        }
+
+        public List<int> GetPositions(int id, string word)
+        {
+            word = word.ToLower();
+            if (index.ContainsKey(word) && index[word].ContainsKey(id))
+            {
+                return index[word][id];
+            }
+            return new List<int>();
+        }
+
+        public void Remove(int id)
+        {
+            foreach (var kvp in index.ToList())
+            {
+                if (kvp.Value.ContainsKey(id))
+                {
+                    kvp.Value.Remove(id);
+                }
+            }
+        }
 }
