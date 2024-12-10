@@ -10,7 +10,7 @@
 
         public static int[] GetFirstEvenNumbers(int count)
         {
-            ...
+            return Enumerable.Range(1, count).Select(x => x * 2).ToArray();
         }
 
     }
