@@ -7,73 +7,90 @@ namespace Digger.Architecture;
 
 public class GameState
 {
-	public const int ElementSize = 32;
-	public List<CreatureAnimation> Animations = new();
+    public const int ElementSize = 32;
+    public List<CreatureAnimation> Animations = new();
 
-	public void BeginAct()
-	{
-		Animations.Clear();
-		for (var x = 0; x < Game.MapWidth; x++)
-		for (var y = 0; y < Game.MapHeight; y++)
-		{
-			var creature = Game.Map[x, y];
-			if (creature == null) continue;
-			var command = creature.Act(x, y);
+    public static int MapWidth { get; internal set; }
+    public static int MapHeight { get; internal set; }
 
-			if (x + command.DeltaX < 0 || x + command.DeltaX >= Game.MapWidth || y + command.DeltaY < 0 ||
-			    y + command.DeltaY >= Game.MapHeight)
-				throw new Exception($"The object {creature.GetType()} falls out of the game field");
+    public void BeginAct()
+    {
+        Animations.Clear();
+        for (var x = 0; x < Game.MapWidth; x++)
+            for (var y = 0; y < Game.MapHeight; y++)
+            {
+                var creature = Game.Map[x, y];
+                if (creature == null) continue;
+                var command = creature.Act(x, y);
 
-			Animations.Add(
-				new CreatureAnimation
-				{
-					Command = command,
-					Creature = creature,
-					Location = new Point(x * ElementSize, y * ElementSize),
-					TargetLogicalLocation = new Point(x + command.DeltaX, y + command.DeltaY)
-				});
-		}
+                if (x + command.DeltaX < 0 || x + command.DeltaX >= Game.MapWidth || y + command.DeltaY < 0 ||
+                    y + command.DeltaY >= Game.MapHeight)
+                    throw new Exception($"The object {creature.GetType()} falls out of the game field");
 
-		Animations = Animations.OrderByDescending(z => z.Creature.GetDrawingPriority()).ToList();
-	}
+                Animations.Add(
+                    new CreatureAnimation
+                    {
+                        Command = command,
+                        Creature = creature,
+                        Location = new Point(x * ElementSize, y * ElementSize),
+                        TargetLogicalLocation = new Point(x + command.DeltaX, y + command.DeltaY)
+                    });
+            }
 
-	public void EndAct()
-	{
-		var creaturesPerLocation = GetCandidatesPerLocation();
-		for (var x = 0; x < Game.MapWidth; x++)
-		for (var y = 0; y < Game.MapHeight; y++)
-			Game.Map[x, y] = SelectWinnerCandidatePerLocation(creaturesPerLocation, x, y);
-	}
+        Animations = Animations.OrderByDescending(z => z.Creature.GetDrawingPriority()).ToList();
+    }
 
-	private static ICreature SelectWinnerCandidatePerLocation(List<ICreature>[,] creatures, int x, int y)
-	{
-		var candidates = creatures[x, y];
-		var aliveCandidates = candidates.ToList();
-		foreach (var candidate in candidates)
-		foreach (var rival in candidates)
-			if (rival != candidate && candidate.DeadInConflict(rival))
-				aliveCandidates.Remove(candidate);
-		if (aliveCandidates.Count > 1)
-			throw new Exception(
-				$"Creatures {aliveCandidates[0].GetType().Name} and {aliveCandidates[1].GetType().Name} claimed the same map cell");
+    public void EndAct()
+    {
+        var creaturesPerLocation = GetCandidatesPerLocation();
+        for (var x = 0; x < Game.MapWidth; x++)
+            for (var y = 0; y < Game.MapHeight; y++)
+                Game.Map[x, y] = SelectWinnerCandidatePerLocation(creaturesPerLocation, x, y);
+    }
 
-		return aliveCandidates.FirstOrDefault();
-	}
+    private static ICreature SelectWinnerCandidatePerLocation(List<ICreature>[,] creatures, int x, int y)
+    {
+        var candidates = creatures[x, y].Distinct().ToList();
+        var aliveCandidates = candidates.ToList();
 
-	private List<ICreature>[,] GetCandidatesPerLocation()
-	{
-		var creatures = new List<ICreature>[Game.MapWidth, Game.MapHeight];
-		for (var x = 0; x < Game.MapWidth; x++)
-		for (var y = 0; y < Game.MapHeight; y++)
-			creatures[x, y] = new List<ICreature>();
-		foreach (var e in Animations)
-		{
-			var x = (int) e.TargetLogicalLocation.X;
-			var y = (int) e.TargetLogicalLocation.Y;
-			var nextCreature = e.Command.TransformTo ?? e.Creature;
-			creatures[x, y].Add(nextCreature);
-		}
+        foreach (var candidate in candidates)
+        {
+            foreach (var rival in candidates)
+            {
+                if (rival != candidate && candidate.DeadInConflict(rival))
+                {
+                    aliveCandidates.Remove(candidate);
+                    break;
+                }
+            }
+        }
 
-		return creatures;
-	}
+        if (aliveCandidates.Count > 1)
+        {
+            var creatureNames = string.Join(", ", aliveCandidates.Select(c => c.GetType().Name));
+            throw new Exception($"Creatures {creatureNames} claimed the same map cell");
+        }
+
+        return aliveCandidates.FirstOrDefault();
+    }
+
+    private List<ICreature>[,] GetCandidatesPerLocation()
+    {
+        var creatures = new List<ICreature>[Game.MapWidth, Game.MapHeight];
+        for (var x = 0; x < Game.MapWidth; x++)
+            for (var y = 0; y < Game.MapHeight; y++)
+                creatures[x, y] = new List<ICreature>();
+
+        foreach (var e in Animations)
+        {
+            var x = (int)e.TargetLogicalLocation.X;
+            var y = (int)e.TargetLogicalLocation.Y;
+            var nextCreature = e.Command.TransformTo ?? e.Creature;
+
+            if (!creatures[x, y].Contains(nextCreature))
+                creatures[x, y].Add(nextCreature);
+        }
+
+        return creatures;
+    }
 }

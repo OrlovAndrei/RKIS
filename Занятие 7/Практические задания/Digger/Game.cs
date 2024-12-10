@@ -1,4 +1,3 @@
-﻿
 
 using Avalonia.Input;
 using Digger.Architecture;
