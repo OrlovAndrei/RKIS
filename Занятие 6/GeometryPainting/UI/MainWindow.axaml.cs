@@ -3,8 +3,9 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Shapes;
 using Avalonia.Media;
-using GeometryTasks;
-using Vector = GeometryTasks.Vector;
+//using Geometry;
+using Vector = Geometry.Vector;
+using GeometryPainting;
 
 namespace GeometryPainting.UI;
 

@@ -1,4 +1,4 @@
-﻿namespace Names;
+namespace Names;
 
 public class HeatmapData
 {
