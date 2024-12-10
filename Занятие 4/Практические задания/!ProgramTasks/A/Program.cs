@@ -10,7 +10,11 @@
 
         public static int[] GetFirstEvenNumbers(int count)
         {
-            ...
+            var array = new int[count]; //создание массивва
+
+            for (int i = 0; i < count; i++)
+                array[i] = (i + 1) * 2; // перебор четных чисел
+            return array;
         }
 
     }

@@ -1,4 +1,6 @@
-﻿namespace D
+﻿using System.Drawing;
+
+namespace D
 {
     internal class Program
     {
@@ -13,16 +15,20 @@
 
         private static void WriteBoard(int size)
         {
-
-            Console.WriteLine("#.#.#.#.");
-            Console.WriteLine(".#.#.#.#");
-            Console.WriteLine("#.#.#.#.");
-            Console.WriteLine(".#.#.#.#");
-            Console.WriteLine("#.#.#.#.");
-            Console.WriteLine(".#.#.#.#");
-            Console.WriteLine("#.#.#.#.");
-            Console.WriteLine(".#.#.#.#");
+            for (int row = 0; row < size; row++)
+            {
+                for (int col = 0; col < size; col++)
+                {
+                    Console.Write(((row + col) % 2 == 0 ? "#" : ".")); // & ? - окращенная проверка, если число четное, то #, если нет - .
+                }
+                Console.WriteLine();
+            }
             Console.WriteLine();
         }
     }
 }
+// #.#.#  
+// .#.#.  
+// #.#.#  
+// .#.#.  
+// #.#.#
