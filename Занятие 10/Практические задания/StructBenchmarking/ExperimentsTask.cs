@@ -9,10 +9,18 @@ public class Experiments
 	{
 		var classesTimes = new List<ExperimentResult>();
 		var structuresTimes = new List<ExperimentResult>();
-            
-		//...
 
-		return new ChartData
+        for (var i = 16; i <= 512; i *= 2)
+        {
+            classesTimes.Add(new ExperimentResult
+                (i, benchmark.MeasureDurationInMs
+                    (new ClassArrayCreationTask(i), repetitionsCount)));
+            structuresTimes.Add(new ExperimentResult
+                (i, benchmark.MeasureDurationInMs
+                    (new StructArrayCreationTask(i), repetitionsCount)));
+        }
+
+        return new ChartData
 		{
 			Title = "Create array",
 			ClassPoints = classesTimes,
@@ -25,10 +33,18 @@ public class Experiments
 	{
 		var classesTimes = new List<ExperimentResult>();
 		var structuresTimes = new List<ExperimentResult>();
-            
-		//...
 
-		return new ChartData
+        for (var i = 16; i <= 512; i *= 2)
+        {
+            classesTimes.Add(new ExperimentResult
+                (i, benchmark.MeasureDurationInMs
+                    (new MethodCallWithClassArgumentTask(i), repetitionsCount)));
+            structuresTimes.Add(new ExperimentResult
+                (i, benchmark.MeasureDurationInMs
+                    (new MethodCallWithStructArgumentTask(i), repetitionsCount)));
+        }
+
+        return new ChartData
 		{
 			Title = "Call method with argument",
 			ClassPoints = classesTimes,
