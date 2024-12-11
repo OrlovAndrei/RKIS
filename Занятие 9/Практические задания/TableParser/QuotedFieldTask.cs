@@ -3,7 +3,6 @@ using NUnit.Framework;
 
 namespace TableParser
 {
-<<<<<<< HEAD
     [TestCase("''", 0, "", 2)]
     [TestCase("'a'", 0, "a", 3)]
     [TestCase("'a\\\' b'", 0, "a' b", 7)]
@@ -63,28 +62,4 @@ class QuotedFieldTask
         return new Token(builder.ToString(), startIndex, currentIndex - startIndex);
     }
 }
-=======
-    [TestFixture]
-    public class QuotedFieldTaskTests
-    {
-        [TestCase("''", 0, "", 2)]
-        [TestCase("'a'", 0, "a", 3)]
-        public void Test(string line, int startIndex, string expectedValue, int expectedLength)
-        {
-            var actualToken = QuotedFieldTask.ReadQuotedField(line, startIndex);
-            Assert.AreEqual(new Token(expectedValue, startIndex, expectedLength), actualToken);
-        }
-
-        // Добавьте свои тесты
-    }
-
-    class QuotedFieldTask
-    {
-        public static Token ReadQuotedField(string line, int startIndex)
-        {
-            return new Token(line, startIndex, line.Length - startIndex);
-        }
-    }
 }
-
->>>>>>> 0c3d4346034ed7e416dbaabec924303a55e29a61
