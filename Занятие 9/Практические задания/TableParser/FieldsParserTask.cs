@@ -6,36 +6,36 @@ namespace TableParser
     [TestFixture]
     public class FieldParserTaskTests
     {
-        public static void Test(string input, string[] expectedResult)
+        public static void Test(string inputLine, string[] expectedOutput)
         {
-            var actualResult = FieldsParserTask.ParseLine(input);
-            Assert.AreEqual(expectedResult.Length, actualResult.Count);
+            var actualTokens = FieldsParserTask.ParseLine(inputLine);
+            Assert.AreEqual(expectedOutput.Length, actualTokens.Count);
 
-            for (int i = 0; i < expectedResult.Length; ++i)
+            for (int index = 0; index < expectedOutput.Length; ++index)
             {
-                Assert.AreEqual(expectedResult[i], actualResult[i].Value);
+                Assert.AreEqual(expectedOutput[index], actualTokens[index].Value);
             }
         }
 
         [TestCase("text", new[] { "text" })]
         [TestCase("hello world", new[] { "hello", "world" })]
-        [TestCase("", new string[0])] //Нет полей
-        [TestCase("\'\"\'", new[] { "\"" })] //Двойные кавычки внутри одинарных
-        [TestCase("\"\"", new[] { "" })] //Пустое поле
-        [TestCase("ab", new[] { "ab" })] //Одно поле
-        [TestCase("a b", new[] { "a", "b" })] //Больше одного поля, Разделитель длиной в один пробел
-        [TestCase("a  b", new[] { "a", "b" })] //Разделитель длиной >1 пробела
-        [TestCase(" a b ", new[] { "a", "b" })] //Пробелы в начале или в конце строки
-        [TestCase("a 'b'", new[] { "a", "b" })] //Поле в кавычках после простого поля
-        [TestCase("'b' a", new[] { "b", "a" })] //Простое поле после поля в кавычках
-        [TestCase("b \"a", new[] { "b", "a" })] //Нет закрывающей кавычки
-        [TestCase("\'a ", new[] { "a " })] //Пробел внутри кавычек, Пробел в конце поля с незакрытой кавычкой
-        [TestCase("\"\'b\'\" c", new[] { "'b'", "c" })] //Одинарные кавычки внутри двойных
-        [TestCase("\'\"a\"\' b", new[] { "\"a\"", "b" })] //Разделитель без пробелов
-        [TestCase(@"'a''b'", new[] { "a", "b" })] //Экранированный обратный слэш перед закрывающей кавычкой
-        [TestCase(@"'a\\'", new[] { @"a\" })] //Экранированный обратный слэш внутри кавычек
-        [TestCase(@"'\'a'", new[] { @"'a" })] //Экранированные одинарные кавычки внутри одинарных
-        [TestCase(@"""\""a""", new[] { @"""a" })] //Экранированный двойные кавычки внутри двойных
+        [TestCase("", new string[0])]
+        [TestCase("\'\"\'", new[] { "\"" })]
+        [TestCase("\"\"", new[] { "" })]
+        [TestCase("ab", new[] { "ab" })]
+        [TestCase("a b", new[] { "a", "b" })]
+        [TestCase("a  b", new[] { "a", "b" })]
+        [TestCase(" a b ", new[] { "a", "b" })]
+        [TestCase("a 'b'", new[] { "a", "b" })]
+        [TestCase("'b' a", new[] { "b", "a" })]
+        [TestCase("b \"a", new[] { "b", "a" })]
+        [TestCase("\'a ", new[] { "a " })]
+        [TestCase("\"\'b\'\" c", new[] { "'b'", "c" })]
+        [TestCase("\'\"a\"\' b", new[] { "\"a\"", "b" })]
+        [TestCase(@"'a''b'", new[] { "a", "b" })]
+        [TestCase(@"'a\\'", new[] { @"a\" })]
+        [TestCase(@"'\'a'", new[] { @"'a" })]
+        [TestCase(@"""\""a""", new[] { @"""a" })]
         public static void RunTests(string input, string[] expectedOutput)
         {
             // Тело метода изменять не нужно
@@ -43,71 +43,69 @@ namespace TableParser
         }
     }
 
+
     public class FieldsParserTask
     {
-        // При решении этой задаче постарайтесь избежать создания методов, длиннее 10 строк.
-        // Подумайте как можно использовать ReadQuotedField и Token в этой задаче.
-        public static List<Token> ParseLine(string line)
+        public static List<Token> ParseLine(string inputLine)
         {
-            List<Token> list = new List<Token>();
-            Token token = new Token("", 0, 0);
+            List<Token> tokenList = new List<Token>();
+            Token currentToken = new Token("", 0, 0);
 
-            for (var i = 0; i < line.Length; i++)
+            for (var currentIndex = 0; currentIndex < inputLine.Length; currentIndex++)
             {
-                if (line[i] == '\'' || line[i] == '\"')
+                if (inputLine[currentIndex] == '\'' || inputLine[currentIndex] == '\"')
                 {
-                    token = ReadQuotedField(line, i);
+                    currentToken = ReadQuotedField(inputLine, currentIndex);
                 }
-
                 else
-                    token = ReadField(line, i);
-                list.Add(token);
-
-                if (token.Length > 1)
                 {
-                    i += token.Length - 1;
+                    currentToken = ReadField(inputLine, currentIndex);
                 }
 
+                tokenList.Add(currentToken);
+
+                if (currentToken.Length > 1)
+                {
+                    currentIndex += currentToken.Length - 1;
+                }
             }
-            return CreateFinalList(list);
+            return CreateFinalList(tokenList);
         }
 
-        public static List<Token> CreateFinalList(List<Token> list)
+        public static List<Token> CreateFinalList(List<Token> tokenList)
         {
-            List<Token> list1 = new List<Token>();
+            List<Token> filteredTokenList = new List<Token>();
 
-            foreach (var l in list)
+            foreach (var token in tokenList)
             {
-                if (l.Length > 0)
+                if (token.Length > 0)
                 {
-                    list1.Add(l);
+                    filteredTokenList.Add(token);
                 }
-
             }
-            return list1;
+            return filteredTokenList;
         }
 
-        private static Token ReadField(string line, int startIndex)
+        private static Token ReadField(string inputLine, int startIndex)
         {
             var word = "";
 
-            for (var i = startIndex; i < line.Length; i++)
+            for (var currentIndex = startIndex; currentIndex < inputLine.Length; currentIndex++)
             {
-                if (line[i] == '\'' || line[i] == '\"' || line[i] == ' ')
+                if (inputLine[currentIndex] == '\'' || inputLine[currentIndex] == '\"' || inputLine[currentIndex] == ' ')
                 {
                     break;
                 }
 
-                word += line[i];
+                word += inputLine[currentIndex];
             }
 
             return new Token(word, startIndex, word.Length);
         }
 
-        public static Token ReadQuotedField(string line, int startIndex)
+        public static Token ReadQuotedField(string inputLine, int startIndex)
         {
-            return QuotedFieldTask.ReadQuotedField(line, startIndex);
+            return QuotedFieldTask.ReadQuotedField(inputLine, startIndex);
         }
     }
 }
-//>>>>>>> 0c3d4346034ed7e416dbaabec924303a55e29a61

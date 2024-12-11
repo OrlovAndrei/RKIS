@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Text;
+using System.Threading;
 using NUnit.Framework;
 
-namespace StructBenchmarking;
-
+namespace StructBenchmarking
+{
     public class Benchmark : IBenchmark
     {
         public void WarmUpRun(ITask task)
@@ -73,3 +75,4 @@ namespace StructBenchmarking;
             Assert.Less(result2, result1);
         }
     }
+}
