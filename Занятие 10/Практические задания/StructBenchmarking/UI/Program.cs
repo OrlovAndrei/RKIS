@@ -1,22 +1,24 @@
 ﻿using System;
 using Avalonia;
 
-namespace StructBenchmarking.UI;
-
-public static class Program
+namespace StructBenchmarking.UI
 {
-	private static readonly string dataFilePath = "names.txt";
 
-
-	[STAThread]
-	public static void Main(string[] args)
+	public static class Program
 	{
-		BuildAvaloniaApp()
-			.StartWithClassicDesktopLifetime(args);
-	}
+		private static readonly string dataFilePath = "names.txt";
 
-	public static AppBuilder BuildAvaloniaApp()
-		=> AppBuilder.Configure<App>()
-			.UsePlatformDetect()
-			.LogToTrace();
+
+		[STAThread]
+		public static void Main(string[] args)
+		{
+			BuildAvaloniaApp()
+				.StartWithClassicDesktopLifetime(args);
+		}
+
+		public static AppBuilder BuildAvaloniaApp()
+			=> AppBuilder.Configure<App>()
+				.UsePlatformDetect()
+				.LogToTrace();
+	}
 }

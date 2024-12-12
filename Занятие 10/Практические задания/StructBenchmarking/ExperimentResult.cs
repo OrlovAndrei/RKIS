@@ -1,13 +1,15 @@
-namespace StructBenchmarking;
-
-public class ExperimentResult
+namespace StructBenchmarking
 {
-	public readonly int FieldsCount;
-	public readonly double AverageTime;
 
-	public ExperimentResult(int fieldsCount, double averageTime)
+	public class ExperimentResult
 	{
-		FieldsCount = fieldsCount;
-		AverageTime = averageTime;
+		public readonly int FieldsCount;
+		public readonly double AverageTime;
+
+		public ExperimentResult(int fieldsCount, double averageTime)
+		{
+			FieldsCount = fieldsCount;
+			AverageTime = averageTime;
+		}
 	}
 }

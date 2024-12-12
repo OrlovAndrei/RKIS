@@ -1,18 +1,20 @@
 ﻿using OxyPlot;
 
-namespace StructBenchmarking.UI;
-
-public class TabItemModel
+namespace StructBenchmarking.UI
 {
-	public string Header { get; }
-	public PlotModel Model { get; }
-	public PlotController Controller { get; } = new();
 
-	public TabItemModel(string header, PlotModel model)
+	public class TabItemModel
 	{
-		Header = header;
-		Model = model;
-		Controller.UnbindAll();
-		Controller.BindMouseDown(OxyMouseButton.Left, PlotCommands.Track);
+		public string Header { get; }
+		public PlotModel Model { get; }
+		public PlotController Controller { get; } = new();
+
+		public TabItemModel(string header, PlotModel model)
+		{
+			Header = header;
+			Model = model;
+			Controller.UnbindAll();
+			Controller.BindMouseDown(OxyMouseButton.Left, PlotCommands.Track);
+		}
 	}
 }
