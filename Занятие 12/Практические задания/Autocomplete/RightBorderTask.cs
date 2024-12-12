@@ -4,44 +4,103 @@ using System.Linq;
 
 namespace Autocomplete;
 
- public class RightBorderTask
+internal class AutocompleteTask
     {
         /// <returns>
-        /// Возвращает индекс правой границы.
-        /// То есть индекс минимального элемента, который не начинается с prefix и большего prefix.
-        /// Если такого нет, то возвращает items.Length
+        /// Возвращает первую фразу словаря, начинающуюся с prefix.
         /// </returns>
         /// <remarks>
-        /// Функция должна быть НЕ рекурсивной
-        /// и работать за O(log(items.Length)*L), где L — ограничение сверху на длину фразы
+        /// Эта функция уже реализована, она заработает,
+        /// как только вы выполните задачу в файле LeftBorderTask
         /// </remarks>
-        public static int GetRightBorderIndex(IReadOnlyList<string> phrases, string prefix, int left, int right)
+        public static string FindFirstByPrefix(IReadOnlyList<string> phrases, string prefix)
         {
-            int result = phrases.Count; // Инициализируем результат значением phrases.Count (не найдено)
+            var index = LeftBorderTask.GetLeftBorderIndex(phrases, prefix, 0, phrases.Count - 1) + 1;
+            if (index < phrases.Count && phrases[index].StartsWith(prefix, StringComparison.InvariantCultureIgnoreCase))
+                return phrases[index];
 
-            while (left <= right)
+            return null;
+        }
+
+        /// <returns>
+        /// Возвращает первые в лексикографическом порядке count (или меньше, если их меньше count)
+        /// элементов словаря, начинающихся с prefix.
+        /// </returns>
+        /// <remarks>Эта функция должна работать за O(log(n) + count)</remarks>
+        public static string[] GetTopByPrefix(IReadOnlyList<string> phrases, string prefix, int count)
+        {
+            int leftIndex = LeftBorderTask.GetLeftBorderIndex(phrases, prefix, 0, phrases.Count - 1) + 1;
+            int rightIndex = RightBorderTask.GetRightBorderIndex(phrases, prefix, 0, phrases.Count - 1);
+
+            if (leftIndex >= rightIndex) return new string[0]; // Ничего не найдено
+
+            int countToReturn = Math.Min(count, rightIndex - leftIndex); //не больше чем count
+            return phrases.Skip(leftIndex).Take(countToReturn).ToArray();
+
+        }
+
+        /// <returns>
+        /// Возвращает количество фраз, начинающихся с заданного префикса
+        /// </returns>
+        public static int GetCountByPrefix(IReadOnlyList<string> phrases, string prefix)
+        {
+            int leftIndex = LeftBorderTask.GetLeftBorderIndex(phrases, prefix, 0, phrases.Count - 1) + 1;
+            int rightIndex = RightBorderTask.GetRightBorderIndex(phrases, prefix, 0, phrases.Count - 1);
+            return Math.Max(0, rightIndex - leftIndex); // Возвращаем 0 если ничего не найдено.
+        }
+
+
+        [TestFixture]
+        public class AutocompleteTests
+        {
+            [Test]
+            public void TopByPrefix_IsEmpty_WhenNoPhrases()
             {
-                int mid = left + ((right - left) >> 1); // Более эффективное вычисление середины
-
-                int comparison = string.Compare(prefix, phrases[mid], StringComparison.InvariantCultureIgnoreCase);
-
-                if (comparison <= 0 && !phrases[mid].StartsWith(prefix, StringComparison.InvariantCultureIgnoreCase))
-                {
-                    // prefix <= phrases[mid] && !phrases[mid].StartsWith(prefix) => Правая граница находится левее
-                    result = mid;
-                    right = mid - 1;
-
-                }
-                else if (comparison > 0 || phrases[mid].StartsWith(prefix, StringComparison.InvariantCultureIgnoreCase))
-                {
-                    // prefix > phrases[mid] || phrases[mid].StartsWith(prefix) => Правая граница находится правее
-                    left = mid + 1;
-                } else {
-                    left = mid + 1;
-                }
+                CollectionAssert.IsEmpty(GetTopByPrefix(new List<string>(), "test", 10));
             }
 
-            return result;
+            [Test]
+            public void TopByPrefix_ReturnsAll_WhenCountGreaterThanPhrases()
+            {
+                var phrases = new List<string> { "apple", "apricot", "avocado" };
+                var result = GetTopByPrefix(phrases, "ap", 10);
+                CollectionAssert.AreEqual(phrases.Where(x => x.StartsWith("ap", StringComparison.InvariantCultureIgnoreCase)).ToArray(), result);
+            }
+
+            [Test]
+            public void TopByPrefix_ReturnsTopN_WhenCountLessThanPhrases()
+            {
+                var phrases = new List<string> { "apple", "apricot", "avocado", "banana" };
+                var result = GetTopByPrefix(phrases, "a", 2);
+                CollectionAssert.AreEqual(new[] { "apple", "apricot" }, result);
+            }
+
+            [Test]
+            public void CountByPrefix_IsZero_WhenNoPhrases()
+            {
+                Assert.AreEqual(0, GetCountByPrefix(new List<string>(), "test"));
+            }
+
+            [Test]
+            public void CountByPrefix_IsTotalCount_WhenEmptyPrefix()
+            {
+                var phrases = new List<string> { "apple", "apricot", "avocado" };
+                Assert.AreEqual(phrases.Count, GetCountByPrefix(phrases, ""));
+            }
+
+            [Test]
+            public void CountByPrefix_CountsCorrectly_WhenPrefixExists()
+            {
+                var phrases = new List<string> { "apple", "apricot", "avocado", "banana" };
+                Assert.AreEqual(2, GetCountByPrefix(phrases, "ap"));
+            }
+[Test]
+            public void CountByPrefix_CountsCorrectly_WhenPrefixDoesNotExist()
+            {
+                var phrases = new List<string> { "apple", "apricot", "avocado", "banana" };
+                Assert.AreEqual(0, GetCountByPrefix(phrases, "xyz"));
+            }
+
         }
     }
 }
