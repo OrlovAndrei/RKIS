@@ -2,52 +2,54 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace Autocomplete;
-
-public class Phrases : IReadOnlyList<string>
+namespace Autocomplete
 {
-	private readonly string[] adjectives;
-	private readonly string[] nouns;
-	private readonly string[] verbs;
 
-	public Phrases(string[] verbs, string[] adjectives, string[] nouns)
+	public class Phrases : IReadOnlyList<string>
 	{
-		this.verbs = verbs;
-		this.adjectives = adjectives;
-		this.nouns = nouns;
-	}
+		private readonly string[] adjectives;
+		private readonly string[] nouns;
+		private readonly string[] verbs;
 
-	// Это называется вычисляемое свойство с геттером.
-	public virtual int Length => verbs.Length * adjectives.Length * nouns.Length;
-
-	// Это называется индексатор c геттером. Он позволяет писать так var x = phrases[i];
-	public virtual string this[int index]
-	{
-		get
+		public Phrases(string[] verbs, string[] adjectives, string[] nouns)
 		{
-			if (index < 0) throw new IndexOutOfRangeException("index = " + index);
-			var ni = index % nouns.Length;
-			var ai = index / nouns.Length % adjectives.Length;
-			var vi = index / (nouns.Length * adjectives.Length) % verbs.Length;
-			return verbs[vi] + " " + adjectives[ai] + " " + nouns[ni];
+			this.verbs = verbs;
+			this.adjectives = adjectives;
+			this.nouns = nouns;
 		}
-	}
 
-	public IEnumerator<string> GetEnumerator()
-	{
-		for (var i = 0; i < Length; i++)
-			yield return this[i];
-	}
+		// Это называется вычисляемое свойство с геттером.
+		public virtual int Length => verbs.Length * adjectives.Length * nouns.Length;
 
-	IEnumerator IEnumerable.GetEnumerator()
-	{
-		return GetEnumerator();
-	}
+		// Это называется индексатор c геттером. Он позволяет писать так var x = phrases[i];
+		public virtual string this[int index]
+		{
+			get
+			{
+				if (index < 0) throw new IndexOutOfRangeException("index = " + index);
+				var ni = index % nouns.Length;
+				var ai = index / nouns.Length % adjectives.Length;
+				var vi = index / (nouns.Length * adjectives.Length) % verbs.Length;
+				return verbs[vi] + " " + adjectives[ai] + " " + nouns[ni];
+			}
+		}
 
-	public int Count => Length;
+		public IEnumerator<string> GetEnumerator()
+		{
+			for (var i = 0; i < Length; i++)
+				yield return this[i];
+		}
 
-	public override string ToString()
-	{
-		return $"Size: {Length}. Verbs: {verbs.Length}, Adjectives: {adjectives.Length}, Nouns: {nouns.Length}";
+		IEnumerator IEnumerable.GetEnumerator()
+		{
+			return GetEnumerator();
+		}
+
+		public int Count => Length;
+
+		public override string ToString()
+		{
+			return $"Size: {Length}. Verbs: {verbs.Length}, Adjectives: {adjectives.Length}, Nouns: {nouns.Length}";
+		}
 	}
 }

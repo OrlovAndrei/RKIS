@@ -1,5 +1,7 @@
-﻿namespace Autocomplete.UI;
-
-public partial class App
+﻿namespace Autocomplete.UI
 {
+
+    public partial class App
+    {
+    }
 }
