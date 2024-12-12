@@ -9,7 +9,7 @@ namespace StructBenchmarking
         void Run();
     }
 
-    public interface IBenchmark
+     public interface IBenchmark
     {
         double MeasureDurationInMs(ITask task, int repetitionCount);
     }
@@ -21,11 +21,10 @@ namespace StructBenchmarking
             // Прогревочный запуск
             task.Run();
 
-            // Принудительная очистка сборщика мусора
             GC.Collect();
             GC.WaitForPendingFinalizers();
 
-            var stopwatch = new Stopwatch();
+            Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
 
             for (int i = 0; i < repetitionCount; i++)
@@ -42,12 +41,12 @@ namespace StructBenchmarking
     {
         public void Run()
         {
-            var sb = new System.Text.StringBuilder();
+            StringBuilder sb = new StringBuilder();
             for (int i = 0; i < 10000; i++)
             {
                 sb.Append('a');
             }
-            sb.ToString();
+            sb.ToString(); // Очень важно! Без этого результата не будет корректного
         }
     }
 
@@ -65,13 +64,12 @@ namespace StructBenchmarking
         [Test]
         public void StringConstructorFasterThanStringBuilder()
         {
-            var benchmark = new Benchmark();
-            var stringBuilderTask = new StringTask_StringBuilder();
-            var stringConstructorTask = new StringTask_StringConstructor();
+            IBenchmark benchmark = new Benchmark();
+            ITask stringBuilderTask = new StringTask_StringBuilder();
+            ITask stringConstructorTask = new StringTask_StringConstructor();
 
-            // Подбираем количество повторений экспериментально для времени около секунды
-            int repetitionCount = 1000; // Настройте это значение для своего компьютера
-
+            // НАСТРОЙТЕ ЭТО ЗНАЧЕНИЕ! Найдите оптимальное для вашего компьютера.
+            int repetitionCount = 1000; // Примерное значение, скорее всего понадобится корректировка
 
             double stringBuilderTime = benchmark.MeasureDurationInMs(stringBuilderTask, repetitionCount);
             double stringConstructorTime = benchmark.MeasureDurationInMs(stringConstructorTask, repetitionCount);
@@ -79,7 +77,7 @@ namespace StructBenchmarking
             Console.WriteLine($"StringBuilder time: {stringBuilderTime} ms");
             Console.WriteLine($"String constructor time: {stringConstructorTime} ms");
 
-            Assert.Less(stringConstructorTime, stringBuilderTime);
+            Assert.Less(stringConstructorTime, stringBuilderTime, $"String constructor should be faster");
         }
     }
 }
