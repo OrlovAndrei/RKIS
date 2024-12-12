@@ -1,4 +1,7 @@
-namespace Passwords;
+using System;
+using System.Collections.Generic;
+
+namespace Passwords
 
 public class CaseAlternatorTask
 {
