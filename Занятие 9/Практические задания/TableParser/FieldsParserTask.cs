@@ -4,44 +4,80 @@ using NUnit.Framework;
 namespace TableParser;
 
 [TestFixture]
-public class FieldParserTaskTests
+public class QuotedFieldTaskTests
 {
-	public static void Test(string input, string[] expectedResult)
-	{
-		var actualResult = FieldsParserTask.ParseLine(input);
-		Assert.AreEqual(expectedResult.Length, actualResult.Count);
-		for (int i = 0; i < expectedResult.Length; ++i)
-		{
-			Assert.AreEqual(expectedResult[i], actualResult[i].Value);
-		}
-	}
-
-    [TestCase("text", new[] { "text" })]
-    [TestCase("hello world", new[] { "hello", "world" })]
-    // Вставляйте сюда свои тесты
-    public static void RunTests(string input, string[] expectedOutput)
+    [TestCase("''", 0, "", 2)]
+    [TestCase("'a'", 0, "a", 3)]
+    [TestCase("'abc'", 0, "abc", 5)]
+    [TestCase("'a\\'bc'", 0, "a'bc", 7)] //Обработка экранированных кавычек
+    [TestCase("'a\\\"bc'", 0, "a\"bc", 7)] //Обработка экранированных кавычек
+    [TestCase("'a\\'b\\'c'", 0, "a'b'c", 9)] //Обработка нескольких экранированных кавычек
+    [TestCase("'ab\\'c'", 0, "ab'c", 6)]
+    [TestCase("'ab\\\"c'", 0, "ab\"c", 6)]
+    [TestCase("\"hello\"", 0, "hello", 7)] //тест с двойными кавычками
+    [TestCase("'hello world'", 0, "hello world", 13)] // тест с пробелом внутри
+    [TestCase("' '", 0, " ", 4)] // тест с пробелами
+    [TestCase("'", 0, "", 1)] // тест с одиночной кавычкой
+    [TestCase("", 0, "", 0)] // тест с пустой строкой
+    public void Test(string line, int startIndex, string expectedValue, int expectedLength)
     {
-        // Тело метода изменять не нужно
-        Test(input, expectedOutput);
+        var actualToken = QuotedFieldTask.ReadQuotedField(line, startIndex);
+        Assert.AreEqual(new Token(expectedValue, startIndex, expectedLength), actualToken);
     }
 }
 
-public class FieldsParserTask
+public class QuotedFieldTask
 {
-	// При решении этой задаче постарайтесь избежать создания методов, длиннее 10 строк.
-	// Подумайте как можно использовать ReadQuotedField и Token в этой задаче.
-	public static List<Token> ParseLine(string line)
-	{
-		return new List<Token> { ReadQuotedField(line, 0) }; // сокращенный синтаксис для инициализации коллекции.
-	}
-        
-	private static Token ReadField(string line, int startIndex)
-	{
-		return new Token(line, 0, line.Length);
-	}
+    public static Token ReadQuotedField(string line, int startIndex)
+    {
+        int endIndex = startIndex + 1; // Пропускаем открывающую кавычку
+        bool escaped = false;
+        while (endIndex < line.Length)
+        {
+            if (!escaped && line[endIndex] == '\\')
+            {
+                escaped = true;
+            }
+            else if (!escaped && line[endIndex] == '\'')
+            {
+                break; // Нашли закрывающую кавычку
+            }
+            else
+            {
+                escaped = false;
+            }
+            endIndex++;
+        }
 
-	public static Token ReadQuotedField(string line, int startIndex)
-	{
-		return QuotedFieldTask.ReadQuotedField(line, startIndex);
-	}
+        // если не найдена закрывающая кавычка, то endIndex останется последним символом строки
+        string value = line.Substring(startIndex + 1, endIndex - startIndex - 1).Replace("\\'", "'").Replace("\\\"", "\""); //удаляем экранирование
+        return new Token(value, startIndex, endIndex - startIndex); //с учетом начальной и конечной кавычки
+    }
+}
+
+public class Token
+{
+    public string Value { get; }
+    public int StartIndex { get; }
+    public int Length { get; }
+
+    public Token(string value, int startIndex, int length)
+    {
+        Value = value;
+        StartIndex = startIndex;
+        Length = length;
+    }
+
+    public override bool Equals(object obj)
+    {
+        return obj is Token token &&
+               Value == token.Value &&
+               StartIndex == token.StartIndex &&
+               Length == token.Length;
+    }
+
+    public override int GetHashCode()
+    {
+        return HashCode.Combine(Value, StartIndex, Length);
+    }
 }
