@@ -1,0 +1,33 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="HotelAccounting.UI.MainWindow"
+        Title="Счет за услуги отеля"
+        Height="150"
+        Width="300"
+        CanResize="false">
+    <StackPanel Orientation="Vertical">
+        <DockPanel>
+            <TextBox Width="100" DockPanel.Dock="Right"
+                     Text="{Binding Price }" />
+            <Label>Цена за одну ночь</Label>
+        </DockPanel>
+        <DockPanel>
+            <TextBox Width="100" DockPanel.Dock="Right"
+                     Text="{Binding NightsCount }" />
+            <Label>Количество ночей</Label>
+        </DockPanel>
+        <DockPanel>
+            <TextBox Width="100" DockPanel.Dock="Right"
+                     Text="{Binding Discount }" />
+            <Label>Скидка</Label>
+        </DockPanel>
+        <DockPanel>
+            <TextBox Width="100" DockPanel.Dock="Right"
+                     Text="{Binding Total}" />
+            <Label>Итого</Label>
+        </DockPanel>
+    </StackPanel>
+</Window>
