@@ -1,10 +1,13 @@
-﻿namespace Passwords;
+﻿using System;
 
-public class AssertionException : Exception
+namespace Passwords
 {
-	public AssertionException(string message, params object[] args)
-		: base(string.Format(message, args))
-	{
+    public class AssertionException : Exception
+    {
+        public AssertionException(string message, params object[] args)
+            : base(string.Format(message, args))
+        {
 
-	}
+        }
+    }
 }
