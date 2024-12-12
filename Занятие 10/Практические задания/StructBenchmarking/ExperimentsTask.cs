@@ -1,38 +1,40 @@
 using System.Collections.Generic;
 
-namespace StructBenchmarking;
-
-public class Experiments
+namespace StructBenchmarking
 {
-	public static ChartData BuildChartDataForArrayCreation(
-		IBenchmark benchmark, int repetitionsCount)
+
+	public class Experiments
 	{
-		var classesTimes = new List<ExperimentResult>();
-		var structuresTimes = new List<ExperimentResult>();
-            
-		//...
-
-		return new ChartData
+		public static ChartData BuildChartDataForArrayCreation(
+			IBenchmark benchmark, int repetitionsCount)
 		{
-			Title = "Create array",
-			ClassPoints = classesTimes,
-			StructPoints = structuresTimes,
-		};
-	}
+			var classesTimes = new List<ExperimentResult>();
+			var structuresTimes = new List<ExperimentResult>();
 
-	public static ChartData BuildChartDataForMethodCall(
-		IBenchmark benchmark, int repetitionsCount)
-	{
-		var classesTimes = new List<ExperimentResult>();
-		var structuresTimes = new List<ExperimentResult>();
-            
-		//...
+			//...
 
-		return new ChartData
+			return new ChartData
+			{
+				Title = "Create array",
+				ClassPoints = classesTimes,
+				StructPoints = structuresTimes,
+			};
+		}
+
+		public static ChartData BuildChartDataForMethodCall(
+			IBenchmark benchmark, int repetitionsCount)
 		{
-			Title = "Call method with argument",
-			ClassPoints = classesTimes,
-			StructPoints = structuresTimes,
-		};
+			var classesTimes = new List<ExperimentResult>();
+			var structuresTimes = new List<ExperimentResult>();
+
+			//...
+
+			return new ChartData
+			{
+				Title = "Call method with argument",
+				ClassPoints = classesTimes,
+				StructPoints = structuresTimes,
+			};
+		}
 	}
 }

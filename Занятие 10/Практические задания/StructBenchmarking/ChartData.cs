@@ -1,10 +1,12 @@
 using System.Collections.Generic;
 
-namespace StructBenchmarking;
-
-public class ChartData
+namespace StructBenchmarking
 {
-	public string Title;
-	public IList<ExperimentResult> StructPoints;
-	public IList<ExperimentResult> ClassPoints;
+
+	public class ChartData
+	{
+		public string Title;
+		public IList<ExperimentResult> StructPoints;
+		public IList<ExperimentResult> ClassPoints;
+	}
 }

@@ -2,21 +2,23 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Autocomplete;
-
-public static class TaskExtensions
+namespace Autocomplete
 {
-	public static async Task<TResult> TimeoutAfter<TResult>(this Task<TResult> task, TimeSpan timeout)
+
+	public static class TaskExtensions
 	{
-		var timeoutCancellationTokenSource = new CancellationTokenSource();
-
-		var completedTask = await Task.WhenAny(task, Task.Delay(timeout, timeoutCancellationTokenSource.Token));
-		if (completedTask == task)
+		public static async Task<TResult> TimeoutAfter<TResult>(this Task<TResult> task, TimeSpan timeout)
 		{
-			timeoutCancellationTokenSource.Cancel();
-			return await task;
-		}
+			var timeoutCancellationTokenSource = new CancellationTokenSource();
 
-		throw new TimeoutException("The operation has timed out.");
+			var completedTask = await Task.WhenAny(task, Task.Delay(timeout, timeoutCancellationTokenSource.Token));
+			if (completedTask == task)
+			{
+				timeoutCancellationTokenSource.Cancel();
+				return await task;
+			}
+
+			throw new TimeoutException("The operation has timed out.");
+		}
 	}
 }

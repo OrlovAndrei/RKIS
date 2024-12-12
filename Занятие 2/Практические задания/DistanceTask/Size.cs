@@ -1,11 +1,14 @@
-﻿using Avalonia;
+﻿using System;
+using Avalonia;
 
-namespace DistanceTask;
-
-public record Size(double Width, double Height)
+namespace DistanceTask
 {
-    public static Point operator +(Point point, Size size)
+
+    public record Size(double Width, double Height)
     {
-        return new Point(point.X + size.Width, point.Y + size.Height);
+        public static Point operator +(Point point, Size size)
+        {
+            return new Point(point.X + size.Width, point.Y + size.Height);
+        }
     }
 }

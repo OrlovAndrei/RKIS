@@ -2,19 +2,21 @@
 using OxyPlot;
 using OxyPlot.Axes;
 
-namespace Names.UI;
-
-public class CustomColorAxis : LinearAxis, IColorAxis
+namespace Names.UI
 {
-	public Func<double, OxyColor> GetColorFunc { get; init; }
 
-	public OxyColor GetColor(int val)
+	public class CustomColorAxis : LinearAxis, IColorAxis
 	{
-		return GetColorFunc(val);
-	}
+		public Func<double, OxyColor> GetColorFunc { get; init; }
 
-	public int GetPaletteIndex(double value)
-	{
-		return (int)value;
+		public OxyColor GetColor(int val)
+		{
+			return GetColorFunc(val);
+		}
+
+		public int GetPaletteIndex(double value)
+		{
+			return (int)value;
+		}
 	}
 }

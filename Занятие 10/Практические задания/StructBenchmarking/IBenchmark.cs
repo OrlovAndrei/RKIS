@@ -1,6 +1,8 @@
-namespace StructBenchmarking;
-
-public interface IBenchmark
+namespace StructBenchmarking
 {
-	double MeasureDurationInMs(ITask task, int repetitionCount);
+
+	public interface IBenchmark
+	{
+		double MeasureDurationInMs(ITask task, int repetitionCount);
+	}
 }
