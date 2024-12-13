@@ -1,38 +1,64 @@
-﻿internal class AutocompleteTask
+﻿[TestFixture]
+public class AutocompleteTests
 {
-    
-    public static string[] GetTopByPrefix(IReadOnlyList<string> phrases, string prefix, int count)
+    private readonly IReadOnlyList<string> _testPhrases = new[]
     {
-        var leftIndex = LeftBorderTask.GetLeftBorderIndex(phrases, prefix, -1, phrases.Count) + 1;
+        "apple",
+        "application",
+        "banana",
+        "carrot",
+        "cat",
+        "dog",
+        "elephant",
+        "fox",
+        "goat",
+        "horse",
+        "icecream",
+        "juice",
+        "kiwi",
+        "lemon",
+        "mango",
+        "orange",
+        "pineapple",
+        "queen",
+        "rabbit",
+        "snake",
+        "tomato",
+        "umbrella",
+        "vanilla",
+        "watermelon",
+        "xylophone",
+        "yak",
+        "zebra"
+    };
 
-        if (leftIndex >= phrases.Count || !phrases[leftIndex].StartsWith(prefix, StringComparison.InvariantCultureIgnoreCase))
-        {
-            return Array.Empty<string>();
-        }
-
-        var result = new List<string>();
-        var currentIndex = leftIndex;
-
-        while (currentIndex < phrases.Count && result.Count < count && phrases[currentIndex].StartsWith(prefix, StringComparison.InvariantCultureIgnoreCase))
-        {
-            result.Add(phrases[currentIndex]);
-            currentIndex++;
-        }
-
-        return result.ToArray();
+    [Test]
+    public void TopByPrefix_IsEmpty_WhenNoPhrases()
+    {
+        var topWords = AutocompleteTask.GetTopByPrefix(new List<string>(), "ap", 10);
+        CollectionAssert.IsEmpty(topWords);
     }
 
-   
-    public static int GetCountByPrefix(IReadOnlyList<string> phrases, string prefix)
+    [Test]
+    public void TopByPrefix_ReturnsCorrectResults_ForValidPrefix()
     {
-        var leftIndex = LeftBorderTask.GetLeftBorderIndex(phrases, prefix, -1, phrases.Count) + 1;
-        var rightIndex = RightBorderTask.GetRightBorderIndex(phrases, prefix, -1, phrases.Count);
+        var expectedTopWords = new[] { "apple", "application" };
+        var actualTopWords = AutocompleteTask.GetTopByPrefix(_testPhrases, "ap", 2);
+        CollectionAssert.AreEquivalent(expectedTopWords, actualTopWords);
+    }
 
-        if (leftIndex >= phrases.Count || !phrases[leftIndex].StartsWith(prefix, StringComparison.InvariantCultureIgnoreCase))
-        {
-            return 0;
-        }
+    [Test]
+    public void CountByPrefix_IsZero_WhenNoMatches()
+    {
+        var actualCount = AutocompleteTask.GetCountByPrefix(_testPhrases, "xyz");
+        Assert.AreEqual(0, actualCount);
+    }
 
-        return rightIndex - leftIndex;
+    [Test]
+    public void CountByPrefix_IsCorrect_ForValidPrefix()
+    {
+        var expectedCount = 2;
+        var actualCount = AutocompleteTask.GetCountByPrefix(_testPhrases, "ap");
+        Assert.AreEqual(expectedCount, actualCount);
     }
 }
