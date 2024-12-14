@@ -1,4 +1,5 @@
-﻿namespace E
+using System;
+namespace E
 {
     internal class Program
     {
@@ -24,6 +25,6 @@
             else if (suit == Suits.Coins) return "монет";
             else if (suit == Suits.Cups) return "кубков";
             else return "мечей";
-        }
+            //А что тут менять то? ':D
     }
 }
