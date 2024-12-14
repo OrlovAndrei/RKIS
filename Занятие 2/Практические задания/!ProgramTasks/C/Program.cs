@@ -1,4 +1,3 @@
-﻿using System;
 namespace C
 {
     internal class Program
@@ -15,18 +14,7 @@ namespace C
 
         public static int MiddleOf(int a, int b, int c)
         {
-            if (a > b)
-            {
-                if (a < c) return a;
-                else if (b > c) return b;
-                else return c;
-            }
-            else
-            {
-                if (a > c) return a;
-                else if (b < c) return b;
-                else return c;
-            }
+            return a + b + c - Math.Max(a, Math.Max(b, c)) - Math.Min(a, Math.Min(b, c));
         }
     }
 }
