@@ -1,5 +1,3 @@
-
-﻿
 using System;
 
 namespace D
@@ -8,39 +6,34 @@ namespace D
     {
         static void Main(string[] args)
         {
-            Test(true, "boss", 150); 
-            Test(true, "boss", 30); 
-            Test(true, "boss", 70);  
-            Test(false, "boss", 14);  
-            Test(true, "bot", 90);    
-            Test(false, "bot", 100000); 
+            Console.WriteLine(FindSubarrayStartIndex(new[] { 1, 2, 4, 1, 2 }, new[] { 1, 2 }));
+            Console.WriteLine(FindSubarrayStartIndex(new[] { 1, 2, 4, 1, 2 }, new[] { 4, 1 }));
+            Console.WriteLine(FindSubarrayStartIndex(new[] { 1, 2, 4, 1, 2 }, new[] { 5 }));
+            Console.WriteLine(FindSubarrayStartIndex(new[] { 1, 2, 4, 1, 2 }, new int[] { })); // 0
         }
 
-        public static void Test(bool enemyInFront, string enemyName, int robotHealth)
+        public static int FindSubarrayStartIndex(int[] array, int[] subArray)
         {
-            Console.WriteLine(ShouldFire(enemyInFront, enemyName, robotHealth) == ShouldFire2(enemyInFront, enemyName, robotHealth));
-        }
-
-        public static bool ShouldFire(bool enemyInFront, string enemyName, int robotHealth)
-        {
-            if (!enemyInFront)
+            for (var i = 0; i <= array.Length - subArray.Length; i++)
             {
-                return false; 
+                if (ContainsAtIndex(array, subArray, i))
+                    return i;
             }
-
-            if (enemyName == "boss")
-            {
-                if (robotHealth < 50) return false; 
-                if (robotHealth > 100) return true; 
-            }
-
-            return false;
+            return -1;
         }
 
-        public static bool ShouldFire2(bool enemyInFront, string enemyName, int robotHealth)
+        public static bool ContainsAtIndex(int[] array, int[] subArray, int startIndex)
         {
-            return enemyInFront && (enemyName != "boss" || robotHealth > 50);
-            //я не понимаю почему код упорно выдает True на 14. Я уже не знаю, что с ним сделать:(
+            // Если подмассив пустой, возвращаем true
+            if (subArray.Length == 0)
+                return true;
+
+            for (var j = 0; j < subArray.Length; j++)
+            {
+                if (array[startIndex + j] != subArray[j])
+                    return false;
+            }
+            return true;
         }
     }
 }
