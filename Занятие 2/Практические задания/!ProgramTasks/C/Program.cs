@@ -4,17 +4,20 @@ namespace C
     {
         static void Main(string[] args)
         {
-            Console.WriteLine(MiddleOf(5, 0, 100)); // => 5
-            Console.WriteLine(MiddleOf(12, 12, 11)); // => 12
-            Console.WriteLine(MiddleOf(1, 1, 1)); // => 1
-            Console.WriteLine(MiddleOf(2, 3, 2));
-            Console.WriteLine(MiddleOf(8, 8, 8));
-            Console.WriteLine(MiddleOf(5, 0, 1));
+            Console.WriteLine(GetElementCount(new[] { 1, 1, 2, 1 }, 1));
         }
 
-        public static int MiddleOf(int a, int b, int c)
+        public static int GetElementCount(int[] items, int itemToCount)
         {
-            return a + b + c - Math.Max(a, Math.Max(b, c)) - Math.Min(a, Math.Min(b, c));
+            int count = 0; // Переменная для хранения количества вхождений
+            foreach (var item in items) // Перебираю элементы массива
+            {
+                if (item == itemToCount) // Проверяю, совпадает ли элемент с искомым
+                {
+                    count++; // Увеличиваю счетчик
+                }
+            }
+            return count; // Возвращаю количество вхождений
         }
     }
 }
