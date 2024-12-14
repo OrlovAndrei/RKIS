@@ -1,12 +1,38 @@
-﻿namespace Names;
-
-internal static class HistogramTask
+﻿namespace Names
 {
-    public static HistogramData GetBirthsPerDayHistogram(NameData[] names, string name)
+    internal static class HistogramTask
     {
-        return new HistogramData(
-            $"Рождаемость людей с именем '{name}'", 
-            new [] {"1"}, 
-            new[] {0d});
+        public static HistogramData GetHistogramBirthsPerDay(NameData[] names, string name)
+        {
+            const int minimumDay = 2;
+            int maximumDay = int.MinValue;
+
+            foreach (var day in names)
+            {
+                maximumDay = Math.Max(maximumDay, day.BirthDate.Day);
+            }
+
+            var days = new string[maximumDay - minimumDay + 1];
+            for (var i = 0; i < days.Length; i++)
+            {
+                days[i] = (i + minimumDay).ToString();
+            }
+
+            var birthCounts = new double[maximumDay - minimumDay + 1];
+
+            foreach (var day in names)
+            {
+                if (day.Name == name && day.BirthDate.Day > 1)
+                {
+                    birthCounts[day.BirthDate.Day - minimumDay]++;
+                }
+            }
+
+            return new HistogramData(
+                string.Format("Рождаемость людей с именем '{0}'", name),
+                days,
+                birthCounts
+            );
+        }
     }
 }
