@@ -1,8 +1,5 @@
-namespace Passwords;
-
 public class CaseAlternatorTask
-{
-	//Тесты будут вызывать этот метод
+
 	public static List<string> AlternateCharCases(string lowercaseWord)
 	{
 		var result = new List<string>();
@@ -12,7 +9,9 @@ public class CaseAlternatorTask
 
 	static void AlternateCharCases(char[] word, int startIndex, List<string> result)
 	{
-		// TODO
-		result.Add(new string (word));
+        if (startIndex == word.Length)
+        {
+            result.Add(new string(word));
+            return;
 	}
 }
