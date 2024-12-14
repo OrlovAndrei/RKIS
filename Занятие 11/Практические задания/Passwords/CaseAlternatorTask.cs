@@ -38,4 +38,4 @@ public class CaseAlternatorTask
             AlternateCharCases(word, startIndex + 1, result, combination);
         }
     }
-}
+} 
