@@ -1,4 +1,4 @@
-using System;
+﻿using static System.Net.Mime.MediaTypeNames;
 
 namespace D
 {
@@ -6,34 +6,40 @@ namespace D
     {
         static void Main(string[] args)
         {
-            Console.WriteLine(FindSubarrayStartIndex(new[] { 1, 2, 4, 1, 2 }, new[] { 1, 2 }));
-            Console.WriteLine(FindSubarrayStartIndex(new[] { 1, 2, 4, 1, 2 }, new[] { 4, 1 }));
-            Console.WriteLine(FindSubarrayStartIndex(new[] { 1, 2, 4, 1, 2 }, new[] { 5 }));
-            Console.WriteLine(FindSubarrayStartIndex(new[] { 1, 2, 4, 1, 2 }, new int[] { })); // 0
+            Test(true, "boss", 150);
+            Test(true, "boss", 30);
+            Test(true, "boss", 70);
+            Test(false, "boss", 14);
+            Test(true, "bot", 90);
+            Test(false, "bot", 100000);
         }
 
-        public static int FindSubarrayStartIndex(int[] array, int[] subArray)
+        public static void Test(bool enemyInFront, string enemyName, int robotHealth)
         {
-            for (var i = 0; i <= array.Length - subArray.Length; i++)
-            {
-                if (ContainsAtIndex(array, subArray, i))
-                    return i;
-            }
-            return -1;
+            Console.WriteLine(ShouldFire(enemyInFront, enemyName, robotHealth) == ShouldFire2(enemyInFront, enemyName, robotHealth));
         }
 
-        public static bool ContainsAtIndex(int[] array, int[] subArray, int startIndex)
+        public static bool ShouldFire(bool enemyInFront, string enemyName, int robotHealth)
         {
-            // Если подмассив пустой, возвращаем true
-            if (subArray.Length == 0)
-                return true;
-
-            for (var j = 0; j < subArray.Length; j++)
+            bool shouldFire = true;
+            if (enemyInFront == true)
             {
-                if (array[startIndex + j] != subArray[j])
-                    return false;
+                if (enemyName == "boss")
+                {
+                    if (robotHealth < 50) shouldFire = false;
+                    if (robotHealth > 100) shouldFire = true;
+                }
             }
-            return true;
+            else
+            {
+                return false;
+            }
+            return shouldFire;
+        }
+
+        public static bool ShouldFire2(bool enemyInFront, string enemyName, int robotHealth)
+        {
+            return enemyInFront && (enemyName != "boss" || robotHealth > 50);
         }
     }
 }
