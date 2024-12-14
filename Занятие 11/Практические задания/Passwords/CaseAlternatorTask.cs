@@ -1,7 +1,8 @@
 namespace Passwords;
 
 public class CaseAlternatorTask
-{public static List<string> AlternateCharCases(string lowercaseWord)
+{
+    public static List<string> AlternateCharCases(string lowercaseWord)
     {
         var result = new List<string>();
         AlternateCharCases(lowercaseWord.ToCharArray(), 0, result);
