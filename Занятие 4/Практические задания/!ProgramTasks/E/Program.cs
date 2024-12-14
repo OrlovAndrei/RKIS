@@ -5,8 +5,8 @@
         enum Suits
         {
             Wands,
-            Coins,
-            Cups,
+            Coins, 
+            Cups, 
             Swords
         }
 
@@ -20,10 +20,8 @@
 
         private static string GetSuit(Suits suit)
         {
-            if (suit == Suits.Wands) return "жезлов";
-            else if (suit == Suits.Coins) return "монет";
-            else if (suit == Suits.Cups) return "кубков";
-            else return "мечей";
+            string[] suitNames = { "жезлов", "монет", "кубков", "мечей"}
+            return suitNames[(int)suit]
         }
     }
 }
