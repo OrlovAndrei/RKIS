@@ -1,4 +1,3 @@
-﻿using System;
 namespace B
 {
     internal class Program
@@ -14,12 +13,14 @@ namespace B
         {
             Console.WriteLine("{0}-{1} {2}", from, to, IsCorrectMove(from, to));
         }
-
+ 
         public static bool IsCorrectMove(string from, string to)
         {
             var dx = Math.Abs(to[0] - from[0]); //смещение фигуры по горизонтали
             var dy = Math.Abs(to[1] - from[1]); //смещение фигуры по вертикали
-            return (dx == 0 || dy == 0 || dx == dy);
+
+            // Ферзь ходит либо по горизонтали,по вертикали или диагонали
+            return dx == 0 || dy == 0 || dx == dy;
         }
     }
 }
