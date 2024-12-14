@@ -4,87 +4,75 @@ using RefactorMe.Common;
 
 namespace RefactorMe
 {
-    class Risovatel
+    class Drawer
     {
-        static float x, y;
-        static IGraphics grafika;
+        private static float currentX, currentY;
+        private static IGraphics graphics;
 
-        public static void Initialization ( IGraphics novayaGrafika )
+        public static void Initialize(IGraphics newGraphics)
         {
-            grafika = novayaGrafika;
-            //grafika.SmoothingMode = SmoothingMode.None;
-            grafika.Clear(Colors.Black);
+            graphics = newGraphics;
+            graphics.Clear(Colors.Black);
         }
 
-        public static void set_position(float x0, float y0)
-        {x = x0; y = y0;}
-
-        public static void makeIt(Pen ruchka, double dlina, double ugol)
+        public static void SetPosition(float x0, float y0)
         {
-        //Делает шаг длиной dlina в направлении ugol и рисует пройденную траекторию
-        var x1 = (float)(x + dlina * Math.Cos(ugol));
-        var y1 = (float)(y + dlina * Math.Sin(ugol));
-        grafika.DrawLine(ruchka, x, y, x1, y1);
-        x = x1;
-        y = y1;
+            currentX = x0;
+            currentY = y0;
         }
 
-        public static void Change(double dlina, double ugol)
+        public static void DrawLine(Pen pen, double length, double angle)
         {
-            x = (float)(x + dlina * Math.Cos(ugol)); 
-           y = (float)(y + dlina * Math.Sin(ugol));
-           }
+            var newX = (float)(currentX + length * Math.Cos(angle));
+            var newY = (float)(currentY + length * Math.Sin(angle));
+            graphics.DrawLine(pen, currentX, currentY, newX, newY);
+            currentX = newX;
+            currentY = newY;
+        }
+
+        public static void Move(double length, double angle)
+        {
+            currentX = (float)(currentX + length * Math.Cos(angle));
+            currentY = (float)(currentY + length * Math.Sin(angle));
+        }
     }
-    
+
     public class ImpossibleSquare
-{
-    public static void Draw(int shirina, int visota, double ugolPovorota, IGraphics grafika)
     {
-        // ugolPovorota пока не используется, но будет использоваться в будущем
-        Risovatel.Initialization(grafika);
+        private const double SquareFactor = 0.375;
+        private const double SmallFactor = 0.04;
 
-        var sz = Math.Min(shirina, visota);
+        public static void Draw(int width, int height, double rotationAngle, IGraphics graphics)
+        {
+            Drawer.Initialize(graphics);
 
-        var diagonal_length = Math.Sqrt(2) * (sz * 0.375f + sz * 0.04f) / 2;
-        var x0 = (float)(diagonal_length * Math.Cos(Math.PI / 4 + Math.PI)) + shirina / 2f;
-        var y0 = (float)(diagonal_length * Math.Sin(Math.PI / 4 + Math.PI)) + visota / 2f;
+            var size = Math.Min(width, height);
+            var diagonalLength = CalculateDiagonalLength(size);
+            var initialX = (float)(diagonalLength * Math.Cos(Math.PI / 4 + Math.PI)) + width / 2f;
+            var initialY = (float)(diagonalLength * Math.Sin(Math.PI / 4 + Math.PI)) + height / 2f;
 
-        Risovatel.set_position(x0, y0);
-        //Рисуем 1-ую сторону
-        Risovatel.makeIt(new Pen(Brushes.Yellow), sz * 0.375f, 0);
-        Risovatel.makeIt(new Pen(Brushes.Yellow), sz * 0.04f * Math.Sqrt(2), Math.PI / 4);
-        Risovatel.makeIt(new Pen(Brushes.Yellow), sz * 0.375f, Math.PI);
-        Risovatel.makeIt(new Pen(Brushes.Yellow), sz * 0.375f - sz * 0.04f, Math.PI / 2);
+            Drawer.SetPosition(initialX, initialY);
 
-        Risovatel.Change(sz * 0.04f, -Math.PI);
-        Risovatel.Change(sz * 0.04f * Math.Sqrt(2), 3 * Math.PI / 4);
+            DrawSide(size, rotationAngle, 0);
+            DrawSide(size, rotationAngle, -Math.PI / 2);
+            DrawSide(size, rotationAngle, Math.PI);
+            DrawSide(size, rotationAngle, Math.PI / 2);
+        }
 
-        //Рисуем 2-ую сторону
-        Risovatel.makeIt(new Pen(Brushes.Yellow), sz * 0.375f, -Math.PI / 2);
-        Risovatel.makeIt(new Pen(Brushes.Yellow), sz * 0.04f * Math.Sqrt(2), -Math.PI / 2 + Math.PI / 4);
-        Risovatel.makeIt(new Pen(Brushes.Yellow), sz * 0.375f, -Math.PI / 2 + Math.PI);
-        Risovatel.makeIt(new Pen(Brushes.Yellow), sz * 0.375f - sz * 0.04f, -Math.PI / 2 + Math.PI / 2);
+        private static double CalculateDiagonalLength(int size)
+        {
+            return Math.Sqrt(2) * (size * SquareFactor + size * SmallFactor) / 2;
+        }
 
-        Risovatel.Change(sz * 0.04f, -Math.PI / 2 - Math.PI);
-        Risovatel.Change(sz * 0.04f * Math.Sqrt(2), -Math.PI / 2 + 3 * Math.PI / 4);
+        private static void DrawSide(int size, double rotationAngle, double startAngle)
+        {
+            Drawer.DrawLine(new Pen(Brushes.Yellow), size * SquareFactor, startAngle);
+            Drawer.DrawLine(new Pen(Brushes.Yellow), size * SmallFactor * Math.Sqrt(2), startAngle + Math.PI / 4);
+            Drawer.DrawLine(new Pen(Brushes.Yellow), size * SquareFactor, startAngle + Math.PI);
+            Drawer.DrawLine(new Pen(Brushes.Yellow), size * SquareFactor - size * SmallFactor, startAngle + Math.PI / 2);
 
-        //Рисуем 3-ю сторону
-        Risovatel.makeIt(new Pen(Brushes.Yellow), sz * 0.375f, Math.PI);
-        Risovatel.makeIt(new Pen(Brushes.Yellow), sz * 0.04f * Math.Sqrt(2), Math.PI + Math.PI / 4);
-        Risovatel.makeIt(new Pen(Brushes.Yellow), sz * 0.375f, Math.PI + Math.PI);
-        Risovatel.makeIt(new Pen(Brushes.Yellow), sz * 0.375f - sz * 0.04f, Math.PI + Math.PI / 2);
-
-        Risovatel.Change(sz * 0.04f, Math.PI - Math.PI);
-        Risovatel.Change(sz * 0.04f * Math.Sqrt(2), Math.PI + 3 * Math.PI / 4);
-
-        //Рисуем 4-ую сторону
-        Risovatel.makeIt(new Pen(Brushes.Yellow), sz * 0.375f, Math.PI / 2);
-        Risovatel.makeIt(new Pen(Brushes.Yellow), sz * 0.04f * Math.Sqrt(2), Math.PI / 2 + Math.PI / 4);
-        Risovatel.makeIt(new Pen(Brushes.Yellow), sz * 0.375f, Math.PI / 2 + Math.PI);
-        Risovatel.makeIt(new Pen(Brushes.Yellow), sz * 0.375f - sz * 0.04f, Math.PI / 2 + Math.PI / 2);
-
-        Risovatel.Change(sz * 0.04f, Math.PI / 2 - Math.PI);
-        Risovatel.Change(sz * 0.04f * Math.Sqrt(2), Math.PI / 2 + 3 * Math.PI / 4);
+            Drawer.Move(size * SmallFactor, startAngle + Math.PI);
+            Drawer.Move(size * SmallFactor * Math.Sqrt(2), startAngle + 3 * Math.PI / 4);
+        }
     }
-}
 }
