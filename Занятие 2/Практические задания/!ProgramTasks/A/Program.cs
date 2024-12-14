@@ -1,5 +1,3 @@
-
-﻿using System;
 namespace A
 {
     internal class Program
@@ -14,12 +12,11 @@ namespace A
             Console.WriteLine(IsLeapYear(400) == true);
             Console.WriteLine(IsLeapYear(600) == false);
             Console.WriteLine(IsLeapYear(3200) == true);
-        }
+        } 
 
         public static bool IsLeapYear(int year)
         {
-            if (year % 400 == 0 && year % 4 == 0 && !(year % 100 == 0)) return false;
-            else return true;
+            return year % 400 == 0 || (year % 100 != 0 && year % 4 == 0);
         }
     }
 }
