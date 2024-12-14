@@ -17,10 +17,9 @@ public class Phrases : IReadOnlyList<string>
 		this.nouns = nouns;
 	}
 
-	// Это называется вычисляемое свойство с геттером.
 	public virtual int Length => verbs.Length * adjectives.Length * nouns.Length;
 
-	// Это называется индексатор c геттером. Он позволяет писать так var x = phrases[i];
+	
 	public virtual string this[int index]
 	{
 		get

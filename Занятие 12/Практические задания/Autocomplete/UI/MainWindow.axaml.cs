@@ -18,18 +18,18 @@ public partial class MainWindow : Window
 	public MainWindow()
 	{
 		InitializeComponent();
-		//list
+		
 		FoundedItems = new ObservableCollection<string> { "start typing" };
 		AutocompleteList.Items = FoundedItems;
-		//phrases
+		
 		phrases = CreatePhrases();
 		if (phrases == null)
 			Environment.Exit(-1);
-		//input
+		
 		InputBox
 			.WhenPropertyChanged(box => box.Text, false)
 			.Subscribe(value => InputBox_TextChanged(value.Value));
-		//ValidatePhrases();
+		
 		Opened += (_, __) => InputBox.Focus();
 	}
 
