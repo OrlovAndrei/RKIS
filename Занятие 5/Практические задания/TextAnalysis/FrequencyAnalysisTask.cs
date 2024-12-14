@@ -1,11 +1,34 @@
-﻿namespace TextAnalysis;
+using System;
+using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
-static class FrequencyAnalysisTask
+namespace TextAnalysis
 {
-    public static Dictionary<string, string> GetMostFrequentNextWords(List<List<string>> text)
+    public static class SentencesParserTask
     {
-        var result = new Dictionary<string, string>();
-        //...
-        return result;
+        public static List<List<string>> ParseSentences(string text)
+        {
+            char[] sentenceDelimiters = new char[] { '.', '!', '?', ';', ':', '(', ')' };
+            var sentences = text.Split(sentenceDelimiters, StringSplitOptions.RemoveEmptyEntries);
+            var result = new List<List<string>>();
+
+            foreach (var sentence in sentences)
+            {
+                var trimmedSentence = sentence.Trim();
+                var words = Regex.Matches(trimmedSentence, @"[a-zA-Zа-яА-ЯёЁ']+");
+
+                if (words.Count > 0)
+                {
+                    var wordList = new List<string>();
+                    foreach (Match word in words)
+                    {
+                        wordList.Add(word.Value.ToLower());
+                    }
+                    result.Add(wordList);
+                }
+            }
+
+            return result;
+        }
     }
 }
