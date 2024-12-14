@@ -11,6 +11,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "C", "C\C.csproj", "{5B8C002
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "D", "D\D.csproj", "{B922E4F3-DCC3-432D-AB98-0A44A50E39EF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fractals", "..\DragonFractal\Fractals.csproj", "{A6E9672F-CD19-4F36-83C9-3EB54DF236EB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mazes", "..\Mazes\Mazes.csproj", "{6EAA8613-114C-4BB4-8754-893F395FE865}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +37,14 @@ Global
 		{B922E4F3-DCC3-432D-AB98-0A44A50E39EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B922E4F3-DCC3-432D-AB98-0A44A50E39EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B922E4F3-DCC3-432D-AB98-0A44A50E39EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A6E9672F-CD19-4F36-83C9-3EB54DF236EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A6E9672F-CD19-4F36-83C9-3EB54DF236EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A6E9672F-CD19-4F36-83C9-3EB54DF236EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A6E9672F-CD19-4F36-83C9-3EB54DF236EB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6EAA8613-114C-4BB4-8754-893F395FE865}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6EAA8613-114C-4BB4-8754-893F395FE865}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6EAA8613-114C-4BB4-8754-893F395FE865}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6EAA8613-114C-4BB4-8754-893F395FE865}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,3 +1,5 @@
+using System;
+
 namespace Billiards;
 
 public static class BilliardsTask
@@ -10,7 +12,10 @@ public static class BilliardsTask
     /// <returns></returns>
     public static double BounceWall(double directionRadians, double wallInclinationRadians)
     {
-        //TODO
-        return 0.0;
+        double directionAngle = directionRadians*(180/Math.PI);
+        double wallIncAngle = wallInclinationRadians*(180/Math.PI);
+        double WallDirectionAngle = wallIncAngle-directionAngle;
+        double Required_angle = WallDirectionAngle+directionAngle;
+        return Required_angle*(Math.PI/180);
     }
 }
