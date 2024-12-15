@@ -7,60 +7,44 @@ namespace RoutePlanning;
 
 public static class PathFinderTask
 {
-    public static int[] FindBestCheckpointsOrder(Point[] checkpoints)
+    public static int[] FindBestCheckpointsOrder(
+                            Point[] checkpoints)
     {
-        if (checkpoints == null || checkpoints.Length == 0) return new int[0];
-        if (checkpoints.Length == 1) return new[] { 0 };
-
-        int[] bestOrder = Enumerable.Range(0, checkpoints.Length).ToArray();
-        double minDistance = double.PositiveInfinity;
-
-        FindBestOrderRecursive(checkpoints, new List<int>(), 0, 0, ref bestOrder, ref minDistance);
-
+        double shortestDistance = double.PositiveInfinity;
+        int[] order = new int[checkpoints.Length];
+        int[] bestOrder = new int[checkpoints.Length];
+        MakePermutations(order, 1, checkpoints, ref shortestDistance, ref bestOrder);
         return bestOrder;
     }
 
-    static void FindBestOrderRecursive(Point[] checkpoints, List<int> currentOrder, int currentIndex, double currentDistance,
-                                       ref int[] bestOrder, ref double minDistance)
+    public static int[] MakePermutations(int[] order, int position, Point[] checkpoints,
+        ref double shortestDistance, ref int[] bestOrder)
     {
-        if (currentOrder.Count == checkpoints.Length)
+        var currentOrder = new int[position];
+        Array.Copy(order, currentOrder, position);
+        var pathLength = PointExtensions.GetPathLength(checkpoints, currentOrder);
+
+        if (pathLength < shortestDistance)
         {
-            if (currentDistance < minDistance)
+            if (position == order.Length)
             {
-                minDistance = currentDistance;
-                bestOrder = currentOrder.ToArray();
+                shortestDistance = pathLength;
+                bestOrder = (int[])order.Clone();
+                return order;
             }
-            return;
-        }
 
-        for (int i = 0; i < checkpoints.Length; i++)
-        {
-            if (!currentOrder.Contains(i))
+
+            for (int i = 1; i < order.Length; i++)
             {
-                double distanceToNext = currentOrder.Count == 0
-                    ? 0
-                    : Distance(checkpoints[currentOrder.Last()], checkpoints[i]);
-
-                if (currentDistance + distanceToNext >= minDistance) continue;
-
-
-                List<int> newOrder = new List<int>(currentOrder);
-                newOrder.Add(i);
-                FindBestOrderRecursive(checkpoints, newOrder, i, currentDistance + distanceToNext, ref bestOrder, ref minDistance);
+                var index = Array.IndexOf(order, i, 0, position);
+                if (index != -1)
+                    continue;
+                order[position] = i;
+                MakePermutations(order, position + 1, checkpoints, ref shortestDistance,
+                    ref bestOrder);
             }
         }
-    }
 
-    static double Distance(Point p1, Point p2)
-    {
-        return Math.Sqrt(Math.Pow(p1.X - p2.X, 2) + Math.Pow(p1.Y - p2.Y, 2));
-    }
-
-    private static int[] MakeTrivialPermutation(int size)
-    {
-        var bestOrder = new int[size];
-        for (var i = 0; i < bestOrder.Length; i++)
-            bestOrder[i] = i;
-        return bestOrder;
+        return order;
     }
 }
