@@ -4,8 +4,11 @@ namespace AngryBirds;
 
 public static class AngryBirdsTask
 {
-    public static double FindSightAngle(double v, double distance)
+    public static class AngryBirdsTask
     {
-        return Math.PI / 4;
+        public static double FindSightAngle(double v, double distance)
+        {
+            return Math.Asin((9.8 * distance) / (v * v)) / 2;
+        }
     }
 }
