@@ -1,20 +1,17 @@
 ﻿using System;
-
 namespace D
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            Console.WriteLine(FindSubarrayStartIndex(new[] { 1, 2, 4, 1, 2 }, new[] { 1, 2 }));
+            Console.WriteLine(GetElementCount(new[] { 1, 1, 2, 1 }, 2));
         }
 
-        public static int FindSubarrayStartIndex(int[] array, int[] subArray)
+        public static int GetElementCount(int[] items, int itemToCount)
         {
-            for (var i = 0; i < array.Length - subArray.Length + 1; i++)
-                if (ContainsAtIndex(array, subArray, i))
-                    return i;
-            return -1;
+            var count = items.Count(num => num == itemToCount);
+            return count;
         }
     }
 }

@@ -8,9 +8,7 @@ public static class BilliardsTask
     /// <param name="directionRadians">Угол направления движения шара</param>
     /// <param name="wallInclinationRadians">Угол</param>
     /// <returns></returns>
-    public static double BounceWall(double directionRadians, double wallInclinationRadians)
-    {
+    public static double BounceWall(double directionRadians, double wallInclinationRadians) =>
         //TODO
-        return 0.0;
-    }
+        (2 * wallInclinationRadians) - directionRadians; // 2a - b
 }
