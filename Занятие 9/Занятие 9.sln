@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.002.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Практические задания", "Практические задания", "{772C9FAD-0888-485B-ACDB-3D7958898EFC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TableParser", "Практические задания\TableParser\TableParser.csproj", "{DAC97E32-307E-422B-9D53-DDB1075FB89B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DAC97E32-307E-422B-9D53-DDB1075FB89B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DAC97E32-307E-422B-9D53-DDB1075FB89B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DAC97E32-307E-422B-9D53-DDB1075FB89B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DAC97E32-307E-422B-9D53-DDB1075FB89B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{DAC97E32-307E-422B-9D53-DDB1075FB89B} = {772C9FAD-0888-485B-ACDB-3D7958898EFC}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {971207E9-C258-4DB6-9EE0-5EA53616D262}
+	EndGlobalSection
+EndGlobal

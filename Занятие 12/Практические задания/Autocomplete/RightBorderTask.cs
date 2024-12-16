@@ -2,29 +2,32 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Autocomplete;
-
-public class RightBorderTask
+namespace Autocomplete
 {
-	/// <returns>
-	/// Возвращает индекс правой границы. 
-	/// То есть индекс минимального элемента, который не начинается с prefix и большего prefix.
-	/// Если такого нет, то возвращает items.Length
-	/// </returns>
-	/// <remarks>
-	/// Функция должна быть НЕ рекурсивной
-	/// и работать за O(log(items.Length)*L), где L — ограничение сверху на длину фразы
-	/// </remarks>
-	public static int GetRightBorderIndex(IReadOnlyList<string> phrases, string prefix, int left, int right)
-	{
-		// IReadOnlyList похож на List, но у него нет методов модификации списка.
-		// Этот код решает задачу, но слишком неэффективно. Замените его на бинарный поиск!
-		for (int i = phrases.Count-1; i >= 0; i--)
-		{
-			if (string.Compare(prefix, phrases[i], StringComparison.InvariantCultureIgnoreCase) >= 0 
-			    || phrases[i].StartsWith(prefix, StringComparison.InvariantCultureIgnoreCase))
-				return i + 1;
-		}
-		return 0;
-	}
+    public class RightBorderTask
+    {
+        public static int GetRightBorderIndex(IReadOnlyList<string> phrases,
+                                              string prefix, int left, int right)
+        {
+            left = Math.Max(left, 0);
+            right = Math.Min(right, phrases.Count);
+
+            while (left < right)
+            {
+                var middle = left + (right - left) / 2;
+                if (0 <= string.Compare(phrases[middle], prefix,
+                                        StringComparison.OrdinalIgnoreCase) &&
+                    !phrases[middle].StartsWith(prefix,
+                                                StringComparison.OrdinalIgnoreCase))
+                {
+                    right = middle;
+                }
+                else
+                {
+                    left = middle + 1;
+                }
+            }
+            return right;
+        }
+    }
 }
