@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.002.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Практические задания", "Практические задания", "{25F869DF-7DAE-41AA-93B4-05DF4B4AD0B1}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StructBenchmarking", "Практические задания\StructBenchmarking\StructBenchmarking.csproj", "{E4348409-7075-44C9-A71F-8CDC25E74910}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E4348409-7075-44C9-A71F-8CDC25E74910}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E4348409-7075-44C9-A71F-8CDC25E74910}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E4348409-7075-44C9-A71F-8CDC25E74910}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E4348409-7075-44C9-A71F-8CDC25E74910}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{E4348409-7075-44C9-A71F-8CDC25E74910} = {25F869DF-7DAE-41AA-93B4-05DF4B4AD0B1}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C9B1CBED-A543-464B-8362-C0AB2A0812C7}
+	EndGlobalSection
+EndGlobal
